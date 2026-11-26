@@ -1,0 +1,31 @@
+# Torent Distribution
+
+> Producător și distribuitor oficial de produse horticole în România — magazin online B2C și distribuție B2B en-gros pentru florării, centre de grădinărit și revânzători.
+
+## Cine suntem
+
+**TORENT DISTRIBUTION SRL** operează magazinul online Torent Distribution, specializat în substraturi nutritive (pământ de flori), soluții fertilizante lichide și solide, produse ecologice și organice pentru îngrijirea plantelor, ghivece și decorațiuni de grădină. Livrăm rapid prin curier în toată România (24–48 ore) pentru clienți persoane fizice (B2C) și oferim aprovizionare paletizată cu prețuri preferențiale pentru parteneri comerciali (B2B).
+
+## Mărci proprii și distribuite oficial
+
+- **Humiflor** — pământ de flori universal, substrat de orhidee și soluții nutritive cu acizi humici
+- **Nutrisol** — substraturi specializate (plante de cameră, balcon, straturi înălțate) și soluții ecologice/organice de protecție a plantelor
+- **Plantasol** — pământ de flori universal în ambalaje de 5L, 10L, 20L și 50L
+- **Florasol** — pământ de flori universal (5L–40L), soluții nutritive lichide și spray ecologic pentru îngrijirea plantelor
+- **Vitaflora** — gamă completă de soluții nutritive concentrate (0.1L, 0.5L, 1L) și batoane fertilizante solide pentru flori, frunze, mușcate, orhidee, gazon, conifere, cactuși, citrice, bonsai și legume
+- **Florimo** — substraturi profesionale pentru plante universale, acidofile, mușcate, conifere, orhidee, trandafiri și răsaduri
+
+## Categorii principale de produse
+
+- [Pământ de Flori](https://csabykloud.github.io/torent-distribution-webshop/categorie/pamant-de-flori): Substraturi nutritive pentru interior, balcon, grădină, orhidee, conifere, trandafiri, răsaduri și plante acidofile (3L–50L).
+- [Soluții nutritive & Îngrășăminte](https://csabykloud.github.io/torent-distribution-webshop/categorie/solutii-nutritive): Fertilizanți lichizi concentrați și batoane nutritive cu eliberare treptată pentru înflorire, frunziș, gazon, conifere și legume.
+- [Îngrijire Plante](https://csabykloud.github.io/torent-distribution-webshop/categorie/ingrijire-plante): Soluții ecologice și organice cu pulverizator, gata de utilizare pentru protecția și fortifierea plantelor.
+- [Ghivece & Jardiniere](https://csabykloud.github.io/torent-distribution-webshop/categorie/ghivece): Ghivece ceramice moderne SK, jardiniere de balcon și ghivece suspendate.
+- [Decorațiuni de Grădină](https://csabykloud.github.io/torent-distribution-webshop/categorie/decoratiuni): Figurine artistice și accesorii decorative pentru casă, terasă și grădină.
+
+## Parteneri B2B / En-gros & Contact
+
+- **Pagină dedicată B2B & cerere de ofertă:** [/b2b](https://csabykloud.github.io/torent-distribution-webshop/b2b)
+- **Email vânzări & oferte B2B:** vanzari@torentdistribution.ro
+- **Aria de livrare:** România (livrare națională prin curier și transport paletizat pentru comenzi en-gros)
+- **Catalog sitemap:** [/sitemap.xml](https://csabykloud.github.io/torent-distribution-webshop/sitemap.xml)

@@ -1,0 +1,63 @@
+# Torent Distribution - SEO/GEO friendly, Anti-Scraper
+User-agent: *
+Allow: /
+Allow: /categorie/
+Allow: /produs/
+Allow: /b2b
+Allow: /llms.txt
+Disallow: /api/
+Disallow: /admin/
+
+# Allow major Search & AI (GEO) crawlers
+User-agent: Googlebot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+User-agent: Bingbot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+User-agent: OAI-SearchBot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+User-agent: ChatGPT-User
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+User-agent: GPTBot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+User-agent: PerplexityBot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+User-agent: Claude-SearchBot
+Allow: /
+Disallow: /api/
+Disallow: /admin/
+
+# Block aggressive scraper & competitor intelligence bots
+User-agent: AhrefsBot
+Disallow: /
+User-agent: SemrushBot
+Disallow: /
+User-agent: MJ12bot
+Disallow: /
+User-agent: DotBot
+Disallow: /
+User-agent: Bytespider
+Disallow: /
+User-agent: Scrapy
+Disallow: /
+User-agent: HTTrack
+Disallow: /
+
+Sitemap: https://csabykloud.github.io/torent-distribution-webshop/sitemap.xml

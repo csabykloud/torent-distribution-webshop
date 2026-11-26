@@ -105,8 +105,13 @@ async function initProductsData() {
     // Start rotating category card thumbnails every 3 seconds
     initCategoryThumbRotator();
 
-    // Initial filter apply (ALL mode -> hides prices on cards, shows CTA)
-    applyFilters();
+    // Activate category if landed on /categorie/<slug>
+    if (window.INITIAL_CATEGORY && window.INITIAL_CATEGORY !== 'ALL') {
+        filterByCategory(window.INITIAL_CATEGORY);
+    } else {
+        // Initial filter apply (ALL mode -> hides prices on cards, shows CTA)
+        applyFilters();
+    }
 }
 
 function initCategoryThumbRotator() {
@@ -651,15 +656,7 @@ function initModals() {
             };
 
             try {
-                /* Static preview demo mode for GitHub Pages */
-                const resp = {
-                    ok: true,
-                    json: async () => ({
-                        success: true,
-                        message: 'Comandă demo înregistrată cu succes (mod previzualizare statică GitHub Pages)!'
-                    })
-                };
-                if (false) await fetch('/api/order', {
+                const resp = { ok: true, json: async () => ({ success: true, message: 'Comandă demo înregistrată cu succes (mod previzualizare statică GitHub Pages)!' }) }; if (false) await fetch('/api/order', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(orderData)

@@ -1,6 +1,30 @@
 {% extends "base.html" %}
 
-{% block title %}{{ page_title }} - Torent Distribution{% endblock %}
+{% block title %}{{ page_title[:38] }} – Torent Distribution{% endblock %}
+{% block meta_description %}{{ page_title }} pentru magazinul online de horticultură Torent Distribution SRL. Informații oficiale despre comenzi, livrare și protecția datelor în România.{% endblock %}
+
+{% block extra_head %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Acasă",
+      "item": {{ (site_host ~ '/') | tojson }}
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": {{ page_title | tojson }},
+      "item": {{ canonical_url | tojson }}
+    }
+  ]
+}
+</script>
+{% endblock %}
 
 {% block content %}
 <div class="container" style="padding: 40px 20px; max-width: 960px;">

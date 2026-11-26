@@ -1,9 +1,71 @@
 {% extends "base.html" %}
 
-{% block title %}Parteneri B2B & Distribuție En-gros - Torent Distribution{% endblock %}
+{% block title %}Parteneri B2B &amp; En-gros Horticultură – Torent Distribution{% endblock %}
+{% block meta_description %}Parteneriat B2B și distribuție en-gros pământ de flori și îngrășăminte: Humiflor, Nutrisol, Plantasol, Florasol, Vitaflora, Florimo. Cere ofertă RO.{% endblock %}
+{% block og_title %}Parteneri B2B &amp; En-gros Horticultură – Torent Distribution{% endblock %}
+{% block og_description %}Parteneriat B2B și distribuție en-gros pământ de flori și îngrășăminte: Humiflor, Nutrisol, Plantasol, Florasol, Vitaflora, Florimo. Cere ofertă RO.{% endblock %}
 
 {% block extra_head %}
-<meta name="description" content="Parteneriat B2B și distribuție en-gros produse horticole Torent Distribution: Humiflor, Nutrisol, Plantasol, Florasol, Vitaflora, Florimo. Cere ofertă personalizată.">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Acasă",
+      "item": {{ (site_host ~ '/') | tojson }}
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Parteneri B2B",
+      "item": {{ canonical_url | tojson }}
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Cine poate deveni partener B2B Torent Distribution?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Colaborăm cu florării, magazine de grădinărit și DIY, peisagiști, pepiniere și distribuitori regionali din toată România."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Ce mărci horticole sunt disponibile la preț en-gros?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Oferim direct de la producător și distribuitor oficial gamele Humiflor, Nutrisol, Plantasol, Florasol, Vitaflora și Florimo."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Cum se livrează comenzile B2B paletizate în România?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Asigurăm transport paletizat și livrare rapidă în toate județele din România, direct din stocul nostru permanent."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Cum solicit o ofertă personalizată B2B?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Completați formularul de pe pagina /b2b sau scrieți-ne la vanzari@torentdistribution.ro cu datele firmei și produsele de interes."
+      }
+    }
+  ]
+}
+</script>
 <style>
     .b2b-hero {
         background: linear-gradient(100deg, rgba(4, 47, 36, 0.92) 0%, rgba(6, 78, 59, 0.84) 60%, rgba(4, 120, 87, 0.72) 100%),

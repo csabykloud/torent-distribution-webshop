@@ -1,5 +1,118 @@
 {% extends "base.html" %}
 
+{% block title %}{{ page_title or 'Torent Distribution – Pământ de Flori și Îngrășăminte RO' }}{% endblock %}
+{% block meta_description %}{{ page_description or 'Magazin online de horticultură Torent Distribution: pământ de flori, soluții nutritive și produse de îngrijire plante. Livrare rapidă în toată România.' }}{% endblock %}
+{% block og_title %}{{ page_title or 'Torent Distribution – Pământ de Flori și Îngrășăminte RO' }}{% endblock %}
+{% block og_description %}{{ page_description or 'Magazin online de horticultură Torent Distribution: pământ de flori, soluții nutritive și produse de îngrijire plante. Livrare rapidă în toată România.' }}{% endblock %}
+
+{% block extra_head %}
+<link rel="preload" as="image" href="/static/images/hero-horticultura.webp?v=3" fetchpriority="high">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "Acasă",
+      "item": {{ (site_host ~ '/') | tojson }}
+    }{% if active_cat_obj %},
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": {{ active_cat_obj.display_name | tojson }},
+      "item": {{ canonical_url | tojson }}
+    }{% endif %}
+  ]
+}
+</script>
+{% set schema_products = (products | selectattr('category', 'equalto', active_category) | list) if active_category else (products | selectattr('short_description', 'defined') | list) %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ItemList",
+  "name": {{ (active_cat_obj.display_name if active_cat_obj else 'Catalog Produse Horticole Torent Distribution') | tojson }},
+  "numberOfItems": {{ schema_products | length }},
+  "itemListElement": [
+    {% for sp in schema_products %}
+    {
+      "@type": "ListItem",
+      "position": {{ loop.index }},
+      "item": {
+        "@type": "Product",
+        "name": {{ sp.name | tojson }},
+        "url": {{ (site_host ~ '/produs/' ~ sp.id) | tojson }},
+        "image": {{ (site_host ~ sp.image) | tojson }},
+        "description": {{ (sp.short_description or sp.description or sp.name) | tojson }},
+        "sku": {{ (sp.variations[0].sku if sp.variations else ('TD-' ~ sp.id)) | tojson }},
+        "brand": {
+          "@type": "Brand",
+          "name": {{ (sp.subcategory or 'Torent Distribution') | tojson }}
+        },
+        "offers": {
+          "@type": "Offer",
+          "priceCurrency": "RON",
+          "price": "{{ '%.2f'|format(sp.price) }}",
+          "availability": "https://schema.org/InStock",
+          "url": {{ (site_host ~ '/produs/' ~ sp.id) | tojson }}
+        }
+      }
+    }{% if not loop.last %},{% endif %}
+    {% endfor %}
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Cum se face livrarea comenzilor de pământ de flori și îngrășăminte în România?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Expediem rapid prin curier în toată România, în 24–48 de ore lucrătoare. La comenzi peste 150 RON transportul este gratuit, iar toate produsele sunt ambalate sigur."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Cum aleg cel mai potrivit pământ de flori pentru plantele mele?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Pentru plantele obișnuite de interior sau grădină alegeți un substrat universal (Florasol, Plantasol, Humiflor, Florimo). Pentru specii cu cerințe speciale folosiți substraturi dedicate: orhidee, mușcate și balcon, plante acidofile, conifere, trandafiri sau răsaduri."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Care este diferența dintre soluțiile nutritive lichide și batoanele fertilizante?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Soluțiile nutritive lichide (Vitaflora, Florasol, Humiflor) acționează rapid la fiecare udare săptămânală, în timp ce batoanele fertilizante solide eliberează nutrienții treptat timp de până la 2 luni, fără dozare."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Oferiți prețuri en-gros și livrare paletizată pentru parteneri B2B?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Da. Suntem producător și distribuitor oficial pentru florării, centre de grădinărit și revânzători. Solicitați ofertă personalizată pe pagina /b2b sau la vanzari@torentdistribution.ro."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "În ce mărimi de ambalaj sunt disponibile substraturile și soluțiile nutritive?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Substraturile sunt disponibile în saci de 3L, 5L, 10L, 20L, 40L și 50L, iar soluțiile nutritive în flacoane de 0.1L, 0.5L și 1L, astfel încât să comandați exact cantitatea necesară."
+      }
+    }
+  ]
+}
+</script>
+{% endblock %}
+
 {% block content %}
 <!-- Top Horticultural Banner Strip -->
 <section class="compact-info-strip">
@@ -11,10 +124,11 @@
 
 <!-- Horticultural Hero Banner -->
 <section class="horticultura-hero">
+    <img class="horticultura-hero-bg" src="/static/images/hero-horticultura.webp?v=3" alt="Grădinărit în aer liber – plantare mușcate în pământ de flori Torent Distribution" fetchpriority="high" decoding="async" width="1376" height="768">
     <div class="container horticultura-hero-inner">
         <div class="horticultura-hero-content">
             <span class="hero-eyebrow"><i class="fa-solid fa-seedling"></i> Horticultură Profesională &amp; Grădinărit</span>
-            <h1 class="horticultura-hero-title">Tot ce ai nevoie pentru plante sănătoase și grădini pline de viață</h1>
+            <h1 class="horticultura-hero-title">{% if active_cat_obj %}{{ active_cat_obj.display_name }} – Torent Distribution{% else %}Tot ce ai nevoie pentru plante sănătoase și grădini pline de viață{% endif %}</h1>
             <p class="horticultura-hero-subtitle">
                 Substraturi nutritive, soluții fertilizante și produse de îngrijire din gamele proprii și distribuite:
                 <strong>Humiflor</strong>, <strong>Nutrisol</strong>, <strong>Plantasol</strong>, <strong>Florasol</strong>, <strong>Vitaflora</strong> și <strong>Florimo</strong>.
@@ -39,11 +153,11 @@
             {% for cat in categories_list %}
             <div class="category-card" data-cat="{{ cat.key }}" onclick="filterByCategory('{{ cat.key | replace("'", "\\'") }}')">
                 <div class="category-card-media">
-                    <img src="{{ cat.fallback_image or '/static/images/categories/cat-pamant-de-flori.webp' }}" alt="{{ cat.display_name }}" loading="lazy">
+                    <img src="{{ cat.fallback_image or '/static/images/categories/cat-pamant-de-flori.webp' }}" alt="{{ cat.display_name }} – Torent Distribution" loading="lazy" width="400" height="240">
                     <span class="category-card-badge-icon"><i class="fa-solid {{ cat.icon or 'fa-leaf' }}"></i></span>
                 </div>
                 <div class="category-card-body">
-                    <h3>{{ cat.display_name }}</h3>
+                    <h3><a href="/categorie/{{ get_category_slug(cat.key) }}" onclick="event.preventDefault(); filterByCategory('{{ cat.key | replace("'", "\\'") }}')" class="category-card-link">{{ cat.display_name }}</a></h3>
                     <div class="category-card-info">
                         <p>{{ cat.description }}</p>
                         <span class="category-card-count">{{ category_counts.get(cat.key, 0) }} produse</span>
@@ -54,6 +168,7 @@
         </div>
         <script>
             window.DYNAMIC_SUBCATEGORIES = {{ subcategories | tojson }};
+            window.INITIAL_CATEGORY = {{ (active_category or 'ALL') | tojson }};
         </script>
     </div>
 </section>
@@ -122,14 +237,18 @@
                     {% if theme_bg %}
                     <div class="product-theme-arc" style="background-image: url('{{ theme_bg }}');" aria-hidden="true"></div>
                     {% endif %}
-                    <img src="{{ p.image }}" alt="{{ p.name }}" loading="lazy" onerror="this.src='/static/images/products/pamant-de-flori-universal-plantasol-5l.png'">
+                    <img src="{{ p.image }}" alt="{{ build_product_alt(p) }}" loading="lazy" width="300" height="300" onerror="this.src='/static/images/products/pamant-de-flori-universal-plantasol-5l.webp'">
                     <button class="quick-view-overlay-btn" title="Alege mărimea și vezi detalii">
-                        <i class="fa-solid fa-magnifying-glass-plus"></i> Detalii & Mărimi
+                        <i class="fa-solid fa-magnifying-glass-plus"></i> Detalii &amp; Mărimi
                     </button>
                 </div>
 
                 <div class="product-info">
-                    <h3 class="product-title" onclick="openProductQuickView({{ p.id }})">{{ p.name }}</h3>
+                    <h3 class="product-title"><a href="/produs/{{ p.id }}" onclick="event.preventDefault(); openProductQuickView({{ p.id }})" class="product-title-link">{{ p.name }}</a></h3>
+
+                    {% if p.short_description %}
+                    <p class="product-short-desc">{{ p.short_description }}</p>
+                    {% endif %}
 
                     <!-- Variations Preview Pills -->
                     {% if p.variations and p.variations|length > 1 %}
@@ -220,6 +339,37 @@
                 <h4>Calitate Premium Garantată</h4>
                 <p>Mărci de renume recunoscute de profesioniști și pasionați de horticultură.</p>
             </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section (SEO & GEO Structured Q&A) -->
+<section class="section-faq" id="intrebari-frecvente">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Întrebări frecvente</h2>
+        </div>
+        <div class="faq-list">
+            <details class="faq-item" open>
+                <summary>Cum se face livrarea comenzilor de pământ de flori și îngrășăminte în România?</summary>
+                <p>Expediem rapid prin curier în toată România, în 24–48 de ore lucrătoare. La comenzi peste 150 RON transportul este gratuit, iar toate produsele sunt ambalate sigur.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Cum aleg cel mai potrivit pământ de flori pentru plantele mele?</summary>
+                <p>Pentru plantele obișnuite de interior sau grădină alegeți un substrat universal (Florasol, Plantasol, Humiflor, Florimo). Pentru specii cu cerințe speciale folosiți substraturi dedicate din categoria <a href="/categorie/pamant-de-flori">Pământ de Flori</a>: orhidee, mușcate și balcon, plante acidofile, conifere, trandafiri sau răsaduri.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Care este diferența dintre soluțiile nutritive lichide și batoanele fertilizante?</summary>
+                <p>Soluțiile nutritive lichide (<a href="/categorie/solutii-nutritive">Vitaflora, Florasol, Humiflor</a>) acționează rapid la fiecare udare săptămânală, în timp ce batoanele fertilizante solide eliberează nutrienții treptat timp de până la 2 luni, fără dozare.</p>
+            </details>
+            <details class="faq-item">
+                <summary>Oferiți prețuri en-gros și livrare paletizată pentru parteneri B2B?</summary>
+                <p>Da. Suntem producător și distribuitor oficial pentru florării, centre de grădinărit și revânzători. Solicitați ofertă personalizată pe pagina <a href="/b2b">Parteneri B2B</a> sau la <a href="mailto:vanzari@torentdistribution.ro">vanzari@torentdistribution.ro</a>.</p>
+            </details>
+            <details class="faq-item">
+                <summary>În ce mărimi de ambalaj sunt disponibile substraturile și soluțiile nutritive?</summary>
+                <p>Substraturile sunt disponibile în saci de 3L, 5L, 10L, 20L, 40L și 50L, iar soluțiile nutritive în flacoane de 0.1L, 0.5L și 1L, astfel încât să comandați exact cantitatea necesară.</p>
+            </details>
         </div>
     </div>
 </section>

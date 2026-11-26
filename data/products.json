@@ -20,7 +20,8 @@
         "internal_code": "30350"
       }
     ],
-    "default_size": "0.5L"
+    "default_size": "0.5L",
+    "short_description": "Soluție practică de 0.5L cu pulverizator pentru prevenirea și combaterea bolilor comune ale plantelor. Acțiune rapidă în ghiveci și grădină."
   },
   {
     "id": 142,
@@ -43,7 +44,8 @@
         "internal_code": "30450"
       }
     ],
-    "default_size": "0.5L"
+    "default_size": "0.5L",
+    "short_description": "Spray complet de 0.5L pentru protecția zilnică a plantelor împotriva factorilor de stres. Gata preparat pentru aplicare imediată pe frunze."
   },
   {
     "id": 141,
@@ -66,7 +68,8 @@
         "internal_code": "20520"
       }
     ],
-    "default_size": "20L"
+    "default_size": "20L",
+    "short_description": "Pământ special de 20L pentru trandafiri de grădină și ghiveci, stimulează înrădăcinarea profundă și formarea bobocilor parfumați."
   },
   {
     "id": 140,
@@ -96,7 +99,8 @@
         "internal_code": "21650"
       }
     ],
-    "default_size": "20L"
+    "default_size": "20L",
+    "short_description": "Substrat fin, cernut uniform pentru germinare sigură și răsaduri viguroase de legume sau flori. Disponibil în saci de 20L și 50L."
   },
   {
     "name": "Pământ de flori universal Plantasol",
@@ -137,7 +141,8 @@
     "default_size": "5L",
     "price": 2.53,
     "stock": 205,
-    "active": true
+    "active": true,
+    "short_description": "Substrat universal echilibrat pentru transplantări rapide în ghiveci și grădină. Disponibil în saci de 5L, 10L, 20L și 50L pentru orice proiect."
   },
   {
     "name": "Pământ de flori universal Florasol",
@@ -177,7 +182,8 @@
     "id": 2,
     "default_size": "5L",
     "price": 4.64,
-    "stock": 150
+    "stock": 150,
+    "short_description": "Amestec nutritiv aerat, gata de utilizare pentru flori de apartament și terasă. Alege rapid sacul potrivit: 5L, 10L, 20L sau 40L."
   },
   {
     "name": "Pământ de flori universal Humiflor",
@@ -199,7 +205,8 @@
     "id": 3,
     "default_size": "Standard",
     "price": 2.81,
-    "stock": 25
+    "stock": 25,
+    "short_description": "Pământ universal bogat în humus, conceput pentru înrădăcinare rapidă și drenaj curat. Soluția practică pentru replantările sezoniere."
   },
   {
     "name": "Substrat de orhidee Humiflor",
@@ -220,7 +227,8 @@
     ],
     "id": 4,
     "default_size": "5L",
-    "price": 11.1
+    "price": 11.1,
+    "short_description": "Amestec aerisit cu scoarță selectată, creat special pentru rădăcinile sensibile ale orhideelor. Sac de 5L gata pentru replantare imediată."
   },
   {
     "name": "Nutrisol pământ de flori pentru plante de cameră",
@@ -241,7 +249,8 @@
     ],
     "id": 5,
     "default_size": "10L",
-    "price": 5.53
+    "price": 5.53,
+    "short_description": "Substrat fin de 10L formulat pentru plantele de apartament, reține umiditatea fără băltire și susține frunzișul verde tot anul."
   },
   {
     "name": "Nutrisol pământ pentru plante de grădină și straturi înălțate",
@@ -262,7 +271,8 @@
     ],
     "id": 6,
     "default_size": "20L",
-    "price": 10.3
+    "price": 10.3,
+    "short_description": "Pământ fertil de 20L ideal pentru straturi înălțate, jardiniere și ronduri de grădină. Oferă structură stabilă și pornire rapidă în vegetație."
   },
   {
     "name": "Nutrisol pământ de flori pentru mușcate și plante de balcon",
@@ -289,7 +299,8 @@
     ],
     "id": 7,
     "default_size": "20L",
-    "price": 10.15
+    "price": 10.15,
+    "short_description": "Substrat bogat în nutrienți pentru mușcate și flori de balcon cu înflorire continuă. Comandă ușor în saci practici de 20L sau 50L."
   },
   {
     "name": "Florimo Universal",
@@ -328,7 +339,8 @@
     ],
     "id": 8,
     "default_size": "3L",
-    "price": 4.2
+    "price": 4.2,
+    "short_description": "Amestec universal Florimo cu drenaj sigur pentru plante ornamentale de interior și exterior. Disponibil în variante de 3L, 10L, 20L și 50L."
   },
   {
     "name": "Florimo Acidulos",
@@ -362,7 +374,8 @@
     "id": 9,
     "default_size": "3L",
     "price": 4.9,
-    "stock": 25
+    "stock": 25,
+    "short_description": "Substrat cu pH acid optimizat pentru hortensii, azalee, rododendroni și afini. Disponibil în saci de 3L, 10L și 20L, gata de plantare."
   },
   {
     "name": "Florimo pentru mușcate și plante de balcon",
@@ -396,7 +409,8 @@
     "id": 10,
     "default_size": "10L",
     "price": 9.0,
-    "stock": 100
+    "stock": 100,
+    "short_description": "Formulă bogată în argilă și nutrienți pentru mușcate rezistente la soare pe balcon și terasă. Variante avantajoase de 10L, 20L și 50L."
   },
   {
     "name": "Florimo pentru conifere",
@@ -424,7 +438,8 @@
     "id": 11,
     "default_size": "20L",
     "price": 18.0,
-    "stock": 65
+    "stock": 65,
+    "short_description": "Substrat dedicat tujelor, pinilor și arbuștilor veșnic verzi, previne îngălbenirea acelor. Disponibil în saci economici de 20L și 50L."
   },
   {
     "name": "Florimo pentru orchidee",
@@ -446,7 +461,8 @@
     "id": 12,
     "default_size": "3L",
     "price": 24.07,
-    "stock": 40
+    "stock": 40,
+    "short_description": "Amestec poros de 3L pentru orhidee Phalaenopsis și specii epifite, asigură aerarea constantă a rădăcinilor și prelungirea înfloririi."
   },
   {
     "name": "Vitaflora 1 Pt. plante cu flori",
@@ -479,7 +495,8 @@
     ],
     "id": 13,
     "default_size": "0.1L",
-    "price": 4.48
+    "price": 4.48,
+    "short_description": "Soluție nutritivă concentrată pentru culori intense și flori abundente tot sezonul. Dozare ușoară la udare, disponibilă la 0.1L, 0.5L și 1L."
   },
   {
     "name": "Vitaflora 2 Pt. plante cu frunze",
@@ -512,7 +529,8 @@
     ],
     "id": 14,
     "default_size": "0.1L",
-    "price": 4.48
+    "price": 4.48,
+    "short_description": "Fertilizant lichid bogat în azot pentru frunziș dens, lucios și verde intens la plantele decorative. Flacoane practice de 0.1L, 0.5L și 1L."
   },
   {
     "name": "Vitaflora 3 Universal",
@@ -545,7 +563,8 @@
     ],
     "id": 15,
     "default_size": "0.1L",
-    "price": 4.48
+    "price": 4.48,
+    "short_description": "Îngrășământ lichid complet pentru toate plantele de casă, balcon și grădină. Absorbție rapidă, disponibil în variante de 0.1L, 0.5L și 1L."
   },
   {
     "name": "Vitaflora 5 Pt. stimularea înfloririi",
@@ -578,7 +597,8 @@
     ],
     "id": 16,
     "default_size": "0.1L",
-    "price": 4.48
+    "price": 4.48,
+    "short_description": "Concentrat bogat în fosfor și potasiu pentru declanșarea rapidă a bobocilor și înflorire îndelungată. Flacoane de 0.1L, 0.5L și 1L."
   },
   {
     "name": "Vitaflora 6 Pt. mușcate",
@@ -611,7 +631,8 @@
     ],
     "id": 17,
     "default_size": "0.1L",
-    "price": 4.48
+    "price": 4.48,
+    "short_description": "Nutriție dedicată mușcatelor de balcon, pentru tufe compacte și ciorchini bogați de flori. Alege flaconul potrivit: 0.1L, 0.5L sau 1L."
   },
   {
     "name": "Vitaflora 7 Pt. gazon",
@@ -632,7 +653,8 @@
     ],
     "id": 18,
     "default_size": "1L",
-    "price": 16.72
+    "price": 16.72,
+    "short_description": "Soluție concentrată de 1L pentru un gazon des, verde smarald și rezistent la călcare. Aplicare rapidă cu stropitoarea, efect vizibil rapid."
   },
   {
     "name": "Vitaflora 8 Pt. cactuși",
@@ -659,7 +681,8 @@
     ],
     "id": 19,
     "default_size": "0.1L",
-    "price": 4.48
+    "price": 4.48,
+    "short_description": "Formulă echilibrată cu azot redus pentru cactuși și suculente compacte, fără alungire. Flacoane practice de 0.1L și 0.5L pentru colecții."
   },
   {
     "name": "Vitaflora Pt. orhidee",
@@ -686,7 +709,8 @@
     ],
     "id": 20,
     "default_size": "0.1L",
-    "price": 4.73
+    "price": 4.73,
+    "short_description": "Îngrășământ delicat pentru orhidee, susține tije florale viguroase și rădăcini sănătoase fără ardere. Disponibil în flacoane de 0.1L și 0.5L."
   },
   {
     "name": "Vitaflora Pt. citrice și pl. medit.",
@@ -707,7 +731,8 @@
     ],
     "id": 21,
     "default_size": "0.5L",
-    "price": 10.93
+    "price": 10.93,
+    "short_description": "Soluție de 0.5L îmbogățită cu fier împotriva clorozei la lămâi, portocali, leandri și măslini. Susține legarea și coacerea fructelor."
   },
   {
     "name": "Vitaflora Bonsai",
@@ -734,7 +759,8 @@
     ],
     "id": 22,
     "default_size": "0.1L",
-    "price": 4.48
+    "price": 4.48,
+    "short_description": "Nutriție blândă pentru bonsai sănătoși, cu creștere controlată și coroane echilibrate. Dozare precisă la udare, în flacoane de 0.1L și 0.5L."
   },
   {
     "name": "Vitaflora Pt. Plante curgătoare",
@@ -761,7 +787,8 @@
     ],
     "id": 23,
     "default_size": "0.5L",
-    "price": 10.13
+    "price": 10.13,
+    "short_description": "Fertilizant cu fier activ pentru petunii, surfinii și plante curgătoare cu cascade bogate de flori. Disponibil în variante de 0.5L și 1L."
   },
   {
     "name": "Vitaflora Pt. conifere",
@@ -782,7 +809,8 @@
     ],
     "id": 24,
     "default_size": "1L",
-    "price": 15.38
+    "price": 15.38,
+    "short_description": "Îngrășământ lichid de 1L cu magneziu pentru tuje și conifere, menține culoarea verde intens și previne brunificarea acelor."
   },
   {
     "name": "Vitaflora Pt. legume",
@@ -803,7 +831,8 @@
     ],
     "id": 25,
     "default_size": "1L",
-    "price": 16.51
+    "price": 16.51,
+    "short_description": "Soluție nutritivă de 1L pentru roșii, ardei și legume de grădină cu recolte bogate și gustoase. Aplicare simplă săptămânală la rădăcină."
   },
   {
     "name": "Florasol Universal",
@@ -830,7 +859,8 @@
     ],
     "id": 26,
     "default_size": "0.5L",
-    "price": 8.16
+    "price": 8.16,
+    "short_description": "Nutrienți lichizi universali Florasol pentru vitalitatea zilnică a plantelor de interior și balcon. Disponibil în flacoane de 0.5L și 1L."
   },
   {
     "name": "Florasol Pt. mușcate",
@@ -857,7 +887,8 @@
     ],
     "id": 27,
     "default_size": "0.5L",
-    "price": 8.16
+    "price": 8.16,
+    "short_description": "Soluție nutritivă Florasol specială pentru mușcate și flori de balcon, oferă culoare intensă și rezistență la arșiță. Variante de 0.5L și 1L."
   },
   {
     "name": "Humiflor pentru plante de balcon 1L",
@@ -878,7 +909,8 @@
     ],
     "id": 28,
     "default_size": "1L",
-    "price": 11.98
+    "price": 11.98,
+    "short_description": "Fertilizant lichid Humiflor de 1L cu acizi humici pentru jardiniere pline de flori și rezistență sporită la stresul termic estival."
   },
   {
     "name": "Humiflor pentru plante de gradina 1L",
@@ -899,7 +931,8 @@
     ],
     "id": 29,
     "default_size": "1L",
-    "price": 12.47
+    "price": 12.47,
+    "short_description": "Soluție nutritivă Humiflor de 1L pentru flori, arbuști și legume din grădină. Stimulează rădăcinile și îmbunătățește absorbția din sol."
   },
   {
     "name": "Humiflor pentru plante de camera 1L",
@@ -920,7 +953,8 @@
     ],
     "id": 30,
     "default_size": "1L",
-    "price": 11.78
+    "price": 11.78,
+    "short_description": "Îngrășământ lichid Humiflor de 1L cu substanțe humice pentru plante de apartament viguroase, cu frunziș strălucitor în orice sezon."
   },
   {
     "name": "Vitaflora Pt. plante cu flori (Batoane)",
@@ -941,7 +975,8 @@
     ],
     "id": 31,
     "default_size": "30g (30 buc)",
-    "price": 7.24
+    "price": 7.24,
+    "short_description": "30 de batoane fertilizante cu eliberare treptată, hrănesc plantele cu flori până la 2 luni. Doar le introduci în ghiveci, fără dozare."
   },
   {
     "name": "Vitaflora Pt. plante cu frunze (Batoane)",
@@ -962,7 +997,8 @@
     ],
     "id": 32,
     "default_size": "30g (30 buc)",
-    "price": 7.24
+    "price": 7.24,
+    "short_description": "Set de 30 batoane solide pentru plante verzi de interior, asigură nutriție constantă timp de 60 de zile. Soluție curată, fără miros."
   },
   {
     "name": "Vitaflora Pt. orhidee (Batoane)",
@@ -983,7 +1019,8 @@
     ],
     "id": 33,
     "default_size": "15g (20 buc)",
-    "price": 7.72
+    "price": 7.72,
+    "short_description": "20 de batoane nutritive create special pentru orhidee, eliberează treptat microelementele esențiale pentru o înflorire prelungită."
   },
   {
     "name": "Florasol Solutie Ecologica Ingrijire plante 0.5L",
@@ -1004,7 +1041,8 @@
     ],
     "id": 34,
     "default_size": "0.5L",
-    "price": 12.12
+    "price": 12.12,
+    "short_description": "Spray ecologic de 0.5L gata de pulverizare pentru îngrijirea și fortifierea plantelor de casă și grădină. Protecție rapidă, fără diluare."
   },
   {
     "id": 35,
@@ -1025,7 +1063,8 @@
       }
     ],
     "default_size": "500ml",
-    "price": 11.0
+    "price": 11.0,
+    "short_description": "Soluție ecologică de 500ml cu pulverizator, curăță frunzișul și protejează plantele în mod natural. Utilizare sigură în casă și pe balcon."
   },
   {
     "id": 36,
@@ -1046,7 +1085,8 @@
       }
     ],
     "default_size": "500ml",
-    "price": 11.0
+    "price": 11.0,
+    "short_description": "Spray organic de 500ml cu extracte naturale pentru susținerea imunității plantelor ornamentale și de grădină. Aplicare directă, efect rapid."
   },
   {
     "id": 37,

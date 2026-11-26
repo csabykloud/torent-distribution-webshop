@@ -4,7 +4,58 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="x-catalog-token" content="{{ catalog_token }}">
-    <title>{% block title %}Torent Distribution - Magazin Online Produse Horticole{% endblock %}</title>
+    <title>{% block title %}Torent Distribution – Pământ de Flori și Îngrășăminte RO{% endblock %}</title>
+    <meta name="description" content="{% block meta_description %}Magazin online de horticultură Torent Distribution: pământ de flori, soluții nutritive și produse de îngrijire plante. Livrare rapidă în toată România.{% endblock %}">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    <!-- Open Graph & Social Meta -->
+    <meta property="og:type" content="{% block og_type %}website{% endblock %}">
+    <meta property="og:locale" content="ro_RO">
+    <meta property="og:site_name" content="Torent Distribution">
+    <meta property="og:title" content="{% block og_title %}Torent Distribution – Pământ de Flori și Îngrășăminte RO{% endblock %}">
+    <meta property="og:description" content="{% block og_description %}Magazin online de horticultură Torent Distribution: pământ de flori, soluții nutritive și produse de îngrijire plante. Livrare rapidă în toată România.{% endblock %}">
+    <meta property="og:url" content="{{ canonical_url }}">
+    <meta property="og:image" content="{% block og_image %}{{ site_host }}/static/images/hero-horticultura.webp{% endblock %}">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <!-- Global Organization & Store Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["Organization", "Store"],
+      "@id": "{{ site_host }}/#organization",
+      "name": "Torent Distribution",
+      "legalName": {{ site_settings.company_name | tojson }},
+      "url": {{ site_host | tojson }},
+      "logo": "{{ site_host }}/static/images/hero-horticultura.webp",
+      "image": "{{ site_host }}/static/images/hero-horticultura.webp",
+      "description": "Producător și distribuitor oficial de produse horticole în România: pământ de flori, soluții nutritive și produse de îngrijire plante pentru clienți B2C și parteneri B2B.",
+      "email": "vanzari@torentdistribution.ro",
+      "telephone": {{ (site_settings.company_phone or SUPPORT_PHONE) | tojson }},
+      "areaServed": "RO",
+      "address": {
+        "@type": "PostalAddress",
+        "addressCountry": "RO",
+        "streetAddress": {{ site_settings.company_address | tojson }}
+      },
+      "brand": [
+        {"@type": "Brand", "name": "Florasol"},
+        {"@type": "Brand", "name": "Humiflor"},
+        {"@type": "Brand", "name": "Nutrisol"},
+        {"@type": "Brand", "name": "Plantasol"},
+        {"@type": "Brand", "name": "Vitaflora"},
+        {"@type": "Brand", "name": "Florimo"}
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "sales",
+        "email": "vanzari@torentdistribution.ro",
+        "telephone": {{ (site_settings.company_phone or SUPPORT_PHONE) | tojson }},
+        "areaServed": "RO",
+        "availableLanguage": ["ro"]
+      }
+    }
+    </script>
     <!-- Modern Font and Icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -64,7 +115,7 @@
                 </button>
 
                 <!-- Stacked Contact + Parteneri B2B Buttons -->
-                <div class="header-side-stack">
+                <nav class="header-side-stack" aria-label="Navigare principală">
                     <a href="/#contact" class="header-stack-btn header-stack-contact" title="Contact">
                         <i class="fa-regular fa-envelope"></i>
                         <span>Contact</span>
@@ -73,7 +124,7 @@
                         <i class="fa-solid fa-handshake"></i>
                         <span>Parteneri B2B</span>
                     </a>
-                </div>
+                </nav>
             </div>
         </div>
     </header>
@@ -283,13 +334,14 @@
             </div>
 
             <div class="footer-col">
-                <h4>Pământ de Flori (Mărci)</h4>
+                <h4>Categorii &amp; Parteneri</h4>
                 <ul class="footer-links">
-                    <li><a href="javascript:void(0)" onclick="filterByCategory('Pamant de Flori', 'Plantasol')"><i class="fa-solid fa-angle-right"></i> Plantasol (5L, 10L, 20L, 50L)</a></li>
-                    <li><a href="javascript:void(0)" onclick="filterByCategory('Pamant de Flori', 'Florasol')"><i class="fa-solid fa-angle-right"></i> Florasol (5L, 10L, 20L, 50L)</a></li>
-                    <li><a href="javascript:void(0)" onclick="filterByCategory('Pamant de Flori', 'Humiflor')"><i class="fa-solid fa-angle-right"></i> Humiflor (Universal & Orhidee)</a></li>
-                    <li><a href="javascript:void(0)" onclick="filterByCategory('Pamant de Flori', 'Nutrisol')"><i class="fa-solid fa-angle-right"></i> Nutrisol (Cameră, Balcon, Straturi)</a></li>
-                    <li><a href="javascript:void(0)" onclick="filterByCategory('Pamant de Flori', 'Florimo')"><i class="fa-solid fa-angle-right"></i> Florimo (Universal, Acidofil, Conifere)</a></li>
+                    <li><a href="/categorie/pamant-de-flori"><i class="fa-solid fa-angle-right"></i> Pământ de Flori (Florasol, Humiflor, Nutrisol, Plantasol, Florimo)</a></li>
+                    <li><a href="/categorie/solutii-nutritive"><i class="fa-solid fa-angle-right"></i> Soluții nutritive &amp; Îngrășăminte (Vitaflora, Florasol, Humiflor)</a></li>
+                    <li><a href="/categorie/ingrijire-plante"><i class="fa-solid fa-angle-right"></i> Produse Ecologice Îngrijire Plante</a></li>
+                    <li><a href="/categorie/ghivece"><i class="fa-solid fa-angle-right"></i> Ghivece Ceramice &amp; Jardiniere</a></li>
+                    <li><a href="/categorie/decoratiuni"><i class="fa-solid fa-angle-right"></i> Decorațiuni de Grădină</a></li>
+                    <li><a href="/b2b"><i class="fa-solid fa-handshake"></i> Parteneri B2B / Comenzi En-gros</a></li>
                 </ul>
             </div>
 

@@ -275,8 +275,8 @@ def get_images_list():
 ALLOWED_SEO_GEO_BOTS = (
     'googlebot', 'bingbot', 'duckduckbot', 'applebot', 'slurp', 'yandexbot',
     'gptbot', 'oai-searchbot', 'chatgpt-user', 'perplexitybot', 'claudebot',
-    'anthropic-ai', 'google-extended', 'facebookexternalhit', 'whatsapp',
-    'twitterbot', 'linkedinbot'
+    'claude-searchbot', 'anthropic-ai', 'google-extended', 'facebookexternalhit',
+    'whatsapp', 'twitterbot', 'linkedinbot'
 )
 
 BLOCKED_SCRAPER_SIGNATURES = (
@@ -344,17 +344,22 @@ def verify_catalog_token(token):
 def inject_security_context():
     s = load_settings()
     public_settings = {k: v for k, v in s.items() if not k.startswith('smtp_')}
+    host = request.host_url.rstrip('/')
+    clean_path = request.path or '/'
+    canonical_url = f"{host}{clean_path}"
     return {
         "catalog_token": generate_catalog_token(),
         "site_settings": public_settings,
-        "SUPPORT_PHONE": SUPPORT_PHONE
+        "SUPPORT_PHONE": SUPPORT_PHONE,
+        "canonical_url": canonical_url,
+        "site_host": host
     }
 
 
 @app.before_request
 def anti_scraper_guard():
     path = request.path or ''
-    if path.startswith('/static/') or path.startswith('/admin') or path in ('/robots.txt', '/sitemap.xml'):
+    if path.startswith('/static/') or path.startswith('/admin') or path in ('/robots.txt', '/sitemap.xml', '/llms.txt'):
         return None
 
     ua_lower = (request.headers.get('User-Agent') or '').strip().lower()
@@ -409,7 +414,64 @@ def get_card_theme_bg(product):
     return "/static/images/card-backgrounds/bg-universal.webp"
 
 
+CATEGORY_SEO = {
+    "Pamant de Flori": {
+        "slug": "pamant-de-flori",
+        "title": "Pământ de Flori & Substraturi 3L-50L – Torent Distribution",
+        "description": "Comandă pământ de flori universal, orhidee, mușcate, conifere și răsaduri (Florasol, Humiflor, Nutrisol, Plantasol, Florimo). Livrare rapidă în România.",
+        "alt_suffix": "substrat nutritiv pământ de flori"
+    },
+    "Ingrasaminte": {
+        "slug": "solutii-nutritive",
+        "title": "Soluții Nutritive & Îngrășăminte Plante – Torent Distribution",
+        "description": "Soluții nutritive concentrate și batoane fertilizante Vitaflora, Florasol și Humiflor pentru flori, mușcate, orhidee, gazon, conifere și legume.",
+        "alt_suffix": "soluție nutritivă îngrășământ plante"
+    },
+    "Produse de Ingrijire plante": {
+        "slug": "ingrijire-plante",
+        "title": "Produse Ecologice Îngrijire Plante – Torent Distribution",
+        "description": "Soluții ecologice și organice cu pulverizator Florasol și Nutrisol pentru protecția și fortifierea plantelor de casă, balcon și grădină.",
+        "alt_suffix": "soluție îngrijire și protecție plante"
+    },
+    "Ghivece": {
+        "slug": "ghivece",
+        "title": "Ghivece Ceramice & Jardiniere Balcon – Torent Distribution",
+        "description": "Descoperă ghivece ceramice moderne SK, jardiniere de balcon și ghivece suspendate pentru plante de interior și terasă. Livrare rapidă în toată România.",
+        "alt_suffix": "ghiveci și jardinieră plante"
+    },
+    "Decoratiuni": {
+        "slug": "decoratiuni",
+        "title": "Decorațiuni Grădină & Accesorii – Torent Distribution",
+        "description": "Figurine artistice de grădină, decorațiuni tematice și accesorii ornamentale pentru curte, balcon și terasă. Stoc permanent, livrare națională.",
+        "alt_suffix": "decorațiune grădină și interior"
+    }
+}
+
+SLUG_TO_CATEGORY = {v["slug"]: k for k, v in CATEGORY_SEO.items()}
+
+
+def get_category_slug(cat_key):
+    if cat_key in CATEGORY_SEO:
+        return CATEGORY_SEO[cat_key]["slug"]
+    return re.sub(r'[^a-z0-9]+', '-', (cat_key or '').lower()).strip('-')
+
+
+def build_product_alt(product):
+    if not product:
+        return "Produs horticol Torent Distribution"
+    name = (product.get("name") or "").strip()
+    brand = (product.get("subcategory") or "").strip()
+    cat = product.get("category") or ""
+    suffix = CATEGORY_SEO.get(cat, {}).get("alt_suffix", "produs horticol")
+    parts = [name]
+    if brand and brand.lower() not in name.lower():
+        parts.append(brand)
+    return f"{' '.join(parts)} - {suffix}"
+
+
 app.jinja_env.globals['get_card_theme_bg'] = get_card_theme_bg
+app.jinja_env.globals['get_category_slug'] = get_category_slug
+app.jinja_env.globals['build_product_alt'] = build_product_alt
 
 def get_active_categories():
     return [c for c in load_categories() if c.get('active', True)]
@@ -423,27 +485,40 @@ def get_active_products():
     ]
 
 
-@app.route('/')
-def home():
+def _render_catalog_page(active_category=None):
     categories_list = get_active_categories()
     products = get_active_products()
     categories = [c['key'] for c in categories_list]
-    
+
     subcategories = {
         c['key']: c.get('subcategories', [])
         for c in categories_list
         if c.get('subcategories')
     }
-    
+
     category_counts = {}
     for c in categories:
         category_counts[c] = len([p for p in products if p.get('category') == c])
-    
+
     subcat_counts = {}
     for cat, subs in subcategories.items():
         for s in subs:
             subcat_counts[f"{cat}_{s}"] = len([p for p in products if p.get('category') == cat and p.get('subcategory') == s])
-    
+
+    active_cat_obj = None
+    page_title = "Torent Distribution – Pământ de Flori și Îngrășăminte RO"
+    page_description = "Magazin online de horticultură Torent Distribution: pământ de flori, soluții nutritive și produse de îngrijire plante. Livrare rapidă în toată România."
+
+    if active_category:
+        active_cat_obj = next((c for c in categories_list if c['key'] == active_category), None)
+        seo_meta = CATEGORY_SEO.get(active_category, {})
+        if seo_meta:
+            page_title = seo_meta["title"]
+            page_description = seo_meta["description"]
+        elif active_cat_obj:
+            page_title = f"{active_cat_obj['display_name']} – Torent Distribution"
+            page_description = (active_cat_obj.get('description') or page_description)[:155]
+
     return render_template(
         'index.html',
         products=products,
@@ -452,8 +527,30 @@ def home():
         subcategories=subcategories,
         category_counts=category_counts,
         subcat_counts=subcat_counts,
-        total_products=len(products)
+        total_products=len(products),
+        active_category=active_category,
+        active_cat_obj=active_cat_obj,
+        page_title=page_title,
+        page_description=page_description
     )
+
+
+@app.route('/')
+def home():
+    return _render_catalog_page(active_category=None)
+
+
+@app.route('/categorie/<slug>')
+def category_page(slug):
+    cat_key = SLUG_TO_CATEGORY.get(slug)
+    if not cat_key:
+        for c in get_active_categories():
+            if get_category_slug(c['key']) == slug:
+                cat_key = c['key']
+                break
+    if not cat_key:
+        return render_template('404.html'), 404
+    return _render_catalog_page(active_category=cat_key)
 
 @app.route('/produs/<int:product_id>')
 def product_detail(product_id):
@@ -484,6 +581,19 @@ def api_products():
     return jsonify(public_products)
 
 
+@app.route('/llms.txt')
+def llms_txt():
+    host = request.host_url.rstrip('/')
+    llms_path = os.path.join(BASE_DIR, 'llms.txt')
+    if os.path.exists(llms_path):
+        with open(llms_path, 'r', encoding='utf-8') as f:
+            content = f.read()
+        # Convert root-relative Markdown links to absolute URLs for AI crawlers
+        content = content.replace('](/', f']({host}/')
+        return Response(content, mimetype='text/plain; charset=utf-8')
+    return Response("# Torent Distribution\n", mimetype='text/plain; charset=utf-8')
+
+
 @app.route('/robots.txt')
 def robots_txt():
     host = request.host_url.rstrip('/')
@@ -491,17 +601,20 @@ def robots_txt():
         "# Torent Distribution - SEO/GEO friendly, Anti-Scraper",
         "User-agent: *",
         "Allow: /",
+        "Allow: /categorie/",
         "Allow: /produs/",
+        "Allow: /b2b",
+        "Allow: /llms.txt",
         "Disallow: /api/",
         "Disallow: /admin/",
         "",
-        "# Allow major SEO & AI (GEO) search crawlers",
+        "# Allow major Search & AI (GEO) crawlers",
         "User-agent: Googlebot",
         "Allow: /",
         "Disallow: /api/",
         "Disallow: /admin/",
         "",
-        "User-agent: GPTBot",
+        "User-agent: Bingbot",
         "Allow: /",
         "Disallow: /api/",
         "Disallow: /admin/",
@@ -511,7 +624,22 @@ def robots_txt():
         "Disallow: /api/",
         "Disallow: /admin/",
         "",
+        "User-agent: ChatGPT-User",
+        "Allow: /",
+        "Disallow: /api/",
+        "Disallow: /admin/",
+        "",
+        "User-agent: GPTBot",
+        "Allow: /",
+        "Disallow: /api/",
+        "Disallow: /admin/",
+        "",
         "User-agent: PerplexityBot",
+        "Allow: /",
+        "Disallow: /api/",
+        "Disallow: /admin/",
+        "",
+        "User-agent: Claude-SearchBot",
         "Allow: /",
         "Disallow: /api/",
         "Disallow: /admin/",
@@ -540,15 +668,25 @@ def robots_txt():
 @app.route('/sitemap.xml')
 def sitemap_xml():
     host = request.host_url.rstrip('/')
+    categories_list = get_active_categories()
     products = get_active_products()
     today = datetime.date.today().isoformat()
     urls = [
         f"  <url><loc>{host}/</loc><lastmod>{today}</lastmod><changefreq>daily</changefreq><priority>1.0</priority></url>",
-        f"  <url><loc>{host}/b2b</loc><lastmod>{today}</lastmod><changefreq>monthly</changefreq><priority>0.8</priority></url>"
+        f"  <url><loc>{host}/b2b</loc><lastmod>{today}</lastmod><changefreq>monthly</changefreq><priority>0.9</priority></url>",
     ]
+    for cat in categories_list:
+        slug = get_category_slug(cat['key'])
+        urls.append(
+            f"  <url><loc>{host}/categorie/{slug}</loc><lastmod>{today}</lastmod><changefreq>weekly</changefreq><priority>0.9</priority></url>"
+        )
     for p in products:
         urls.append(
             f"  <url><loc>{host}/produs/{p['id']}</loc><lastmod>{today}</lastmod><changefreq>weekly</changefreq><priority>0.8</priority></url>"
+        )
+    for legal_path in ('/termeni-si-conditii', '/politica-gdpr', '/politica-cookies', '/politica-retur'):
+        urls.append(
+            f"  <url><loc>{host}{legal_path}</loc><lastmod>{today}</lastmod><changefreq>yearly</changefreq><priority>0.3</priority></url>"
         )
     xml = (
         '<?xml version="1.0" encoding="UTF-8"?>\n'

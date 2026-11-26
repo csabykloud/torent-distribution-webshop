@@ -105,8 +105,13 @@ async function initProductsData() {
     // Start rotating category card thumbnails every 3 seconds
     initCategoryThumbRotator();
 
-    // Initial filter apply (ALL mode -> hides prices on cards, shows CTA)
-    applyFilters();
+    // Activate category if landed on /categorie/<slug>
+    if (window.INITIAL_CATEGORY && window.INITIAL_CATEGORY !== 'ALL') {
+        filterByCategory(window.INITIAL_CATEGORY);
+    } else {
+        // Initial filter apply (ALL mode -> hides prices on cards, shows CTA)
+        applyFilters();
+    }
 }
 
 function initCategoryThumbRotator() {

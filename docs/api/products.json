@@ -10,6 +10,7 @@
     "price": 11.0,
     "rating": 5.0,
     "reviews_count": 1,
+    "short_description": "Soluție practică de 0.5L cu pulverizator pentru prevenirea și combaterea bolilor comune ale plantelor. Acțiune rapidă în ghiveci și grădină.",
     "stock": 25,
     "subcategory": "",
     "variations": [
@@ -32,6 +33,7 @@
     "price": 11.0,
     "rating": 5.0,
     "reviews_count": 1,
+    "short_description": "Spray complet de 0.5L pentru protecția zilnică a plantelor împotriva factorilor de stres. Gata preparat pentru aplicare imediată pe frunze.",
     "stock": 25,
     "subcategory": "",
     "variations": [
@@ -54,6 +56,7 @@
     "price": 18.13,
     "rating": 5.0,
     "reviews_count": 1,
+    "short_description": "Pământ special de 20L pentru trandafiri de grădină și ghiveci, stimulează înrădăcinarea profundă și formarea bobocilor parfumați.",
     "stock": 25,
     "subcategory": "Florimo",
     "variations": [
@@ -76,6 +79,7 @@
     "price": 18.12,
     "rating": 5.0,
     "reviews_count": 1,
+    "short_description": "Substrat fin, cernut uniform pentru germinare sigură și răsaduri viguroase de legume sau flori. Disponibil în saci de 20L și 50L.",
     "stock": 50,
     "subcategory": "Florimo",
     "variations": [
@@ -105,6 +109,7 @@
     "price": 2.53,
     "rating": 4.9,
     "reviews_count": 52,
+    "short_description": "Substrat universal echilibrat pentru transplantări rapide în ghiveci și grădină. Disponibil în saci de 5L, 10L, 20L și 50L pentru orice proiect.",
     "stock": 205,
     "subcategory": "Plantasol",
     "variations": [
@@ -145,6 +150,7 @@
     "price": 4.64,
     "rating": 4.8,
     "reviews_count": 44,
+    "short_description": "Amestec nutritiv aerat, gata de utilizare pentru flori de apartament și terasă. Alege rapid sacul potrivit: 5L, 10L, 20L sau 40L.",
     "stock": 150,
     "subcategory": "Florasol",
     "variations": [
@@ -185,6 +191,7 @@
     "price": 2.81,
     "rating": 4.8,
     "reviews_count": 39,
+    "short_description": "Pământ universal bogat în humus, conceput pentru înrădăcinare rapidă și drenaj curat. Soluția practică pentru replantările sezoniere.",
     "stock": 25,
     "subcategory": "Humiflor",
     "variations": [
@@ -207,6 +214,7 @@
     "price": 11.1,
     "rating": 4.9,
     "reviews_count": 31,
+    "short_description": "Amestec aerisit cu scoarță selectată, creat special pentru rădăcinile sensibile ale orhideelor. Sac de 5L gata pentru replantare imediată.",
     "subcategory": "Humiflor",
     "variations": [
       {
@@ -228,6 +236,7 @@
     "price": 5.53,
     "rating": 4.9,
     "reviews_count": 35,
+    "short_description": "Substrat fin de 10L formulat pentru plantele de apartament, reține umiditatea fără băltire și susține frunzișul verde tot anul.",
     "subcategory": "Nutrisol",
     "variations": [
       {
@@ -249,6 +258,7 @@
     "price": 10.3,
     "rating": 4.8,
     "reviews_count": 27,
+    "short_description": "Pământ fertil de 20L ideal pentru straturi înălțate, jardiniere și ronduri de grădină. Oferă structură stabilă și pornire rapidă în vegetație.",
     "subcategory": "Nutrisol",
     "variations": [
       {
@@ -270,6 +280,7 @@
     "price": 10.15,
     "rating": 4.9,
     "reviews_count": 42,
+    "short_description": "Substrat bogat în nutrienți pentru mușcate și flori de balcon cu înflorire continuă. Comandă ușor în saci practici de 20L sau 50L.",
     "subcategory": "Nutrisol",
     "variations": [
       {
@@ -297,6 +308,7 @@
     "price": 4.2,
     "rating": 5.0,
     "reviews_count": 64,
+    "short_description": "Amestec universal Florimo cu drenaj sigur pentru plante ornamentale de interior și exterior. Disponibil în variante de 3L, 10L, 20L și 50L.",
     "subcategory": "Florimo",
     "variations": [
       {
@@ -336,6 +348,7 @@
     "price": 4.9,
     "rating": 4.9,
     "reviews_count": 33,
+    "short_description": "Substrat cu pH acid optimizat pentru hortensii, azalee, rododendroni și afini. Disponibil în saci de 3L, 10L și 20L, gata de plantare.",
     "stock": 25,
     "subcategory": "Florimo",
     "variations": [
@@ -370,6 +383,7 @@
     "price": 9.0,
     "rating": 4.9,
     "reviews_count": 37,
+    "short_description": "Formulă bogată în argilă și nutrienți pentru mușcate rezistente la soare pe balcon și terasă. Variante avantajoase de 10L, 20L și 50L.",
     "stock": 100,
     "subcategory": "Florimo",
     "variations": [
@@ -404,6 +418,7 @@
     "price": 18.0,
     "rating": 4.8,
     "reviews_count": 29,
+    "short_description": "Substrat dedicat tujelor, pinilor și arbuștilor veșnic verzi, previne îngălbenirea acelor. Disponibil în saci economici de 20L și 50L.",
     "stock": 65,
     "subcategory": "Florimo",
     "variations": [
@@ -432,6 +447,7 @@
     "price": 24.07,
     "rating": 4.9,
     "reviews_count": 41,
+    "short_description": "Amestec poros de 3L pentru orhidee Phalaenopsis și specii epifite, asigură aerarea constantă a rădăcinilor și prelungirea înfloririi.",
     "stock": 40,
     "subcategory": "Florimo",
     "variations": [
@@ -454,6 +470,7 @@
     "price": 4.48,
     "rating": 4.9,
     "reviews_count": 52,
+    "short_description": "Soluție nutritivă concentrată pentru culori intense și flori abundente tot sezonul. Dozare ușoară la udare, disponibilă la 0.1L, 0.5L și 1L.",
     "subcategory": "Vitaflora",
     "variations": [
       {
@@ -487,6 +504,7 @@
     "price": 4.48,
     "rating": 4.8,
     "reviews_count": 34,
+    "short_description": "Fertilizant lichid bogat în azot pentru frunziș dens, lucios și verde intens la plantele decorative. Flacoane practice de 0.1L, 0.5L și 1L.",
     "subcategory": "Vitaflora",
     "variations": [
       {
@@ -520,6 +538,7 @@
     "price": 4.48,
     "rating": 4.9,
     "reviews_count": 58,
+    "short_description": "Îngrășământ lichid complet pentru toate plantele de casă, balcon și grădină. Absorbție rapidă, disponibil în variante de 0.1L, 0.5L și 1L.",
     "subcategory": "Vitaflora",
     "variations": [
       {
@@ -553,6 +572,7 @@
     "price": 4.48,
     "rating": 4.8,
     "reviews_count": 31,
+    "short_description": "Concentrat bogat în fosfor și potasiu pentru declanșarea rapidă a bobocilor și înflorire îndelungată. Flacoane de 0.1L, 0.5L și 1L.",
     "subcategory": "Vitaflora",
     "variations": [
       {
@@ -586,6 +606,7 @@
     "price": 4.48,
     "rating": 5.0,
     "reviews_count": 67,
+    "short_description": "Nutriție dedicată mușcatelor de balcon, pentru tufe compacte și ciorchini bogați de flori. Alege flaconul potrivit: 0.1L, 0.5L sau 1L.",
     "subcategory": "Vitaflora",
     "variations": [
       {
@@ -619,6 +640,7 @@
     "price": 16.72,
     "rating": 4.8,
     "reviews_count": 25,
+    "short_description": "Soluție concentrată de 1L pentru un gazon des, verde smarald și rezistent la călcare. Aplicare rapidă cu stropitoarea, efect vizibil rapid.",
     "subcategory": "Vitaflora",
     "variations": [
       {
@@ -640,6 +662,7 @@
     "price": 4.48,
     "rating": 4.7,
     "reviews_count": 22,
+    "short_description": "Formulă echilibrată cu azot redus pentru cactuși și suculente compacte, fără alungire. Flacoane practice de 0.1L și 0.5L pentru colecții.",
     "subcategory": "Vitaflora",
     "variations": [
       {
@@ -667,6 +690,7 @@
     "price": 4.73,
     "rating": 5.0,
     "reviews_count": 59,
+    "short_description": "Îngrășământ delicat pentru orhidee, susține tije florale viguroase și rădăcini sănătoase fără ardere. Disponibil în flacoane de 0.1L și 0.5L.",
     "subcategory": "Vitaflora",
     "variations": [
       {
@@ -694,6 +718,7 @@
     "price": 10.93,
     "rating": 4.9,
     "reviews_count": 33,
+    "short_description": "Soluție de 0.5L îmbogățită cu fier împotriva clorozei la lămâi, portocali, leandri și măslini. Susține legarea și coacerea fructelor.",
     "subcategory": "Vitaflora",
     "variations": [
       {
@@ -715,6 +740,7 @@
     "price": 4.48,
     "rating": 4.8,
     "reviews_count": 18,
+    "short_description": "Nutriție blândă pentru bonsai sănătoși, cu creștere controlată și coroane echilibrate. Dozare precisă la udare, în flacoane de 0.1L și 0.5L.",
     "subcategory": "Vitaflora",
     "variations": [
       {
@@ -742,6 +768,7 @@
     "price": 10.13,
     "rating": 4.8,
     "reviews_count": 28,
+    "short_description": "Fertilizant cu fier activ pentru petunii, surfinii și plante curgătoare cu cascade bogate de flori. Disponibil în variante de 0.5L și 1L.",
     "subcategory": "Vitaflora",
     "variations": [
       {
@@ -769,6 +796,7 @@
     "price": 15.38,
     "rating": 4.8,
     "reviews_count": 30,
+    "short_description": "Îngrășământ lichid de 1L cu magneziu pentru tuje și conifere, menține culoarea verde intens și previne brunificarea acelor.",
     "subcategory": "Vitaflora",
     "variations": [
       {
@@ -790,6 +818,7 @@
     "price": 16.51,
     "rating": 4.9,
     "reviews_count": 36,
+    "short_description": "Soluție nutritivă de 1L pentru roșii, ardei și legume de grădină cu recolte bogate și gustoase. Aplicare simplă săptămânală la rădăcină.",
     "subcategory": "Vitaflora",
     "variations": [
       {
@@ -811,6 +840,7 @@
     "price": 8.16,
     "rating": 4.7,
     "reviews_count": 25,
+    "short_description": "Nutrienți lichizi universali Florasol pentru vitalitatea zilnică a plantelor de interior și balcon. Disponibil în flacoane de 0.5L și 1L.",
     "subcategory": "Florasol",
     "variations": [
       {
@@ -838,6 +868,7 @@
     "price": 8.16,
     "rating": 4.7,
     "reviews_count": 27,
+    "short_description": "Soluție nutritivă Florasol specială pentru mușcate și flori de balcon, oferă culoare intensă și rezistență la arșiță. Variante de 0.5L și 1L.",
     "subcategory": "Florasol",
     "variations": [
       {
@@ -865,6 +896,7 @@
     "price": 11.98,
     "rating": 4.7,
     "reviews_count": 20,
+    "short_description": "Fertilizant lichid Humiflor de 1L cu acizi humici pentru jardiniere pline de flori și rezistență sporită la stresul termic estival.",
     "subcategory": "Humiflor",
     "variations": [
       {
@@ -886,6 +918,7 @@
     "price": 12.47,
     "rating": 4.7,
     "reviews_count": 22,
+    "short_description": "Soluție nutritivă Humiflor de 1L pentru flori, arbuști și legume din grădină. Stimulează rădăcinile și îmbunătățește absorbția din sol.",
     "subcategory": "Humiflor",
     "variations": [
       {
@@ -907,6 +940,7 @@
     "price": 11.78,
     "rating": 4.7,
     "reviews_count": 24,
+    "short_description": "Îngrășământ lichid Humiflor de 1L cu substanțe humice pentru plante de apartament viguroase, cu frunziș strălucitor în orice sezon.",
     "subcategory": "Humiflor",
     "variations": [
       {
@@ -928,6 +962,7 @@
     "price": 7.24,
     "rating": 4.9,
     "reviews_count": 48,
+    "short_description": "30 de batoane fertilizante cu eliberare treptată, hrănesc plantele cu flori până la 2 luni. Doar le introduci în ghiveci, fără dozare.",
     "subcategory": "Solide",
     "variations": [
       {
@@ -949,6 +984,7 @@
     "price": 7.24,
     "rating": 4.8,
     "reviews_count": 35,
+    "short_description": "Set de 30 batoane solide pentru plante verzi de interior, asigură nutriție constantă timp de 60 de zile. Soluție curată, fără miros.",
     "subcategory": "Solide",
     "variations": [
       {
@@ -970,6 +1006,7 @@
     "price": 7.72,
     "rating": 5.0,
     "reviews_count": 54,
+    "short_description": "20 de batoane nutritive create special pentru orhidee, eliberează treptat microelementele esențiale pentru o înflorire prelungită.",
     "subcategory": "Solide",
     "variations": [
       {
@@ -991,6 +1028,7 @@
     "price": 12.12,
     "rating": 4.9,
     "reviews_count": 38,
+    "short_description": "Spray ecologic de 0.5L gata de pulverizare pentru îngrijirea și fortifierea plantelor de casă și grădină. Protecție rapidă, fără diluare.",
     "subcategory": "",
     "variations": [
       {
@@ -1012,6 +1050,7 @@
     "price": 11.0,
     "rating": 4.5,
     "reviews_count": 20,
+    "short_description": "Soluție ecologică de 500ml cu pulverizator, curăță frunzișul și protejează plantele în mod natural. Utilizare sigură în casă și pe balcon.",
     "subcategory": "",
     "variations": [
       {
@@ -1033,6 +1072,7 @@
     "price": 11.0,
     "rating": 4.6,
     "reviews_count": 21,
+    "short_description": "Spray organic de 500ml cu extracte naturale pentru susținerea imunității plantelor ornamentale și de grădină. Aplicare directă, efect rapid.",
     "subcategory": "",
     "variations": [
       {
