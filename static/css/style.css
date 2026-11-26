@@ -952,7 +952,9 @@ body {
     line-height: 1.5;
     margin: 0 0 14px 0;
     flex: 1;
-    text-align: left;
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
 }
 
 .category-card-count {
@@ -2498,13 +2500,25 @@ body {
 
 .product-short-desc {
     font-size: 0.82rem;
-    line-height: 1.48;
+    line-height: 1.5;
     color: #475569;
     margin: 4px 0 10px 0;
-    display: -webkit-box;
-    -webkit-line-clamp: 3;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
+}
+
+.product-detail-desc,
+.quick-view-desc,
+.feature-text p,
+.faq-item p,
+.footer-desc,
+.b2b-info-card p,
+.b2b-benefit-item p,
+article p {
+    text-align: justify;
+    text-justify: inter-word;
+    hyphens: auto;
 }
 
 /* ---------------- SEO & GEO FAQ Section ---------------- */
