@@ -1,0 +1,212 @@
+{% extends "base.html" %}
+
+{% block title %}{{ product.name }} - Torent Distribution{% endblock %}
+
+{% block extra_head %}
+<meta name="description" content="{{ (product.description or product.name)[:155] | replace('\n', ' ') | trim }}">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org/",
+  "@type": "Product",
+  "name": {{ product.name | tojson }},
+  "image": {{ (request.host_url.rstrip('/') ~ product.image) | tojson }},
+  "description": {{ (product.description or product.name) | tojson }},
+  "sku": {{ (product.variations[0].sku if product.variations else ('TD-' ~ product.id)) | tojson }},
+  "brand": {
+    "@type": "Brand",
+    "name": {{ (product.subcategory or 'Torent Distribution') | tojson }}
+  },
+  "offers": [
+    {% if product.variations %}
+      {% for v in product.variations %}
+      {
+        "@type": "Offer",
+        "name": {{ (product.name ~ ' - ' ~ v.size) | tojson }},
+        "sku": {{ (v.sku or ('TD-' ~ product.id)) | tojson }},
+        "priceCurrency": "RON",
+        "price": "{{ '%.2f'|format(v.price) }}",
+        "priceSpecification": {
+          "@type": "UnitPriceSpecification",
+          "price": "{{ '%.2f'|format(v.price) }}",
+          "priceCurrency": "RON",
+          "valueAddedTaxIncluded": false
+        },
+        "availability": "https://schema.org/InStock",
+        "url": {{ request.url | tojson }}
+      }{% if not loop.last %},{% endif %}
+      {% endfor %}
+    {% else %}
+      {
+        "@type": "Offer",
+        "priceCurrency": "RON",
+        "price": "{{ '%.2f'|format(product.price) }}",
+        "availability": "https://schema.org/InStock",
+        "url": {{ request.url | tojson }}
+      }
+    {% endif %}
+  ]
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 40px 20px;">
+    <!-- Breadcrumb -->
+    <nav style="display: flex; gap: 8px; font-size: 0.88rem; color: #64748b; margin-bottom: 24px; align-items: center; flex-wrap: wrap;">
+        <a href="/" style="color: #64748b; text-decoration: none;">Acasă</a>
+        <span>/</span>
+        <a href="/#produse" onclick="filterByCategory('{{ product.category }}')" style="color: #059669; text-decoration: none;">{{ product.category }}</a>
+        {% if product.subcategory %}
+        <span>/</span>
+        <span style="color: #059669; font-weight: 500;">{{ product.subcategory }}</span>
+        {% endif %}
+        <span>/</span>
+        <span style="color: #0f172a; font-weight: 600;">{{ product.name }}</span>
+    </nav>
+
+    <!-- Product Layout -->
+    <div style="display: grid; grid-template-columns: 1fr 1.2fr; gap: 40px; background: #ffffff; border: 1px solid #e2e8f0; border-radius: 20px; padding: 40px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05); margin-bottom: 50px;">
+        <div style="background: #f8fafc; border-radius: 16px; padding: 30px; display: flex; align-items: center; justify-content: center; border: 1px solid #e2e8f0;">
+            <img src="{{ product.image }}" alt="{{ product.name }}" style="max-width: 100%; max-height: 420px; object-fit: contain;">
+        </div>
+
+        <div>
+            <div style="display: flex; gap: 8px; align-items: center; margin-bottom: 12px;">
+                <span class="prod-cat-badge badge-{{ product.category | lower | replace(' ', '-') }}">
+                    {{ product.category }}
+                </span>
+                {% if product.subcategory %}
+                <span class="prod-brand-badge">{{ product.subcategory }}</span>
+                {% endif %}
+            </div>
+
+            <h1 style="font-size: 2rem; font-weight: 800; line-height: 1.2; margin-bottom: 12px; color: #0f172a;">{{ product.name }}</h1>
+
+            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 20px; font-size: 0.9rem;">
+                <span>Cod Produs: <strong id="detailProdSku">{{ product.variations[0].sku if product.variations else ('TD-' ~ product.id) }}</strong></span>
+                <span style="color: #16a34a; font-weight: 600;"><i class="fa-solid fa-circle-check"></i> În Stoc (<span id="detailProdStock">{{ product.variations[0].stock if product.variations else product.stock }}</span> bucăți)</span>
+            </div>
+
+            <!-- Packaging Selector -->
+            {% if product.variations and product.variations|length > 1 %}
+            <div class="modal-variations-box" style="margin-bottom: 24px;">
+                <label class="variations-title"><i class="fa-solid fa-box-open"></i> Alege ambalajul dorit:</label>
+                <div class="variation-buttons-grid">
+                    {% for v in product.variations %}
+                    <button type="button" 
+                            class="var-btn {% if loop.first %}active{% endif %}" 
+                            data-size="{{ v.size }}" 
+                            data-price="{{ v.price }}" 
+                            data-stock="{{ v.stock }}"
+                            data-sku="{{ v.sku }}"
+                            onclick="selectDetailVariation(this)">
+                        <span class="var-btn-size">{{ v.size }}</span>
+                        <span class="var-btn-price">{{ "%.2f"|format(v.price) }} RON + TVA</span>
+                    </button>
+                    {% endfor %}
+                </div>
+            </div>
+            {% endif %}
+
+            <!-- Dynamic Price -->
+            <div style="margin-bottom: 24px;">
+                <span style="font-size: 0.85rem; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px;">Preț:</span>
+                <div style="font-size: 2.2rem; font-weight: 800; color: #064e3b;">
+                    <span id="detailProdPrice">{{ "%.2f"|format(product.variations[0].price if product.variations else product.price) }}</span>
+                    <span style="font-size: 1.1rem; color: #64748b; font-weight: 600;">RON + TVA</span>
+                </div>
+            </div>
+
+            <div style="margin-bottom: 30px;">
+                <p id="detailProdDesc" class="product-detail-desc {% if product.description and product.description|length > 220 %}collapsed{% endif %}" style="font-size: 1.02rem; line-height: 1.75; color: #475569; margin-bottom: 12px; white-space: pre-line;">
+                    {{ product.description }}
+                </p>
+                {% if product.description and product.description|length > 220 %}
+                <button type="button" class="btn-vezi-detalii" id="detailToggleDescBtn" onclick="toggleDetailDescription()">
+                    <i class="fa-solid fa-chevron-down"></i> Vezi Detalii
+                </button>
+                {% endif %}
+            </div>
+
+            <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 30px;">
+                <div class="qty-selector">
+                    <button type="button" onclick="let q=document.getElementById('detailQty'); if(parseInt(q.value)>1) q.value=parseInt(q.value)-1;">-</button>
+                    <input type="number" id="detailQty" value="1" min="1" max="99">
+                    <button type="button" onclick="let q=document.getElementById('detailQty'); q.value=parseInt(q.value)+1;">+</button>
+                </div>
+                <button type="button" class="btn btn-primary btn-lg" onclick="addCurrentDetailToCart({{ product.id }})">
+                    <i class="fa-solid fa-cart-plus"></i> Adaugă în Coș
+                </button>
+            </div>
+
+            <div style="border-top: 1px solid #e2e8f0; padding-top: 20px; font-size: 0.88rem; color: #64748b; display: flex; flex-direction: column; gap: 8px;">
+                <div><i class="fa-solid fa-truck" style="color: #059669; margin-right: 8px;"></i> Livrare rapidă în 24-48 de ore oriunde în țară.</div>
+                <div><i class="fa-solid fa-shield" style="color: #059669; margin-right: 8px;"></i> Produs original certificat, stocat în condiții optime de umiditate și temperatură.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Related Products -->
+    {% if related %}
+    <div>
+        <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 24px;">Produse similare din categoria {{ product.category }}</h3>
+        <div class="products-grid">
+            {% for r in related %}
+            <div class="product-card" data-id="{{ r.id }}" data-price="{{ r.price }}">
+                <div class="product-img-wrap" onclick="location.href='/produs/{{ r.id }}'">
+                    <img src="{{ r.image }}" alt="{{ r.name }}">
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title" onclick="location.href='/produs/{{ r.id }}'">{{ r.name }}</h3>
+                    <div class="product-pricing">
+                        <div class="price-val">
+                            <span class="amount">{{ "%.2f"|format(r.price) }}</span>
+                            <span class="currency">RON + TVA</span>
+                        </div>
+                    </div>
+                    <button type="button" class="btn-add-cart" onclick="location.href='/produs/{{ r.id }}'">
+                        <i class="fa-solid fa-eye"></i> Vezi detalii
+                    </button>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<script>
+let currentSelectedSize = "{{ product.variations[0].size if product.variations else 'Standard' }}";
+let currentSelectedPrice = {{ product.variations[0].price if product.variations else product.price }};
+
+function selectDetailVariation(btn) {
+    document.querySelectorAll('.var-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentSelectedSize = btn.dataset.size;
+    currentSelectedPrice = parseFloat(btn.dataset.price);
+    
+    document.getElementById('detailProdPrice').innerText = currentSelectedPrice.toFixed(2);
+    if (btn.dataset.sku) document.getElementById('detailProdSku').innerText = btn.dataset.sku;
+    if (btn.dataset.stock) document.getElementById('detailProdStock').innerText = btn.dataset.stock;
+}
+
+function addCurrentDetailToCart(productId) {
+    const qty = parseInt(document.getElementById('detailQty').value) || 1;
+    addToCart(productId, qty, currentSelectedSize, currentSelectedPrice);
+}
+
+function toggleDetailDescription() {
+    const descEl = document.getElementById('detailProdDesc');
+    const toggleBtn = document.getElementById('detailToggleDescBtn');
+    if (!descEl || !toggleBtn) return;
+
+    if (descEl.classList.contains('collapsed')) {
+        descEl.classList.remove('collapsed');
+        toggleBtn.innerHTML = '<i class="fa-solid fa-chevron-up"></i> Ascunde Detalii';
+    } else {
+        descEl.classList.add('collapsed');
+        toggleBtn.innerHTML = '<i class="fa-solid fa-chevron-down"></i> Vezi Detalii';
+    }
+}
+</script>
+{% endblock %}

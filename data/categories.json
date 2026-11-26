@@ -1,0 +1,64 @@
+[
+  {
+    "id": 1,
+    "key": "Pamant de Flori",
+    "display_name": "Pământ de Flori",
+    "description": "Substraturi nutritive pentru înrădăcinare sănătoasă, drenaj optim și dezvoltarea viguroasă a plantelor de interior, balcon și grădină.",
+    "icon": "fa-mountain",
+    "unit_label": "produse",
+    "fallback_image": "/static/images/categories/cat-pamant-de-flori.webp",
+    "subcategories": [
+      "Florasol",
+      "Humiflor",
+      "Nutrisol",
+      "Plantasol",
+      "Florimo"
+    ]
+  },
+  {
+    "id": 2,
+    "key": "Ingrasaminte",
+    "display_name": "Soluții nutritive",
+    "description": "Nutrienți concentrați și batoane fertilizante pentru o înflorire abundentă, frunziș verde intens și rezistență sporită a plantelor.",
+    "icon": "fa-flask-vial",
+    "unit_label": "produse",
+    "fallback_image": "/static/images/categories/cat-solutii-nutritive.webp",
+    "subcategories": [
+      "Vitaflora",
+      "Florasol",
+      "Humiflor",
+      "Solide"
+    ]
+  },
+  {
+    "id": 3,
+    "key": "Produse de Ingrijire plante",
+    "display_name": "Îngrijire Plante",
+    "description": "Soluții ecologice și organice pentru protecția plantelor împotriva dăunătorilor, bolilor și stresului climatic.",
+    "icon": "fa-shield-halved",
+    "unit_label": "produse",
+    "fallback_image": "/static/images/categories/cat-ingrijire-plante.webp",
+    "subcategories": []
+  },
+  {
+    "id": 4,
+    "key": "Ghivece",
+    "display_name": "Ghivece & Jardiniere",
+    "description": "Ghivece ceramice moderne SK, jardiniere de balcon și ghivece suspendate.",
+    "icon": "fa-bucket",
+    "unit_label": "produse",
+    "fallback_image": "/static/images/categories/cat-ghivece.webp",
+    "subcategories": [],
+    "active": true
+  },
+  {
+    "id": 5,
+    "key": "Decoratiuni",
+    "display_name": "Decorațiuni",
+    "description": "Figurine artistice pentru grădină, decorațiuni tematice și accesorii festive.",
+    "icon": "fa-wand-magic-sparkles",
+    "unit_label": "produse",
+    "fallback_image": "/static/images/categories/cat-decoratiuni.webp",
+    "subcategories": []
+  }
+]

@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+
+{% block title %}{{ page_title }} - Torent Distribution{% endblock %}
+
+{% block content %}
+<div class="container" style="padding: 40px 20px; max-width: 960px;">
+    <nav style="display: flex; gap: 8px; font-size: 0.88rem; color: #64748b; margin-bottom: 20px;">
+        <a href="/" style="color: #059669; text-decoration: none;">Acasă</a>
+        <span>/</span>
+        <span style="color: #0f172a; font-weight: 600;">{{ page_title }}</span>
+    </nav>
+
+    <article style="background: #ffffff; border: 1px solid #e2e8f0; border-radius: 18px; padding: 36px 40px; box-shadow: 0 4px 12px rgba(0,0,0,0.04); line-height: 1.75; color: #334155;">
+        <h1 style="font-size: 1.9rem; font-weight: 800; color: #064e3b; margin-top: 0; margin-bottom: 10px;">{{ page_title }}</h1>
+        <p style="font-size: 0.85rem; color: #64748b; margin-bottom: 28px; border-bottom: 1px solid #e2e8f0; padding-bottom: 14px;">
+            Operator: <strong>{{ site_settings.company_name }}</strong> | CUI: {{ site_settings.company_cui }} | Reg. Com.: {{ site_settings.company_reg_com }} | Email: <a href="mailto:{{ site_settings.order_email }}" style="color: #059669;">{{ site_settings.order_email }}</a>
+        </p>
+
+        {% if page_type == 'gdpr' %}
+        <h3>1. Cine suntem (Operatorul de date)</h3>
+        <p><strong>{{ site_settings.company_name }}</strong> (cu sediul în {{ site_settings.company_address }}, CUI {{ site_settings.company_cui }}, Nr. Reg. Com. {{ site_settings.company_reg_com }}) respectă confidențialitatea datelor dumneavoastră personale în conformitate cu Regulamentul (UE) 2016/679 privind protecția datelor cu caracter personal (GDPR) și legislația națională aplicabilă.</p>
+
+        <h3>2. Ce date personale colectăm</h3>
+        <ul>
+            <li>Date de identificare și contact: nume și prenume, număr de telefon, adresă de e-mail;</li>
+            <li>Date de livrare și facturare: județ, localitate, adresă completă de livrare;</li>
+            <li>Istoricul comenzilor și preferințele privind produsele horticole comandate.</li>
+        </ul>
+
+        <h3>3. Scopul și temeiul legal al prelucrării</h3>
+        <ul>
+            <li><strong>Executarea contractului / procesarea comenzilor</strong> (art. 6 alin. 1 lit. b GDPR): preluarea, confirmarea, facturarea și livrarea produselor comandate;</li>
+            <li><strong>Îndeplinirea obligațiilor legale</strong> (art. 6 alin. 1 lit. c GDPR): emiterea facturilor fiscale și arhivarea contabilă conform Codului Fiscal;</li>
+            <li><strong>Evidența clienților (CRM) și informări comerciale</strong> (art. 6 alin. 1 lit. a GDPR): salvarea datelor în sistemul CRM se realizează <strong>exclusiv pe baza consimțământului dumneavoastră liber și explicit</strong> bifat la finalizarea comenzii.</li>
+        </ul>
+
+        <h3>4. Durata stocării datelor</h3>
+        <p>Datele aferente facturilor fiscale se păstrează conform obligațiilor legale (5–10 ani). Datele salvate în baza CRM pe bază de consimțământ sunt păstrate până la retragerea consimțământului sau solicitarea de ștergere.</p>
+
+        <h3>5. Drepturile dumneavoastră (GDPR)</h3>
+        <p>Aveți dreptul de acces la date, rectificare, ștergere (<em>„dreptul de a fi uitat”</em>), restricționarea prelucrării, portabilitatea datelor, opoziție și retragerea consimțământului în orice moment printr-o solicitare la <a href="mailto:{{ site_settings.order_email }}" style="color: #059669;">{{ site_settings.order_email }}</a>. De asemenea, aveți dreptul de a depune o plângere la Autoritatea Națională de Supraveghere a Prelucrării Datelor cu Caracter Personal (<a href="https://www.dataprotection.ro/" target="_blank" rel="noopener" style="color: #059669;">www.dataprotection.ro</a>).</p>
+
+        {% elif page_type == 'cookies' %}
+        <h3>1. Ce sunt fișierele Cookie?</h3>
+        <p>Cookie-urile și tehnologiile similare (ex: <code>localStorage</code>) sunt fișiere de mici dimensiuni stocate pe dispozitivul dumneavoastră (computer, telefon, tabletă) atunci când vizitați magazinul online <strong>{{ site_settings.company_name }}</strong>.</p>
+
+        <h3>2. Tipuri de cookie-uri utilizate</h3>
+        <ul>
+            <li><strong>Cookie-uri strict necesare / funcționale (esențiale):</strong> indispensabile pentru funcționarea magazinului online — păstrarea produselor în coșul de cumpărături, securitatea sesiunii și protecția anti-bot. Acestea nu pot fi dezactivate deoarece site-ul nu ar putea funcționa corect fără ele.</li>
+            <li><strong>Cookie-uri de preferințe:</strong> memorează opțiunile exprimate de dumneavoastră (ex. alegerea consimțământului pentru cookies).</li>
+        </ul>
+
+        <h3>3. Cum puteți gestiona sau șterge cookie-urile</h3>
+        <p>Puteți modifica oricând opțiunea dumneavoastră din butonul <em>„Setări Cookies”</em> aflat în subsolul paginii sau din setările browserului dumneavoastră (Chrome, Firefox, Edge, Safari).</p>
+
+        {% elif page_type == 'return' %}
+        <h3>1. Dreptul de retragere în 14 zile (OUG nr. 34/2014)</h3>
+        <p>Conform OUG nr. 34/2014 privind drepturile consumatorilor în cadrul contractelor la distanță, persoanele fizice au dreptul de a returna produsele achiziționate în termen de <strong>14 zile calendaristice</strong> de la primirea coletului, fără a invoca un motiv și fără penalități.</p>
+
+        <h3>2. Condiții de retur și excepții legale</h3>
+        <ul>
+            <li>Produsele trebuie returnate în ambalajul original, nedeteriorate, sigilate și însoțite de factura/bonul de achiziție;</li>
+            <li>Conform art. 16 din OUG 34/2014, nu pot fi returnate produsele sigilate (soluții nutritive, îngrășăminte, substraturi deschise/desigilate) care nu mai pot fi repuse în vânzare din motive de protecție a calității sau deteriorare;</li>
+            <li>Costul transportului de retur este suportat de cumpărător, cu excepția cazului în care produsul a fost livrat greșit sau deteriorat din vina noastră.</li>
+        </ul>
+
+        <h3>3. Procedura de retur și rambursare</h3>
+        <p>Pentru a iniția un retur, trimiteți un e-mail la <a href="mailto:{{ site_settings.order_email }}" style="color: #059669;">{{ site_settings.order_email }}</a> cu numărul comenzii și produsele vizate. Rambursarea contravalorii se efectuează în contul bancar indicat de client în termen de maximum <strong>14 zile calendaristice</strong> de la recepționarea și verificarea produselor returnate.</p>
+
+        {% else %}
+        <h3>1. Informații generale și datele operatorului (Legea 365/2002)</h3>
+        <p>Prezentul site este operat de <strong>{{ site_settings.company_name }}</strong>, CUI {{ site_settings.company_cui }}, Nr. Reg. Com. {{ site_settings.company_reg_com }}, sediu: {{ site_settings.company_address }}, telefon: {{ site_settings.company_phone }}, email comenzi: <a href="mailto:{{ site_settings.order_email }}" style="color: #059669;">{{ site_settings.order_email }}</a>.</p>
+
+        <h3>2. Prețuri, TVA și facturare</h3>
+        <p>Toate prețurile afișate pe site sunt exprimate în <strong>RON și sunt marcate cu „+ TVA”</strong> (nu includ TVA-ul legal aplicabil la data facturării, care se adaugă pe factura fiscală conform Codului Fiscal în vigoare). Plasarea unei comenzi prin butonul <em>„Trimite Comanda (obligație de plată)”</em> reprezintă intenția fermă de achiziție.</p>
+
+        <h3>3. Livrare și plată</h3>
+        <p>Livrarea se efectuează prin curier rapid pe întreg teritoriul României în termen estimativ de 24–48 ore lucrătoare de la confirmarea comenzii. Plata se poate face ramburs la livrare sau prin modalitățile agreate la confirmarea comenzii.</p>
+
+        <h3>4. Garanția legală de conformitate (OUG nr. 140/2021)</h3>
+        <p>Toate produsele comercializate beneficiază de garanția legală de conformitate conform legislației române și europene în vigoare, fiind livrate cu termen de valabilitate corespunzător și condiții optime de depozitare.</p>
+
+        <h3>5. Soluționarea litigiilor (ANPC – SAL / SOL)</h3>
+        <p>Orice nemulțumire poate fi transmisă în prealabil la <a href="mailto:{{ site_settings.order_email }}" style="color: #059669;">{{ site_settings.order_email }}</a>. Consumatorii au dreptul să apeleze la mecanismele de Soluționare Alternativă a Litigiilor prin <a href="https://anpc.ro/ce-este-sal/" target="_blank" rel="noopener" style="color: #059669;">ANPC – SAL</a> sau prin platforma europeană <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener" style="color: #059669;">SOL (Soluționarea Online a Litigiilor)</a>.</p>
+        {% endif %}
+    </article>
+</div>
+{% endblock %}

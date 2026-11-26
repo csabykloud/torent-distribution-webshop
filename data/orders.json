@@ -1,0 +1,83 @@
+[
+  {
+    "id": 1003,
+    "customer": {
+      "city": "Oradea",
+      "name": "Test Cumparator",
+      "phone": "0712345678",
+      "county": "Bihor",
+      "email": "test@horticultura.ro",
+      "address": "Str. Republicii Nr. 10"
+    },
+    "items": [
+      {
+        "price": 3.1,
+        "quantity": 2,
+        "name": "Pamant de flori universal Plantasol 5L",
+        "id": 1
+      }
+    ],
+    "total": 25.2,
+    "payment_method": "Ramburs la livrare",
+    "status": "Finalizată",
+    "date": "2026-11-06 14:49"
+  },
+  {
+    "id": 1001,
+    "customer": {
+      "name": "Alexandru Popescu",
+      "phone": "0745 123 456",
+      "email": "alex.popescu@gmail.com",
+      "address": "Str. Florilor Nr. 12",
+      "city": "București",
+      "county": "București"
+    },
+    "items": [
+      {
+        "id": 1,
+        "name": "Pamant de flori universal Plantasol 5L",
+        "price": 3.1,
+        "quantity": 4
+      },
+      {
+        "id": 136,
+        "name": "Batoane nutritive Vitaflora pentru plante cu flori",
+        "price": 12.5,
+        "quantity": 2
+      }
+    ],
+    "total": 37.4,
+    "payment_method": "Ramburs la livrare",
+    "status": "Finalizată",
+    "date": "2026-11-05 10:30"
+  },
+  {
+    "id": 1002,
+    "customer": {
+      "name": "Elena Dumitrescu",
+      "phone": "0722 987 654",
+      "email": "elena.dumitrescu@yahoo.com",
+      "address": "Bld. Independenței Nr. 45, Ap. 8",
+      "city": "Cluj-Napoca",
+      "county": "Cluj"
+    },
+    "items": [
+      {
+        "id": 139,
+        "name": "Ghiveci ceramic SK Premium Antracit Ø 22cm",
+        "price": 38.0,
+        "quantity": 2
+      },
+      {
+        "id": 12,
+        "name": "Substrat de orhidee Humiflor 5L",
+        "price": 13.5,
+        "quantity": 1
+      }
+    ],
+    "total": 89.5,
+    "payment_method": "Card online",
+    "status": "În prelucrare",
+    "date": "2026-11-06 09:15"
+  }
+]

@@ -1,0 +1,226 @@
+{% extends "base.html" %}
+
+{% block content %}
+<!-- Top Horticultural Banner Strip -->
+<section class="compact-info-strip">
+    <div class="container compact-info-inner">
+        <i class="fa-solid fa-leaf" style="color: #6ee7b7; font-size: 1.15rem;"></i>
+        <span><strong>Producător / Distribuitor oficial Horticultură:</strong> Humiflor, Nutrisol, Plantasol, Florasol, Vitaflora, Florimo</span>
+    </div>
+</section>
+
+<!-- Horticultural Hero Banner -->
+<section class="horticultura-hero">
+    <div class="container horticultura-hero-inner">
+        <div class="horticultura-hero-content">
+            <span class="hero-eyebrow"><i class="fa-solid fa-seedling"></i> Horticultură Profesională &amp; Grădinărit</span>
+            <h1 class="horticultura-hero-title">Tot ce ai nevoie pentru plante sănătoase și grădini pline de viață</h1>
+            <p class="horticultura-hero-subtitle">
+                Substraturi nutritive, soluții fertilizante și produse de îngrijire din gamele proprii și distribuite:
+                <strong>Humiflor</strong>, <strong>Nutrisol</strong>, <strong>Plantasol</strong>, <strong>Florasol</strong>, <strong>Vitaflora</strong> și <strong>Florimo</strong>.
+            </p>
+            <div class="horticultura-hero-actions">
+                <a href="#produse" class="btn-hero-cta">
+                    <i class="fa-solid fa-leaf"></i> Vezi produsele
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Category Quick Navigation Cards -->
+<section class="section-categories" id="categorii">
+    <div class="container">
+        <div class="section-header">
+            <h2 class="section-title">Categorii de produse</h2>
+        </div>
+        
+        <div class="categories-grid">
+            {% for cat in categories_list %}
+            <div class="category-card" data-cat="{{ cat.key }}" onclick="filterByCategory('{{ cat.key | replace("'", "\\'") }}')">
+                <div class="category-card-media">
+                    <img src="{{ cat.fallback_image or '/static/images/categories/cat-pamant-de-flori.webp' }}" alt="{{ cat.display_name }}" loading="lazy">
+                    <span class="category-card-badge-icon"><i class="fa-solid {{ cat.icon or 'fa-leaf' }}"></i></span>
+                </div>
+                <div class="category-card-body">
+                    <h3>{{ cat.display_name }}</h3>
+                    <div class="category-card-info">
+                        <p>{{ cat.description }}</p>
+                        <span class="category-card-count">{{ category_counts.get(cat.key, 0) }} produse</span>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        <script>
+            window.DYNAMIC_SUBCATEGORIES = {{ subcategories | tojson }};
+        </script>
+    </div>
+</section>
+
+<!-- Products Catalog Section -->
+<section class="section-products" id="produse">
+    <div class="container">
+        <!-- Filter and Search Header -->
+        <div class="products-controls-wrap">
+            <div class="controls-left">
+                <div class="active-cat-breadcrumb" id="resetCategoryBtn" style="display: none;">
+                    <button type="button" class="btn-back-all" onclick="filterByCategory('ALL')">
+                        <i class="fa-solid fa-arrow-left"></i> Toate produsele ({{ total_products }})
+                    </button>
+                    <span class="breadcrumb-sep">/</span>
+                    <span class="breadcrumb-current" id="activeCategoryNameBadge">Categorie</span>
+                </div>
+
+                <!-- Dynamic Subcategories Pills (Soil brands or Fertilizer brands) -->
+                <div class="subcat-pills" id="subcatFilterWrap" style="display: none;">
+                    <span class="subcat-label" id="subcatLabelTitle"><i class="fa-solid fa-filter"></i> Filtru:</span>
+                    <div id="subcatButtonsContainer" class="subcat-btns-inner">
+                        <!-- Populated dynamically via JS according to selected main category -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sorting & Counter -->
+            <div class="controls-right">
+                <span class="products-count-badge" id="resultsCountBadge">Afișare <strong>{{ total_products }}</strong> produse</span>
+                <div class="sort-select-wrap">
+                    <label for="sortSelect"><i class="fa-solid fa-arrow-down-short-wide"></i> Sortare:</label>
+                    <select id="sortSelect" class="sort-select">
+                        <option value="default">Recomandate</option>
+                        <option value="price-asc">Preț: Mic la Mare</option>
+                        <option value="price-desc">Preț: Mare la Mic</option>
+                        <option value="name-asc">Nume: A la Z</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- Products Grid -->
+        <div class="products-grid" id="productsGrid">
+            {% for p in products %}
+            <div class="product-card" 
+                 data-id="{{ p.id }}" 
+                 data-name="{{ p.name | lower }}" 
+                 data-category="{{ p.category }}" 
+                 data-subcategory="{{ p.subcategory }}" 
+                 data-price="{{ p.price }}" 
+                 data-stock="{{ p.stock }}">
+                
+                <div class="product-badge-wrap">
+                    <span class="prod-cat-badge badge-{{ p.category | lower | replace(' ', '-') }}">{{ p.category }}</span>
+                    {% if p.subcategory %}
+                    <span class="prod-brand-badge">{{ p.subcategory }}</span>
+                    {% endif %}
+                    {% if p.featured %}
+                    <span class="prod-featured-badge"><i class="fa-solid fa-star"></i> Top</span>
+                    {% endif %}
+                </div>
+
+                {% set theme_bg = get_card_theme_bg(p) %}
+                <div class="product-img-wrap {% if theme_bg %}has-theme-bg{% endif %}" onclick="openProductQuickView({{ p.id }})">
+                    {% if theme_bg %}
+                    <div class="product-theme-arc" style="background-image: url('{{ theme_bg }}');" aria-hidden="true"></div>
+                    {% endif %}
+                    <img src="{{ p.image }}" alt="{{ p.name }}" loading="lazy" onerror="this.src='/static/images/products/pamant-de-flori-universal-plantasol-5l.png'">
+                    <button class="quick-view-overlay-btn" title="Alege mărimea și vezi detalii">
+                        <i class="fa-solid fa-magnifying-glass-plus"></i> Detalii & Mărimi
+                    </button>
+                </div>
+
+                <div class="product-info">
+                    <h3 class="product-title" onclick="openProductQuickView({{ p.id }})">{{ p.name }}</h3>
+
+                    <!-- Variations Preview Pills -->
+                    {% if p.variations and p.variations|length > 1 %}
+                    <div class="card-variations-preview" onclick="openProductQuickView({{ p.id }})">
+                        <span class="var-preview-label">Ambalaje:</span>
+                        {% for v in p.variations %}
+                        <span class="var-badge">{{ v.size }}</span>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+
+                    <div class="product-rating">
+                        <div class="stars">
+                            {% for i in range(5) %}
+                            <i class="fa-solid fa-star"></i>
+                            {% endfor %}
+                        </div>
+                        <span class="reviews-count">({{ p.reviews_count }})</span>
+                    </div>
+
+                    <!-- Price Block: Displayed when inside a specific category, or hidden in 'Toate' until clicked -->
+                    <div class="product-pricing" data-id="{{ p.id }}">
+                        <!-- Price when visible -->
+                        <div class="price-val card-price-display">
+                            {% if p.variations and p.variations|length > 1 %}
+                            <span class="from-label">de la</span>
+                            {% endif %}
+                            <span class="amount">{{ "%.2f"|format(p.price) }}</span>
+                            <span class="currency">RON + TVA</span>
+                        </div>
+                        <!-- Alternative CTA when in 'Toate' mode -->
+                        <div class="card-see-price-cta" style="display: none;" onclick="openProductQuickView({{ p.id }})">
+                            <i class="fa-solid fa-tag"></i> Click pt. mărimi & preț
+                        </div>
+                        <span class="stock-indicator"><i class="fa-solid fa-circle-check"></i> În Stoc</span>
+                    </div>
+
+                    <div class="product-card-actions">
+                        <button type="button" class="btn-add-cart" onclick="openProductQuickView({{ p.id }})">
+                            <i class="fa-solid fa-list-check"></i> Alege cantitatea
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- No Results Fallback -->
+        <div class="no-results-box" id="noResultsBox" style="display: none;">
+            <i class="fa-solid fa-magnifying-glass-chart"></i>
+            <h3>Nu am găsit niciun produs conform criteriilor tale</h3>
+            <p>Încearcă să schimbi termenul căutat sau să resetezi filtrele de categorii.</p>
+            <button class="btn btn-primary" onclick="resetFilters()"><i class="fa-solid fa-rotate-right"></i> Resetează Filtrele</button>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us / Features -->
+<section class="section-features">
+    <div class="container features-grid">
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-truck-fast"></i></div>
+            <div class="feature-text">
+                <h4>Livrare În Toată Țara</h4>
+                <p>Expediem rapid prin curier în 24-48 de ore, ambalat în siguranță.</p>
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-boxes-packing"></i></div>
+            <div class="feature-text">
+                <h4>Toate Mărimile Disponibile</h4>
+                <p>Substraturi în ambalaje de 5L, 10L, 20L și 50L pentru orice nevoie.</p>
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-hand-holding-heart"></i></div>
+            <div class="feature-text">
+                <h4>Consultanță Specializată</h4>
+                <p>Te ajutăm să alegi cel mai potrivit substrat sau îngrășământ pentru plantele tale.</p>
+            </div>
+        </div>
+
+        <div class="feature-card">
+            <div class="feature-icon"><i class="fa-solid fa-medal"></i></div>
+            <div class="feature-text">
+                <h4>Calitate Premium Garantată</h4>
+                <p>Mărci de renume recunoscute de profesioniști și pasionați de horticultură.</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

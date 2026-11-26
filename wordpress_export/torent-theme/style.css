@@ -1,0 +1,40 @@
+/*
+Theme Name: Torent Horticulture
+Theme URI: https://torentdistribution.ro
+Author: Torent Distribution
+Author URI: https://torentdistribution.ro
+Description: Modern, responsive WooCommerce theme designed for horticulture, soils, fertilizers, pots and garden decorations.
+Version: 1.0.0
+License: GNU General Public License v2 or later
+License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Text Domain: torent-horticulture
+Tags: e-commerce, two-columns, custom-menu, featured-images, green
+*/
+
+:root {
+    --wp--preset--color--primary: #059669;
+    --wp--preset--color--primary-dark: #064e3b;
+    --wp--preset--color--accent: #d97706;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+    color: #1e293b;
+    background-color: #f8fafc;
+}
+
+.woocommerce ul.products li.product .button {
+    background-color: #059669 !important;
+    color: #ffffff !important;
+    border-radius: 8px !important;
+    font-weight: 600 !important;
+}
+
+.woocommerce ul.products li.product .button:hover {
+    background-color: #047857 !important;
+}
+
+.woocommerce .price {
+    color: #064e3b !important;
+    font-weight: 700 !important;
+}

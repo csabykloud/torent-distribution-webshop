@@ -1,0 +1,13 @@
+{
+  "order_email": "vanzari@torentdistribution.ro",
+  "company_name": "TORENT DISTRIBUTION SRL",
+  "company_cui": "RO________",
+  "company_reg_com": "J__ / ____ / ____",
+  "company_address": "România",
+  "company_phone": "+40 700 000 000",
+  "smtp_host": "",
+  "smtp_port": 587,
+  "smtp_user": "",
+  "smtp_password": "",
+  "smtp_use_tls": true
+}

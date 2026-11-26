@@ -1,0 +1,435 @@
+{% extends "base.html" %}
+
+{% block title %}Parteneri B2B & Distribuție En-gros - Torent Distribution{% endblock %}
+
+{% block extra_head %}
+<meta name="description" content="Parteneriat B2B și distribuție en-gros produse horticole Torent Distribution: Humiflor, Nutrisol, Plantasol, Florasol, Vitaflora, Florimo. Cere ofertă personalizată.">
+<style>
+    .b2b-hero {
+        background: linear-gradient(100deg, rgba(4, 47, 36, 0.92) 0%, rgba(6, 78, 59, 0.84) 60%, rgba(4, 120, 87, 0.72) 100%),
+                    url('/static/images/hero-horticultura.webp') center/cover no-repeat;
+        color: #ffffff;
+        padding: 46px 0;
+        border-bottom: 3px solid #059669;
+    }
+    .b2b-hero-content {
+        max-width: 780px;
+    }
+    .b2b-hero h1 {
+        font-size: 2.1rem;
+        font-weight: 800;
+        margin: 10px 0 12px 0;
+        line-height: 1.2;
+    }
+    .b2b-hero p {
+        font-size: 1rem;
+        color: #e2f5ee;
+        line-height: 1.6;
+        margin: 0;
+    }
+    .b2b-main-section {
+        padding: 44px 0 70px 0;
+        background: linear-gradient(180deg, #f6faf7 0%, #ebf3ed 100%);
+    }
+    .b2b-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.25fr;
+        gap: 32px;
+        align-items: start;
+    }
+    .b2b-info-card {
+        background: #ffffff;
+        border: 1px solid #dce9e0;
+        border-radius: 18px;
+        padding: 28px;
+        box-shadow: 0 4px 14px rgba(6, 78, 59, 0.06);
+    }
+    .b2b-info-card h2 {
+        font-size: 1.35rem;
+        font-weight: 800;
+        color: #064e3b;
+        margin: 0 0 12px 0;
+    }
+    .b2b-brands-chips {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        margin: 16px 0 22px 0;
+    }
+    .b2b-brand-chip {
+        background: #ecfdf5;
+        color: #065f46;
+        border: 1px solid #a7f3d0;
+        padding: 5px 12px;
+        border-radius: 9999px;
+        font-size: 0.82rem;
+        font-weight: 700;
+    }
+    .b2b-benefits-list {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        margin-top: 10px;
+    }
+    .b2b-benefit-item {
+        display: flex;
+        gap: 14px;
+        align-items: flex-start;
+        background: #f8fbf9;
+        border: 1px solid #e2efe6;
+        border-radius: 12px;
+        padding: 14px;
+    }
+    .b2b-benefit-icon {
+        width: 40px;
+        height: 40px;
+        flex-shrink: 0;
+        border-radius: 10px;
+        background: #ecfdf5;
+        color: #059669;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.15rem;
+    }
+    .b2b-benefit-item h4 {
+        margin: 0 0 4px 0;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #0f172a;
+    }
+    .b2b-benefit-item p {
+        margin: 0;
+        font-size: 0.85rem;
+        color: #475569;
+        line-height: 1.48;
+    }
+    .b2b-form-card {
+        background: #ffffff;
+        border: 1px solid #dce9e0;
+        border-radius: 18px;
+        padding: 30px;
+        box-shadow: 0 8px 24px rgba(6, 78, 59, 0.08);
+    }
+    .b2b-form-card h2 {
+        font-size: 1.4rem;
+        font-weight: 800;
+        color: #064e3b;
+        margin: 0 0 6px 0;
+    }
+    .b2b-form-card .b2b-form-sub {
+        font-size: 0.88rem;
+        color: #64748b;
+        margin: 0 0 22px 0;
+    }
+    .b2b-form-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+    }
+    .b2b-form-group {
+        display: flex;
+        flex-direction: column;
+        gap: 6px;
+        margin-bottom: 14px;
+    }
+    .b2b-form-group label {
+        font-size: 0.84rem;
+        font-weight: 700;
+        color: #1e293b;
+    }
+    .b2b-form-group input,
+    .b2b-form-group select,
+    .b2b-form-group textarea {
+        padding: 10px 13px;
+        border: 1.5px solid #cbd5e1;
+        border-radius: 10px;
+        font-family: inherit;
+        font-size: 0.92rem;
+        color: #0f172a;
+        background: #ffffff;
+        transition: border-color 0.2s, box-shadow 0.2s;
+    }
+    .b2b-form-group input:focus,
+    .b2b-form-group select:focus,
+    .b2b-form-group textarea:focus {
+        outline: none;
+        border-color: #059669;
+        box-shadow: 0 0 0 3px rgba(5, 150, 105, 0.14);
+    }
+    .b2b-honeypot {
+        position: absolute !important;
+        left: -9999px !important;
+        width: 1px !important;
+        height: 1px !important;
+        opacity: 0 !important;
+        pointer-events: none !important;
+    }
+    .b2b-submit-btn {
+        width: 100%;
+        padding: 13px 22px;
+        border-radius: 12px;
+        border: none;
+        background: #059669;
+        color: #ffffff;
+        font-size: 0.98rem;
+        font-weight: 700;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        transition: all 0.2s ease;
+        box-shadow: 0 6px 16px rgba(5, 150, 105, 0.28);
+    }
+    .b2b-submit-btn:hover {
+        background: #047857;
+        transform: translateY(-1px);
+    }
+    .b2b-submit-btn:disabled {
+        opacity: 0.65;
+        cursor: not-allowed;
+        transform: none;
+    }
+    .b2b-feedback {
+        display: none;
+        margin-top: 16px;
+        padding: 14px 16px;
+        border-radius: 12px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        line-height: 1.5;
+    }
+    .b2b-feedback.success {
+        display: block;
+        background: #dcfce7;
+        color: #14532d;
+        border: 1px solid #86efac;
+    }
+    .b2b-feedback.error {
+        display: block;
+        background: #fee2e2;
+        color: #991b1b;
+        border: 1px solid #fca5a5;
+    }
+    @media (max-width: 920px) {
+        .b2b-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+    @media (max-width: 600px) {
+        .b2b-hero h1 {
+            font-size: 1.55rem;
+        }
+        .b2b-form-grid {
+            grid-template-columns: 1fr;
+            gap: 0;
+        }
+        .b2b-form-card, .b2b-info-card {
+            padding: 20px;
+        }
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<section class="b2b-hero">
+    <div class="container">
+        <div class="b2b-hero-content">
+            <span class="hero-eyebrow"><i class="fa-solid fa-handshake"></i> Program Parteneri B2B &amp; En-gros</span>
+            <h1>Parteneriat direct pentru florării, magazine de grădinărit și distribuitori</h1>
+            <p>
+                Torent Distribution este producător și distribuitor oficial în domeniul horticulturii. Oferim condiții comerciale preferențiale, stocuri permanente și livrare rapidă în toată România pentru partenerii noștri comerciali.
+            </p>
+        </div>
+    </div>
+</section>
+
+<section class="b2b-main-section">
+    <div class="container">
+        <div class="b2b-grid">
+            <!-- Left: Background & Wholesale Benefits -->
+            <div class="b2b-info-card">
+                <h2>De ce să colaborezi cu Torent Distribution?</h2>
+                <p style="color: #475569; font-size: 0.92rem; line-height: 1.6; margin: 0;">
+                    Asigurăm aprovizionarea constantă cu substraturi profesionale, soluții nutritive, produse ecologice de îngrijire a plantelor, ghivece ceramice și decorațiuni din gamele proprii și distribuite oficial:
+                </p>
+
+                <div class="b2b-brands-chips">
+                    <span class="b2b-brand-chip">Humiflor</span>
+                    <span class="b2b-brand-chip">Nutrisol</span>
+                    <span class="b2b-brand-chip">Plantasol</span>
+                    <span class="b2b-brand-chip">Florasol</span>
+                    <span class="b2b-brand-chip">Vitaflora</span>
+                    <span class="b2b-brand-chip">Florimo</span>
+                </div>
+
+                <div class="b2b-benefits-list">
+                    <div class="b2b-benefit-item">
+                        <div class="b2b-benefit-icon"><i class="fa-solid fa-boxes-stacked"></i></div>
+                        <div>
+                            <h4>Discounturi de volum la palet și bax</h4>
+                            <p>Prețuri en-gros competitive și grile de discount personalizate în funcție de cantitățile comandate (baxuri, paleți întregi sau comenzi recurente).</p>
+                        </div>
+                    </div>
+
+                    <div class="b2b-benefit-item">
+                        <div class="b2b-benefit-icon"><i class="fa-solid fa-truck-fast"></i></div>
+                        <div>
+                            <h4>Livrare rapidă națională (24–48h)</h4>
+                            <p>Logistică flexibilă pentru colete, paleți și transport dedicat oriunde în România, direct din depozitele noastre.</p>
+                        </div>
+                    </div>
+
+                    <div class="b2b-benefit-item">
+                        <div class="b2b-benefit-icon"><i class="fa-solid fa-headset"></i></div>
+                        <div>
+                            <h4>Consultanță și persoană de contact dedicată</h4>
+                            <p>Sprijin rapid pentru ofertare, recomandări de sortimentație sezonieră și actualizare simplă a listelor de prețuri.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 22px; padding-top: 16px; border-top: 1px solid #e2efe6; font-size: 0.86rem; color: #475569;">
+                    <div><i class="fa-solid fa-phone" style="color: #059669; margin-right: 6px;"></i> <strong>Suport B2B:</strong> {{ SUPPORT_PHONE }}</div>
+                    <div style="margin-top: 6px;"><i class="fa-solid fa-envelope" style="color: #059669; margin-right: 6px;"></i> <strong>Email vânzări:</strong> <a href="mailto:{{ site_settings.order_email }}" style="color: #059669; font-weight: 600;">{{ site_settings.order_email }}</a></div>
+                </div>
+            </div>
+
+            <!-- Right: B2B Quote / Registration Form -->
+            <div class="b2b-form-card">
+                <h2><i class="fa-solid fa-file-signature" style="color: #059669;"></i> Solicită ofertă B2B / Înregistrare partener</h2>
+                <p class="b2b-form-sub">Completează formularul de mai jos și echipa noastră comercială îți va transmite oferta personalizată în cel mai scurt timp.</p>
+
+                <form id="b2bRequestForm" novalidate>
+                    <!-- Hidden Anti-Spam Honeypot Field -->
+                    <div class="b2b-honeypot" aria-hidden="true">
+                        <label for="b2bWebsiteUrl">Website</label>
+                        <input type="text" id="b2bWebsiteUrl" name="website_url" tabindex="-1" autocomplete="off">
+                    </div>
+
+                    <div class="b2b-form-grid">
+                        <div class="b2b-form-group">
+                            <label for="b2bCompanyName">Nume firmă *</label>
+                            <input type="text" id="b2bCompanyName" name="company_name" required placeholder="ex: SC Green Garden SRL">
+                        </div>
+                        <div class="b2b-form-group">
+                            <label for="b2bCui">CUI / CIF *</label>
+                            <input type="text" id="b2bCui" name="cui" required placeholder="ex: RO12345678">
+                        </div>
+                    </div>
+
+                    <div class="b2b-form-grid">
+                        <div class="b2b-form-group">
+                            <label for="b2bContactPerson">Persoană de contact *</label>
+                            <input type="text" id="b2bContactPerson" name="contact_person" required placeholder="ex: Andrei Ionescu">
+                        </div>
+                        <div class="b2b-form-group">
+                            <label for="b2bPhone">Telefon *</label>
+                            <input type="tel" id="b2bPhone" name="phone" required placeholder="ex: 0740 123 456">
+                        </div>
+                    </div>
+
+                    <div class="b2b-form-grid">
+                        <div class="b2b-form-group">
+                            <label for="b2bEmail">Email *</label>
+                            <input type="email" id="b2bEmail" name="email" required placeholder="ex: achizitii@firma.ro">
+                        </div>
+                        <div class="b2b-form-group">
+                            <label for="b2bDomain">Domeniu de activitate *</label>
+                            <select id="b2bDomain" name="domain" required>
+                                <option value="">-- Selectează domeniul --</option>
+                                <option value="Florărie">Florărie</option>
+                                <option value="Magazin de grădinărit / DIY">Magazin de grădinărit / DIY</option>
+                                <option value="Peisagistică">Peisagistică</option>
+                                <option value="Magazin online">Magazin online</option>
+                                <option value="Distribuitor">Distribuitor</option>
+                                <option value="Altele">Altele</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="b2b-form-group">
+                        <label for="b2bMessage">Mesaj / Produse și cantități de interes</label>
+                        <textarea id="b2bMessage" name="message" rows="4" placeholder="Menționează produsele dorite (ex: paleți pământ de flori Plantasol/Florimo, baxuri Vitaflora), cantitățile estimative sau localitatea de livrare..."></textarea>
+                    </div>
+
+                    <button type="submit" class="b2b-submit-btn" id="b2bSubmitBtn">
+                        <i class="fa-solid fa-paper-plane"></i> Trimite solicitarea
+                    </button>
+
+                    <div id="b2bFeedbackBox" class="b2b-feedback" role="alert"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_scripts %}
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('b2bRequestForm');
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('b2bSubmitBtn');
+        const feedback = document.getElementById('b2bFeedbackBox');
+        feedback.className = 'b2b-feedback';
+        feedback.innerHTML = '';
+
+        const payload = {
+            company_name: document.getElementById('b2bCompanyName').value.trim(),
+            cui: document.getElementById('b2bCui').value.trim(),
+            contact_person: document.getElementById('b2bContactPerson').value.trim(),
+            phone: document.getElementById('b2bPhone').value.trim(),
+            email: document.getElementById('b2bEmail').value.trim(),
+            domain: document.getElementById('b2bDomain').value.trim(),
+            message: document.getElementById('b2bMessage').value.trim(),
+            website_url: document.getElementById('b2bWebsiteUrl').value.trim()
+        };
+
+        // Client-side validation
+        if (!payload.company_name || !payload.cui || !payload.contact_person || !payload.phone || !payload.email || !payload.domain) {
+            feedback.className = 'b2b-feedback error';
+            feedback.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Vă rugăm să completați toate câmpurile obligatorii marcate cu *.';
+            return;
+        }
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(payload.email)) {
+            feedback.className = 'b2b-feedback error';
+            feedback.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Vă rugăm să introduceți o adresă de email validă.';
+            return;
+        }
+
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Se trimite solicitarea...';
+
+        try {
+            const resp = await fetch('/api/b2b', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+            const res = await resp.json();
+
+            if (resp.ok && res.success) {
+                feedback.className = 'b2b-feedback success';
+                feedback.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${res.message}`;
+                form.reset();
+            } else {
+                feedback.className = 'b2b-feedback error';
+                feedback.innerHTML = `<i class="fa-solid fa-circle-exclamation"></i> ${res.message || 'A apărut o eroare la trimiterea solicitării.'}`;
+            }
+        } catch (err) {
+            feedback.className = 'b2b-feedback error';
+            feedback.innerHTML = '<i class="fa-solid fa-circle-exclamation"></i> Eroare de conexiune. Vă rugăm să încercați din nou sau să ne contactați telefonic.';
+        } finally {
+            btn.disabled = false;
+            btn.innerHTML = '<i class="fa-solid fa-paper-plane"></i> Trimite solicitarea';
+        }
+    });
+});
+</script>
+{% endblock %}
