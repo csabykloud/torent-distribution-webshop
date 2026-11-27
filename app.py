@@ -8,7 +8,9 @@ import secrets
 import datetime
 import csv
 import smtplib
+from decimal import Decimal, ROUND_HALF_UP, ROUND_CEILING
 from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 from collections import defaultdict
 from io import StringIO
 from flask import (
@@ -206,6 +208,296 @@ def save_categories(categories):
     with open(CATEGORIES_FILE, 'w', encoding='utf-8') as f:
         json.dump(categories, f, ensure_ascii=False, indent=2)
 
+DEFAULT_TVA_RATES = [11, 21]
+
+
+def get_tva_rates(settings=None):
+    if settings is None:
+        settings = load_settings()
+    raw = settings.get('tva_rates')
+    if not isinstance(raw, list) or not raw:
+        return list(DEFAULT_TVA_RATES)
+    cleaned = []
+    for r in raw:
+        try:
+            val = float(r)
+            if val >= 0:
+                cleaned.append(int(val) if val.is_integer() else round(val, 2))
+        except (TypeError, ValueError):
+            continue
+    return sorted(set(cleaned)) or list(DEFAULT_TVA_RATES)
+
+
+def default_tva_for_category(category):
+    return 11 if category == 'Ingrasaminte' else 21
+
+
+def calc_gross_from_net(pret_net, cota_tva):
+    """Exact Decimal calculation: raw_gross = round(net * (1 + tva/100), 2), then ceiling to .50 or .00."""
+    try:
+        net_d = Decimal(str(pret_net)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+    except Exception:
+        net_d = Decimal('0.00')
+    try:
+        tva_d = Decimal(str(cota_tva))
+    except Exception:
+        tva_d = Decimal('21')
+    raw_gross = (net_d * (Decimal('1') + tva_d / Decimal('100'))).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+    doubled_ceil = (raw_gross * Decimal('2')).to_integral_value(rounding=ROUND_CEILING)
+    gross_d = (doubled_ceil / Decimal('2')).quantize(Decimal('0.01'))
+    return float(net_d), float(gross_d)
+
+
+def apply_product_tva_pricing(prod, cota_tva=None):
+    """Recalculates pret_net, cota_tva, pret_brut, and price (gross) for a product and all its variations."""
+    if cota_tva is None:
+        cota_tva = prod.get('cota_tva', default_tva_for_category(prod.get('category', '')))
+    tva_num = int(float(cota_tva)) if float(cota_tva).is_integer() else round(float(cota_tva), 2)
+    prod['cota_tva'] = tva_num
+
+    vars_list = prod.get('variations')
+    if vars_list and isinstance(vars_list, list):
+        for v in vars_list:
+            base_net = v.get('pret_net', v.get('price', 0.0))
+            net_val, gross_val = calc_gross_from_net(base_net, tva_num)
+            v['pret_net'] = net_val
+            v['cota_tva'] = tva_num
+            v['pret_brut'] = gross_val
+            v['price'] = gross_val
+        prod['pret_net'] = min(v['pret_net'] for v in vars_list)
+        prod['pret_brut'] = min(v['pret_brut'] for v in vars_list)
+        prod['price'] = prod['pret_brut']
+    else:
+        base_net = prod.get('pret_net', prod.get('price', 0.0))
+        net_val, gross_val = calc_gross_from_net(base_net, tva_num)
+        prod['pret_net'] = net_val
+        prod['pret_brut'] = gross_val
+        prod['price'] = gross_val
+    return prod
+
+
+def compute_order_efactura_snapshot(raw_items, products_catalog):
+    """Build immutable e-Factura order item snapshots and exact Decimal TVA breakdown."""
+    prod_by_id = {p['id']: p for p in products_catalog}
+    snapshot_items = []
+    breakdown = {}
+
+    total_net_d = Decimal('0.00')
+    total_tva_d = Decimal('0.00')
+    subtotal_brut_d = Decimal('0.00')
+
+    for raw in (raw_items or []):
+        pid = raw.get('id')
+        qty = max(1, int(raw.get('quantity', 1)))
+        req_size = str(raw.get('size', '') or '').strip()
+        req_sku = str(raw.get('sku', '') or '').strip()
+
+        prod = prod_by_id.get(pid)
+        if prod:
+            cota_tva = prod.get('cota_tva', default_tva_for_category(prod.get('category', '')))
+            matched_var = None
+            for v in prod.get('variations', []):
+                if (req_sku and v.get('sku') == req_sku) or (req_size and v.get('size') == req_size):
+                    matched_var = v
+                    break
+            unit_brut_raw = (matched_var.get('pret_brut', matched_var.get('price')) if matched_var else prod.get('pret_brut', prod.get('price')))
+            item_name = raw.get('name') or (f"{prod['name']} ({matched_var['size']})" if matched_var and matched_var.get('size') != 'Standard' else prod['name'])
+            item_size = matched_var.get('size', 'Standard') if matched_var else (req_size or 'Standard')
+            item_sku = matched_var.get('sku', f"TD-{pid}") if matched_var else (req_sku or f"TD-{pid}")
+        else:
+            cota_tva = raw.get('cota_tva', 21)
+            unit_brut_raw = raw.get('pret_brut_unitar', raw.get('price', 0.0))
+            item_name = raw.get('name', 'Produs')
+            item_size = req_size or 'Standard'
+            item_sku = req_sku or f"TD-{pid or 0}"
+
+        tva_num = int(float(cota_tva)) if float(cota_tva).is_integer() else round(float(cota_tva), 2)
+        unit_brut_d = Decimal(str(unit_brut_raw)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+        divisor = Decimal('1') + (Decimal(str(tva_num)) / Decimal('100'))
+        unit_net_recalc_d = (unit_brut_d / divisor).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+
+        val_bruta_d = (unit_brut_d * Decimal(qty)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+        val_neta_d = (unit_net_recalc_d * Decimal(qty)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+        val_tva_d = (val_bruta_d - val_neta_d).quantize(Decimal('0.01'))
+
+        total_net_d += val_neta_d
+        total_tva_d += val_tva_d
+        subtotal_brut_d += val_bruta_d
+
+        key = str(tva_num)
+        if key not in breakdown:
+            breakdown[key] = {
+                "cota_tva": tva_num,
+                "valoare_neta": Decimal('0.00'),
+                "valoare_tva": Decimal('0.00'),
+                "valoare_bruta": Decimal('0.00')
+            }
+        breakdown[key]["valoare_neta"] += val_neta_d
+        breakdown[key]["valoare_tva"] += val_tva_d
+        breakdown[key]["valoare_bruta"] += val_bruta_d
+
+        snapshot_items.append({
+            "id": pid,
+            "name": item_name,
+            "size": item_size,
+            "sku": item_sku,
+            "quantity": qty,
+            "cota_tva": tva_num,
+            "pret_brut_unitar": float(unit_brut_d),
+            "price": float(unit_brut_d),
+            "pret_net_recalculat": float(unit_net_recalc_d),
+            "valoare_neta": float(val_neta_d),
+            "valoare_tva": float(val_tva_d),
+            "valoare_bruta": float(val_bruta_d)
+        })
+
+    shipping_d = Decimal('0.00') if subtotal_brut_d >= Decimal('150.00') else Decimal('19.00')
+    grand_total_d = (subtotal_brut_d + shipping_d).quantize(Decimal('0.01'))
+
+    tva_breakdown_list = [
+        {
+            "cota_tva": b["cota_tva"],
+            "valoare_neta": float(b["valoare_neta"].quantize(Decimal('0.01'))),
+            "valoare_tva": float(b["valoare_tva"].quantize(Decimal('0.01'))),
+            "valoare_bruta": float(b["valoare_bruta"].quantize(Decimal('0.01')))
+        }
+        for _, b in sorted(breakdown.items(), key=lambda kv: float(kv[0]))
+    ]
+
+    return {
+        "items": snapshot_items,
+        "subtotal_brut": float(subtotal_brut_d.quantize(Decimal('0.01'))),
+        "shipping_brut": float(shipping_d),
+        "total_net": float(total_net_d.quantize(Decimal('0.01'))),
+        "total_tva": float(total_tva_d.quantize(Decimal('0.01'))),
+        "total_brut": float(subtotal_brut_d.quantize(Decimal('0.01'))),
+        "total": float(grand_total_d),
+        "tva_breakdown": tva_breakdown_list
+    }
+
+
+def build_company_order_email(order):
+    """Generates e-Factura-ready plain-text and HTML email for company order notifications."""
+    cust = order.get('customer', {})
+    items = order.get('items', [])
+    breakdown = order.get('tva_breakdown', [])
+    total_net = float(order.get('total_net', 0.0))
+    total_tva = float(order.get('total_tva', 0.0))
+    subtotal_brut = float(order.get('subtotal_brut', order.get('total_brut', order.get('total', 0.0))))
+    shipping_brut = float(order.get('shipping_brut', 0.0))
+    grand_total = float(order.get('total', subtotal_brut))
+
+    subject = f"Comandă nouă #{order['id']} - {cust.get('name', 'Client')} ({grand_total:.2f} RON TVA inclus)"
+
+    # Plain-text version
+    plain_rows = []
+    for it in items:
+        cota = it.get('cota_tva', 21)
+        p_net = float(it.get('pret_net_recalculat', 0.0))
+        p_brut = float(it.get('pret_brut_unitar', it.get('price', 0.0)))
+        v_net = float(it.get('valoare_neta', 0.0))
+        v_tva = float(it.get('valoare_tva', 0.0))
+        v_brut = float(it.get('valoare_bruta', p_brut * int(it.get('quantity', 1))))
+        plain_rows.append(
+            f" - {it.get('name')} | Cant: {it.get('quantity')} | TVA: {cota}% | "
+            f"Net unitar: {p_net:.2f} RON | Brut unitar: {p_brut:.2f} RON | "
+            f"Total Net: {v_net:.2f} + TVA: {v_tva:.2f} = {v_brut:.2f} RON"
+        )
+
+    breakdown_plain = "\n".join(
+        f"   * TVA {b['cota_tva']}%: Bază netă {b['valoare_neta']:.2f} RON | TVA {b['valoare_tva']:.2f} RON | Brut {b['valoare_bruta']:.2f} RON"
+        for b in breakdown
+    )
+
+    plain_body = (
+        f"Comandă nouă #{order['id']} primită pe Torent Distribution (Date facturare / e-Factura)\n"
+        f"Data: {order.get('date')}\n"
+        f"====================================================================\n"
+        f"Client: {cust.get('name', '-')}\n"
+        f"Telefon: {cust.get('phone', '-')}\n"
+        f"Email: {cust.get('email', '-')}\n"
+        f"Adresă: {cust.get('county', '')}, {cust.get('city', '')}, {cust.get('address', '')}\n"
+        f"Metodă plată: {order.get('payment_method', '-')}\n"
+        f"Acord GDPR CRM: {'DA' if order.get('gdpr_crm_consent') else 'NU'}\n"
+        f"====================================================================\n"
+        f"Produse comandate (prețuri nete recalculate din brutul plătit):\n"
+        + "\n".join(plain_rows) + "\n"
+        f"====================================================================\n"
+        f"Total Net produse (fără TVA): {total_net:.2f} RON\n"
+        f"Total TVA produse:            {total_tva:.2f} RON\n"
+        + (f"{breakdown_plain}\n" if breakdown_plain else "")
+        + f"Subtotal produse (TVA inclus): {subtotal_brut:.2f} RON\n"
+        + f"Transport (TVA inclus):        {shipping_brut:.2f} RON\n"
+        + f"TOTAL DE PLATĂ (TVA INCLUS):   {grand_total:.2f} RON\n"
+    )
+
+    # HTML version
+    html_rows = ""
+    for it in items:
+        cota = it.get('cota_tva', 21)
+        p_net = float(it.get('pret_net_recalculat', 0.0))
+        p_brut = float(it.get('pret_brut_unitar', it.get('price', 0.0)))
+        v_net = float(it.get('valoare_neta', 0.0))
+        v_tva = float(it.get('valoare_tva', 0.0))
+        v_brut = float(it.get('valoare_bruta', p_brut * int(it.get('quantity', 1))))
+        html_rows += (
+            f"<tr>"
+            f"<td style='padding:8px;border:1px solid #cbd5e1;'><strong>{it.get('name')}</strong></td>"
+            f"<td style='padding:8px;border:1px solid #cbd5e1;text-align:center;'>{it.get('quantity')}</td>"
+            f"<td style='padding:8px;border:1px solid #cbd5e1;text-align:center;'>{cota}%</td>"
+            f"<td style='padding:8px;border:1px solid #cbd5e1;text-align:right;'>{p_net:.2f} RON</td>"
+            f"<td style='padding:8px;border:1px solid #cbd5e1;text-align:right;'>{p_brut:.2f} RON</td>"
+            f"<td style='padding:8px;border:1px solid #cbd5e1;text-align:right;'>{v_net:.2f} RON</td>"
+            f"<td style='padding:8px;border:1px solid #cbd5e1;text-align:right;'>{v_tva:.2f} RON</td>"
+            f"<td style='padding:8px;border:1px solid #cbd5e1;text-align:right;font-weight:700;'>{v_brut:.2f} RON</td>"
+            f"</tr>"
+        )
+
+    breakdown_html = "".join(
+        f"<tr><td style='padding:4px 8px;color:#475569;'>Din care TVA {b['cota_tva']}% (bază {b['valoare_neta']:.2f} RON):</td>"
+        f"<td style='padding:4px 8px;text-align:right;font-weight:600;'>{b['valoare_tva']:.2f} RON</td></tr>"
+        for b in breakdown
+    )
+
+    html_body = f"""<!DOCTYPE html>
+<html lang="ro"><body style="font-family:Arial,sans-serif;color:#0f172a;line-height:1.5;">
+<h2 style="color:#064e3b;margin-bottom:6px;">Comandă nouă #{order['id']} — Torent Distribution</h2>
+<p style="margin-top:0;color:#475569;">Data: {order.get('date')} | Metodă plată: <strong>{order.get('payment_method', '-')}</strong></p>
+<div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:8px;padding:12px 16px;margin-bottom:16px;">
+  <strong>Client:</strong> {cust.get('name', '-')} &nbsp;|&nbsp;
+  <strong>Telefon:</strong> {cust.get('phone', '-')} &nbsp;|&nbsp;
+  <strong>Email:</strong> {cust.get('email', '-')}<br>
+  <strong>Adresă livrare:</strong> {cust.get('county', '')}, {cust.get('city', '')}, {cust.get('address', '')}
+</div>
+<table style="width:100%;border-collapse:collapse;font-size:13px;margin-bottom:16px;">
+  <thead>
+    <tr style="background:#064e3b;color:#ffffff;">
+      <th style="padding:8px;border:1px solid #064e3b;text-align:left;">Produs &amp; Ambalaj</th>
+      <th style="padding:8px;border:1px solid #064e3b;text-align:center;">Cant.</th>
+      <th style="padding:8px;border:1px solid #064e3b;text-align:center;">TVA %</th>
+      <th style="padding:8px;border:1px solid #064e3b;text-align:right;">Preț net</th>
+      <th style="padding:8px;border:1px solid #064e3b;text-align:right;">Preț brut</th>
+      <th style="padding:8px;border:1px solid #064e3b;text-align:right;">Total net</th>
+      <th style="padding:8px;border:1px solid #064e3b;text-align:right;">TVA</th>
+      <th style="padding:8px;border:1px solid #064e3b;text-align:right;">Total brut</th>
+    </tr>
+  </thead>
+  <tbody>{html_rows}</tbody>
+</table>
+<table style="margin-left:auto;border-collapse:collapse;font-size:14px;min-width:340px;">
+  <tr><td style="padding:5px 8px;">Total Net (fără TVA):</td><td style="padding:5px 8px;text-align:right;font-weight:700;">{total_net:.2f} RON</td></tr>
+  <tr><td style="padding:5px 8px;">Total TVA produse:</td><td style="padding:5px 8px;text-align:right;font-weight:700;">{total_tva:.2f} RON</td></tr>
+  {breakdown_html}
+  <tr><td style="padding:5px 8px;">Transport (TVA inclus):</td><td style="padding:5px 8px;text-align:right;">{shipping_brut:.2f} RON</td></tr>
+  <tr style="background:#ecfdf5;color:#064e3b;font-size:16px;">
+    <td style="padding:8px;font-weight:800;">TOTAL DE PLATĂ (TVA inclus):</td>
+    <td style="padding:8px;text-align:right;font-weight:800;">{grand_total:.2f} RON</td>
+  </tr>
+</table>
+</body></html>"""
+    return subject, plain_body, html_body
+
+
 def send_order_email(order, settings):
     target_email = (settings.get('order_email') or 'vanzari@torentdistribution.ro').strip()
     smtp_host = (settings.get('smtp_host') or '').strip()
@@ -214,41 +506,48 @@ def send_order_email(order, settings):
     smtp_port = int(settings.get('smtp_port') or 587)
     smtp_use_tls = bool(settings.get('smtp_use_tls', True))
 
+    subject, plain_body, html_body = build_company_order_email(order)
+
     if not smtp_host or not smtp_user or not smtp_password:
         return "pending_smtp", f"Destinatar configurat: {target_email} (configurează SMTP în Setări Admin pentru trimitere automată)"
 
-    cust = order.get('customer', {})
-    items_lines = "\n".join(
-        f" - {it.get('name')} x {it.get('quantity')} buc = {float(it.get('price', 0)) * int(it.get('quantity', 1)):.2f} RON + TVA"
-        for it in order.get('items', [])
-    )
-    body = (
-        f"Comandă nouă #{order['id']} primită pe Torent Distribution\n"
-        f"Data: {order.get('date')}\n"
-        f"----------------------------------------\n"
-        f"Client: {cust.get('name', '-')}\n"
-        f"Telefon: {cust.get('phone', '-')}\n"
-        f"Email: {cust.get('email', '-')}\n"
-        f"Adresă: {cust.get('county', '')}, {cust.get('city', '')}, {cust.get('address', '')}\n"
-        f"Metodă plată: {order.get('payment_method', '-')}\n"
-        f"Acord GDPR CRM: {'DA' if order.get('gdpr_crm_consent') else 'NU'}\n"
-        f"----------------------------------------\n"
-        f"Produse comandate:\n{items_lines}\n"
-        f"----------------------------------------\n"
-        f"TOTAL ESTIMAT: {float(order.get('total', 0)):.2f} RON + TVA\n"
-    )
-
     try:
-        msg = MIMEText(body, 'plain', 'utf-8')
-        msg['Subject'] = f"Comandă nouă #{order['id']} - {cust.get('name', 'Client')} ({float(order.get('total', 0)):.2f} RON + TVA)"
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = subject
         msg['From'] = smtp_user
         msg['To'] = target_email
+        msg.attach(MIMEText(plain_body, 'plain', 'utf-8'))
+        msg.attach(MIMEText(html_body, 'html', 'utf-8'))
 
         with smtplib.SMTP(smtp_host, smtp_port, timeout=10) as server:
             if smtp_use_tls:
                 server.starttls()
             server.login(smtp_user, smtp_password)
             server.sendmail(smtp_user, [target_email], msg.as_string())
+
+            # Optional B2C confirmation email to customer (gross prices, TVA inclus)
+            cust = order.get('customer', {})
+            cust_email = (cust.get('email') or '').strip()
+            if cust_email and '@' in cust_email:
+                cust_items = "\n".join(
+                    f" - {it.get('name')} x {it.get('quantity')} buc = {float(it.get('valoare_bruta', 0.0)):.2f} RON (TVA inclus)"
+                    for it in order.get('items', [])
+                )
+                cust_body = (
+                    f"Bună ziua, {cust.get('name', '')}!\n\n"
+                    f"Vă mulțumim pentru comanda #{order['id']} plasată pe Torent Distribution.\n\n"
+                    f"Produse comandate:\n{cust_items}\n\n"
+                    f"Transport: {float(order.get('shipping_brut', 0.0)):.2f} RON\n"
+                    f"TOTAL DE PLATĂ (TVA inclus): {float(order.get('total', 0.0)):.2f} RON\n"
+                    f"Metodă plată: {order.get('payment_method', '-')}\n\n"
+                    f"Echipa Torent Distribution vă va contacta în cel mai scurt timp pentru confirmarea livrării.\n"
+                )
+                cmsg = MIMEText(cust_body, 'plain', 'utf-8')
+                cmsg['Subject'] = f"Confirmare comandă #{order['id']} - Torent Distribution"
+                cmsg['From'] = smtp_user
+                cmsg['To'] = cust_email
+                server.sendmail(smtp_user, [cust_email], cmsg.as_string())
+
         return "sent", f"Trimis cu succes la {target_email}"
     except Exception as exc:
         return "error", f"Eroare SMTP către {target_email}: {exc}"
@@ -888,8 +1187,11 @@ def api_place_order():
     order_id = 1000 + len(orders) + 1
     now_str = datetime.datetime.now().strftime("%Y-%m-%d %H:%M")
     customer = data.get('customer', {})
-    total_val = round(float(data.get('total', 0.0)), 2)
     gdpr_crm_consent = bool(data.get('gdpr_crm_consent', False))
+
+    products_catalog = load_products()
+    snapshot = compute_order_efactura_snapshot(data.get('items', []), products_catalog)
+    total_val = snapshot['total']
 
     settings = load_settings()
     target_email = settings.get('order_email', 'vanzari@torentdistribution.ro')
@@ -897,8 +1199,14 @@ def api_place_order():
     new_order = {
         "id": order_id,
         "customer": customer,
-        "items": data.get('items', []),
+        "items": snapshot['items'],
+        "subtotal_brut": snapshot['subtotal_brut'],
+        "shipping_brut": snapshot['shipping_brut'],
+        "total_net": snapshot['total_net'],
+        "total_tva": snapshot['total_tva'],
+        "total_brut": snapshot['total_brut'],
         "total": total_val,
+        "tva_breakdown": snapshot['tva_breakdown'],
         "payment_method": data.get('payment_method', 'Ramburs la livrare'),
         "status": "Comandă nouă",
         "date": now_str,
@@ -1034,12 +1342,70 @@ def admin_panel():
         images=images,
         crm_clients=crm_clients,
         settings=settings,
+        tva_rates=get_tva_rates(settings),
         categories=categories,
         categories_list=categories_list,
         category_counts=category_counts,
         subcategories=subcategories,
         stats=stats
     )
+
+
+# Admin API: Dynamic TVA Rates Management
+@app.route('/admin/api/tva/add', methods=['POST'])
+def admin_add_tva_rate():
+    if not is_admin_logged():
+        return jsonify({"success": False, "message": "Neautorizat"}), 403
+    data = request.get_json() or {}
+    raw_rate = str(data.get('rate', '')).replace(',', '.').replace('%', '').strip()
+    try:
+        val = float(raw_rate)
+    except ValueError:
+        return jsonify({"success": False, "message": "Introduceți o cotă TVA numerică validă (ex: 9, 11, 19, 21)."}), 400
+    if val < 0 or val > 100:
+        return jsonify({"success": False, "message": "Cota TVA trebuie să fie între 0% și 100%."}), 400
+    norm_val = int(val) if val.is_integer() else round(val, 2)
+
+    settings = load_settings()
+    rates = get_tva_rates(settings)
+    if norm_val in rates:
+        return jsonify({"success": True, "tva_rates": rates, "rate": norm_val, "message": f"Cota TVA {norm_val}% există deja în listă."})
+    rates.append(norm_val)
+    rates = sorted(set(rates))
+    settings['tva_rates'] = rates
+    save_settings(settings)
+    return jsonify({"success": True, "tva_rates": rates, "rate": norm_val, "message": f"Cota nouă de TVA ({norm_val}%) a fost adăugată!"})
+
+
+@app.route('/admin/api/product/tva/<int:product_id>', methods=['POST'])
+def admin_update_product_tva(product_id):
+    if not is_admin_logged():
+        return jsonify({"success": False, "message": "Neautorizat"}), 403
+    data = request.get_json() or {}
+    try:
+        new_tva = float(str(data.get('cota_tva', '')).replace(',', '.'))
+    except ValueError:
+        return jsonify({"success": False, "message": "Cotă TVA invalidă."}), 400
+
+    products = load_products()
+    prod = next((p for p in products if p['id'] == product_id), None)
+    if not prod:
+        return jsonify({"success": False, "message": "Produs inexistent."}), 404
+
+    apply_product_tva_pricing(prod, new_tva)
+    save_products(products)
+    return jsonify({
+        "success": True,
+        "product": {
+            "id": prod['id'],
+            "cota_tva": prod['cota_tva'],
+            "pret_net": prod['pret_net'],
+            "pret_brut": prod['pret_brut'],
+            "price": prod['price'],
+            "variations": prod.get('variations', [])
+        },
+        "message": f"TVA actualizat la {prod['cota_tva']}% (Brut: {prod['pret_brut']:.2f} RON)."
+    })
 
 
 # Admin API: Category CRUD
@@ -1209,13 +1575,19 @@ def admin_save_product():
     name = request.form.get('name', '').strip()
     category = request.form.get('category', '').strip()
     subcategory = request.form.get('subcategory', '').strip()
-    price = request.form.get('price', type=float, default=0.0)
+    price_net = request.form.get('price', type=float, default=0.0)
+    cota_tva_raw = request.form.get('cota_tva', '').strip()
+    try:
+        cota_tva = float(cota_tva_raw.replace(',', '.')) if cota_tva_raw else float(default_tva_for_category(category))
+    except ValueError:
+        cota_tva = float(default_tva_for_category(category))
+    cota_tva = int(cota_tva) if cota_tva.is_integer() else round(cota_tva, 2)
     stock = request.form.get('stock', type=int, default=10)
     description = request.form.get('description', '').strip()
     image = request.form.get('image', '').strip()
     featured = 'featured' in request.form
-    
-    # Optional variations in JSON format (size, price, stock, sku, internal_code)
+
+    # Optional variations in JSON format (size, pret_net/price, stock, sku, internal_code)
     variations_raw = request.form.get('variations_json', '').strip()
     variations = []
     if variations_raw:
@@ -1224,10 +1596,12 @@ def admin_save_product():
             if isinstance(parsed_vars, list):
                 for idx, v in enumerate(parsed_vars):
                     v_size = str(v.get('size', '')).strip() or 'Standard'
+                    raw_net = v.get('pret_net', v.get('price', 0))
                     try:
-                        v_price = round(float(str(v.get('price', 0)).replace(',', '.')), 2)
+                        v_net_in = float(str(raw_net).replace(',', '.'))
                     except ValueError:
-                        v_price = 0.0
+                        v_net_in = 0.0
+                    v_net, v_brut = calc_gross_from_net(v_net_in, cota_tva)
                     try:
                         v_stock = int(v.get('stock', 25))
                     except ValueError:
@@ -1236,7 +1610,10 @@ def admin_save_product():
                     v_sku = str(v.get('sku', '')).strip() or f"TD-{pid or 100}-{idx + 1}"
                     var_obj = {
                         "size": v_size,
-                        "price": v_price,
+                        "pret_net": v_net,
+                        "cota_tva": cota_tva,
+                        "pret_brut": v_brut,
+                        "price": v_brut,
                         "stock": v_stock,
                         "sku": v_sku
                     }
@@ -1245,13 +1622,23 @@ def admin_save_product():
                     variations.append(var_obj)
         except Exception:
             variations = []
-            
+
     if not variations:
-        variations = [{"size": "Standard", "price": round(price, 2), "stock": stock, "sku": f"TD-{pid or 100}"}]
-    else:
-        price = min(v['price'] for v in variations)
-        stock = sum(v['stock'] for v in variations)
-    
+        v_net, v_brut = calc_gross_from_net(price_net, cota_tva)
+        variations = [{
+            "size": "Standard",
+            "pret_net": v_net,
+            "cota_tva": cota_tva,
+            "pret_brut": v_brut,
+            "price": v_brut,
+            "stock": stock,
+            "sku": f"TD-{pid or 100}"
+        }]
+
+    min_net = min(v['pret_net'] for v in variations)
+    min_brut = min(v['pret_brut'] for v in variations)
+    stock = sum(v['stock'] for v in variations)
+
     # Handle image file upload if provided directly
     if 'image_file' in request.files:
         file = request.files['image_file']
@@ -1259,10 +1646,10 @@ def admin_save_product():
             fname = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], fname))
             image = f"/static/images/products/{fname}"
-            
+
     if not name or not category:
         return jsonify({"success": False, "message": "Numele și categoria sunt obligatorii!"}), 400
-        
+
     if pid:
         # Edit existing
         prod = next((p for p in products if p['id'] == pid), None)
@@ -1270,7 +1657,10 @@ def admin_save_product():
             prod['name'] = name
             prod['category'] = category
             prod['subcategory'] = subcategory
-            prod['price'] = round(price, 2)
+            prod['cota_tva'] = cota_tva
+            prod['pret_net'] = min_net
+            prod['pret_brut'] = min_brut
+            prod['price'] = min_brut
             prod['stock'] = stock
             prod['description'] = description
             if image:
@@ -1290,9 +1680,12 @@ def admin_save_product():
             "name": name,
             "category": category,
             "subcategory": subcategory,
-            "price": round(price, 2),
+            "cota_tva": cota_tva,
+            "pret_net": min_net,
+            "pret_brut": min_brut,
+            "price": min_brut,
             "stock": stock,
-            "image": image if image else "/static/images/products/pamant-de-flori-universal-plantasol-5l.png",
+            "image": image if image else "/static/images/products/pamant-de-flori-universal-plantasol-5l.webp",
             "description": description,
             "featured": featured,
             "rating": 5.0,
@@ -1301,9 +1694,9 @@ def admin_save_product():
             "default_size": variations[0]['size']
         }
         products.insert(0, new_prod)
-        
+
     save_products(products)
-    return jsonify({"success": True, "message": "Produsul a fost salvat cu succes!"})
+    return jsonify({"success": True, "message": "Produsul a fost salvat cu succes (prețuri brute recalculate automat)!"})
 
 @app.route('/admin/api/product/delete/<int:product_id>', methods=['POST'])
 def admin_delete_product(product_id):
@@ -1429,17 +1822,27 @@ def admin_export_price_csv():
     output = StringIO()
     output.write('\ufeff')  # UTF-8 BOM for Romanian Excel
     writer = csv.writer(output, delimiter=';')
-    writer.writerow(["cod_intern", "denumire_produs", "marime", "pret_ron"])
+    writer.writerow(["cod_intern", "denumire_produs", "marime", "pret_net_ron", "cota_tva", "pret_brut_ron"])
 
     for p in products:
-        vars_list = p.get('variations') or [{"size": "Standard", "price": p.get('price', 0.0), "sku": f"TD-{p['id']}"}]
+        cota = p.get('cota_tva', default_tva_for_category(p.get('category', '')))
+        vars_list = p.get('variations') or [{
+            "size": "Standard",
+            "pret_net": p.get('pret_net', p.get('price', 0.0)),
+            "pret_brut": p.get('pret_brut', p.get('price', 0.0)),
+            "sku": f"TD-{p['id']}"
+        }]
         for v in vars_list:
             code = v.get('internal_code') or v.get('sku') or f"TD-{p['id']}"
+            v_net = float(v.get('pret_net', v.get('price', 0.0)))
+            v_brut = float(v.get('pret_brut', v.get('price', 0.0)))
             writer.writerow([
                 code,
                 p.get('name', ''),
                 v.get('size', 'Standard'),
-                f"{float(v.get('price', 0.0)):.2f}"
+                f"{v_net:.2f}",
+                cota,
+                f"{v_brut:.2f}"
             ])
 
     output.seek(0)
@@ -1493,17 +1896,20 @@ def admin_import_prices_csv():
 
     code_col = None
     price_col = None
+    tva_col = None
     for col in reader.fieldnames:
         nc = normalize_col(col)
         if code_col is None and any(k in nc for k in ('cod_intern', 'cod intern', 'cod_produs', 'cod produs', 'cod', 'sku')):
             code_col = col
-        if price_col is None and any(k in nc for k in ('pret_ron', 'pret_nou', 'pret nou', 'pret lista', 'pret/buc', 'pret', 'price')):
+        if price_col is None and any(k in nc for k in ('pret_net', 'pret net', 'pret_ron', 'pret_nou', 'pret nou', 'pret lista', 'pret/buc', 'pret', 'price')) and 'brut' not in nc:
             price_col = col
+        if tva_col is None and any(k in nc for k in ('cota_tva', 'cota tva', 'tva', 'vat')):
+            tva_col = col
 
     if not code_col or not price_col:
         return jsonify({
             "success": False,
-            "message": f"Nu am găsit coloanele necesare (cod_intern și pret_ron). Coloane detectate: {', '.join(reader.fieldnames)}"
+            "message": f"Nu am găsit coloanele necesare (cod_intern și pret_net_ron / pret_ron). Coloane detectate: {', '.join(reader.fieldnames)}"
         }), 400
 
     products = load_products()
@@ -1530,12 +1936,22 @@ def admin_import_prices_csv():
         if not raw_code or not raw_price:
             continue
 
-        # Parse Romanian/English price formats (e.g. "15,50 RON" -> 15.50)
+        # Parse net price (e.g. "15,50 RON" -> 15.50)
         cleaned_price = re.sub(r'[^0-9.,]', '', raw_price).replace(',', '.')
         try:
-            new_price = round(float(cleaned_price), 2)
+            new_net_in = float(cleaned_price)
         except ValueError:
             continue
+
+        csv_tva = None
+        if tva_col and row.get(tva_col):
+            cleaned_tva = re.sub(r'[^0-9.,]', '', str(row.get(tva_col))).replace(',', '.')
+            try:
+                tva_f = float(cleaned_tva)
+                if 0 <= tva_f <= 100:
+                    csv_tva = int(tva_f) if tva_f.is_integer() else round(tva_f, 2)
+            except ValueError:
+                csv_tva = None
 
         key = raw_code.lower()
         matches = code_map.get(key)
@@ -1544,8 +1960,15 @@ def admin_import_prices_csv():
             continue
 
         for prod, var in matches:
-            old_price = var.get('price', 0.0)
-            var['price'] = new_price
+            old_net = var.get('pret_net', var.get('price', 0.0))
+            old_brut = var.get('pret_brut', var.get('price', 0.0))
+            cota_tva = csv_tva if csv_tva is not None else prod.get('cota_tva', default_tva_for_category(prod.get('category', '')))
+            prod['cota_tva'] = cota_tva
+            new_net, new_brut = calc_gross_from_net(new_net_in, cota_tva)
+            var['pret_net'] = new_net
+            var['cota_tva'] = cota_tva
+            var['pret_brut'] = new_brut
+            var['price'] = new_brut
             touched_products.add(prod['id'])
             updated_count += 1
             if len(updated_items) < 30:
@@ -1553,14 +1976,19 @@ def admin_import_prices_csv():
                     "code": raw_code,
                     "product": prod['name'],
                     "size": var.get('size', 'Standard'),
-                    "old_price": old_price,
-                    "new_price": new_price
+                    "cota_tva": cota_tva,
+                    "old_net": old_net,
+                    "new_net": new_net,
+                    "old_price": old_brut,
+                    "new_price": new_brut
                 })
 
-    # Recalculate base product price for all touched products
+    # Recalculate base product net/gross prices for all touched products
     for p in products:
         if p['id'] in touched_products and p.get('variations'):
-            p['price'] = min(v['price'] for v in p['variations'])
+            p['pret_net'] = min(v.get('pret_net', v.get('price', 0.0)) for v in p['variations'])
+            p['pret_brut'] = min(v.get('pret_brut', v.get('price', 0.0)) for v in p['variations'])
+            p['price'] = p['pret_brut']
 
     if updated_count > 0:
         save_products(products)
@@ -1571,7 +1999,7 @@ def admin_import_prices_csv():
         "updated_items": updated_items,
         "not_found_codes": not_found_codes[:50],
         "not_found_total": len(not_found_codes),
-        "message": f"Actualizare finalizată: {updated_count} prețuri actualizate cu succes!"
+        "message": f"Actualizare finalizată: {updated_count} prețuri nete importate și recalculate în brut (TVA inclus)!"
     })
 
 

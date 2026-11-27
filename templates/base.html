@@ -161,8 +161,11 @@
                 <i class="fa-solid fa-circle-check"></i> Transport GRATUIT la comenzi peste 150 RON!
             </div>
             <div class="cart-summary-line total-line">
-                <span>Total estimat:</span>
+                <span>Total de plată (TVA inclus):</span>
                 <span class="total-val" id="cartTotal">0.00 RON</span>
+            </div>
+            <div id="cartTvaBreakdown" style="font-size: 0.78rem; color: #64748b; text-align: right; margin-top: -6px; margin-bottom: 10px;">
+                din care TVA: 0.00 RON
             </div>
             <button class="checkout-btn" id="openCheckoutModalBtn">
                 <i class="fa-solid fa-credit-card"></i> Finalizează Comanda
@@ -226,8 +229,11 @@
 
                 <div class="checkout-order-summary">
                     <div class="summary-row">
-                        <span>Total de plată cu livrare inclusă:</span>
-                        <strong id="modalCheckoutTotal">0.00 RON + TVA</strong>
+                        <span>Total de plată (TVA inclus):</span>
+                        <strong id="modalCheckoutTotal">0.00 RON</strong>
+                    </div>
+                    <div id="checkoutTvaBreakdown" style="font-size: 0.78rem; color: #64748b; text-align: right; margin-top: 4px;">
+                        din care TVA: 0.00 RON
                     </div>
                 </div>
 
@@ -281,8 +287,8 @@
 
                     <!-- Dynamic Price Wrap -->
                     <div class="quick-view-price-wrap">
-                        <div class="price-label-small">Preț unitar:</div>
-                        <span class="quick-view-price" id="modalProdPrice">0.00 RON + TVA</span>
+                        <div class="price-label-small">Preț unitar (TVA inclus):</div>
+                        <span class="quick-view-price" id="modalProdPrice">0.00 RON</span>
                     </div>
 
                     <div class="quick-view-desc-wrap">

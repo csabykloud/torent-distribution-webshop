@@ -9,5 +9,9 @@
   "smtp_port": 587,
   "smtp_user": "",
   "smtp_password": "",
-  "smtp_use_tls": true
+  "smtp_use_tls": true,
+  "tva_rates": [
+    11,
+    21
+  ]
 }

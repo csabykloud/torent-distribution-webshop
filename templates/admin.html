@@ -569,7 +569,10 @@
                 <div class="panel-card">
                     <div class="panel-card-header">
                         <h3><i class="fa-solid fa-list-check"></i> Catalog Produse</h3>
-                        <div style="display: flex; gap: 10px;">
+                        <div style="display: flex; gap: 10px; flex-wrap: wrap; align-items: center;">
+                            <button type="button" class="btn-action" onclick="addNewTvaRate()" style="background: #ecfdf5; color: #065f46; border: 1px solid #6ee7b7; padding: 8px 12px;">
+                                <i class="fa-solid fa-percent"></i> Adaugă cotă nouă de TVA
+                            </button>
                             <input type="text" id="adminProductSearch" placeholder="Caută produs sau cod..." style="padding: 8px 12px; border: 1px solid var(--admin-border); border-radius: 8px; font-size: 0.9rem;">
                             <select id="adminCategoryFilter" style="padding: 8px 12px; border: 1px solid var(--admin-border); border-radius: 8px; font-size: 0.9rem;">
                                 <option value="ALL">Toate Categoriile</option>
@@ -579,23 +582,29 @@
                             </select>
                         </div>
                     </div>
+                    <script>window.ADMIN_TVA_RATES = {{ tva_rates | tojson }};</script>
                     <div class="table-responsive">
                         <table class="admin-table" id="adminProductsTable">
                             <thead>
                                 <tr>
-                                    <th width="85">Activ</th>
-                                    <th width="70">Poză</th>
+                                    <th width="80">Activ</th>
+                                    <th width="65">Poză</th>
                                     <th>Denumire Produs</th>
-                                    <th>Categorie & Marcă</th>
-                                    <th>Ambalaje / Kiszerelés</th>
-                                    <th>Preț (RON + TVA)</th>
+                                    <th>Categorie &amp; Marcă</th>
+                                    <th>Ambalaje (Net &rarr; Brut)</th>
+                                    <th>Preț Net</th>
+                                    <th width="95">TVA %</th>
+                                    <th>Preț Brut (TVA incl.)</th>
                                     <th>Stoc</th>
-                                    <th width="140">Acțiuni</th>
+                                    <th width="135">Acțiuni</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for p in products %}
                                 {% set is_prod_active = p.get('active', True) %}
+                                {% set p_tva = p.get('cota_tva', 11 if p.category == 'Ingrasaminte' else 21) %}
+                                {% set p_net = p.get('pret_net', p.price) %}
+                                {% set p_brut = p.get('pret_brut', p.price) %}
                                 <tr data-id="{{ p.id }}" data-category="{{ p.category }}" data-name="{{ p.name | lower }}" style="{{ '' if is_prod_active else 'opacity: 0.58; background: #f8fafc;' }}">
                                     <td>
                                         <label style="display: inline-flex; align-items: center; gap: 6px; cursor: pointer;">
@@ -609,7 +618,7 @@
                                         </label>
                                     </td>
                                     <td>
-                                        <img src="{{ p.image }}" alt="{{ p.name }}" class="prod-thumb" onerror="this.src='/static/images/products/pamant-de-flori-universal-plantasol-5l.png'">
+                                        <img src="{{ p.image }}" alt="{{ p.name }}" class="prod-thumb" onerror="this.src='/static/images/products/pamant-de-flori-universal-plantasol-5l.webp'">
                                     </td>
                                     <td>
                                         <strong>{{ p.name }}</strong>
@@ -619,11 +628,11 @@
                                         <span class="prod-cat-badge badge-{{ p.category | lower | replace(' ', '-') }}">{{ p.category }}</span>
                                         {% if p.subcategory %}<br><span class="prod-brand-badge" style="margin-top: 4px; display: inline-block;">{{ p.subcategory }}</span>{% endif %}
                                     </td>
-                                    <td>
+                                    <td class="admin-vars-cell">
                                         {% if p.variations %}
                                             {% for v in p.variations %}
                                             <span class="var-badge" style="margin: 2px; display: inline-block;">
-                                                <strong>{{ v.size }}</strong>: {{ "%.2f"|format(v.price) }} + TVA
+                                                <strong>{{ v.size }}</strong>: {{ "%.2f"|format(v.get('pret_net', v.price)) }} &rarr; <strong style="color:#065f46;">{{ "%.2f"|format(v.get('pret_brut', v.price)) }} RON</strong>
                                                 {% if v.internal_code %}
                                                 <small style="color: #0369a1; font-weight: 700;">[Cod: {{ v.internal_code }}]</small>
                                                 {% elif v.sku %}
@@ -635,7 +644,16 @@
                                             <span style="color: #64748b; font-size: 0.85rem;">Standard</span>
                                         {% endif %}
                                     </td>
-                                    <td><strong>{{ "%.2f"|format(p.price) }} + TVA</strong></td>
+                                    <td class="admin-net-cell" style="white-space: nowrap; color: #475569;">{{ "%.2f"|format(p_net) }} RON</td>
+                                    <td>
+                                        <select class="admin-tva-select" data-product-id="{{ p.id }}" onchange="updateProductTva({{ p.id }}, this)"
+                                                style="padding: 5px 8px; border-radius: 7px; border: 1.5px solid #cbd5e1; font-weight: 700; font-size: 0.84rem; background: #ffffff; cursor: pointer;">
+                                            {% for r in tva_rates %}
+                                            <option value="{{ r }}" {% if r == p_tva %}selected{% endif %}>{{ r }}%</option>
+                                            {% endfor %}
+                                        </select>
+                                    </td>
+                                    <td class="admin-brut-cell" style="white-space: nowrap;"><strong style="color: #065f46;">{{ "%.2f"|format(p_brut) }} RON</strong></td>
                                     <td>{{ p.stock }} buc</td>
                                     <td>
                                         <button class="btn-action btn-edit" onclick='editProduct({{ p | tojson }})'>
@@ -746,7 +764,7 @@
                                             {% endfor %}
                                         </ul>
                                     </td>
-                                    <td><strong style="color: #059669;">{{ "%.2f"|format(o.total) }} RON + TVA</strong></td>
+                                    <td><strong style="color: #059669;">{{ "%.2f"|format(o.total) }} RON (TVA inclus)</strong></td>
                                     <td><span style="font-size: 0.8rem; background: #e2e8f0; padding: 3px 8px; border-radius: 4px;">{{ o.payment_method }}</span></td>
                                     <td>
                                         <select class="order-status-select"
@@ -812,9 +830,9 @@
                     </div>
                     <div class="panel-card-body">
                         <p style="color: #475569; margin-top: 0; line-height: 1.6;">
-                            Încarcă un fișier <strong>CSV</strong> (exportat din Excel cu virgulă <code>,</code> sau punct și virgulă <code>;</code>) care conține cel puțin coloanele
-                            <code>cod_intern</code> (Cod intern produs) și <code>pret_ron</code> (Preț nou + TVA).
-                            Sistemul va lega automat fiecare rând cu mărimea corespunzătoare de pe site și va actualiza toate prețurile instant.
+                            Încarcă un fișier <strong>CSV</strong> (exportat din Excel cu virgulă <code>,</code> sau punct și virgulă <code>;</code>) care conține coloanele
+                            <code>cod_intern</code> (Cod intern produs) și <code>pret_net_ron</code> / <code>pret_ron</code> (<strong>Preț NET fără TVA</strong>), plus opțional coloana <code>cota_tva</code>.
+                            Sistemul păstrează cota de TVA a fiecărui produs și <strong>recalculează automat prețul brut (TVA inclus, rotunjit în sus la .50 / .00)</strong> pentru magazinul B2C.
                         </p>
 
                         <div style="display: flex; align-items: center; gap: 14px; flex-wrap: wrap; background: #f8fafc; border: 2px dashed #059669; border-radius: 12px; padding: 24px; margin: 18px 0;">
@@ -864,7 +882,7 @@
                                         {% if c.email %}<i class="fa-solid fa-envelope" style="color: #0284c7;"></i> {{ c.email }}{% endif %}
                                     </td>
                                     <td>{{ c.county }}, {{ c.city }}<br><small style="color: #64748b;">{{ c.address }}</small></td>
-                                    <td><strong>{{ c.orders_count }} comenzi</strong><br><span style="color: #059669; font-weight: 700;">{{ "%.2f"|format(c.total_spent) }} RON + TVA</span></td>
+                                    <td><strong>{{ c.orders_count }} comenzi</strong><br><span style="color: #059669; font-weight: 700;">{{ "%.2f"|format(c.total_spent) }} RON (TVA incl.)</span></td>
                                     <td>
                                         <span style="background: #dcfce7; color: #166534; padding: 3px 8px; border-radius: 6px; font-size: 0.78rem; font-weight: 700;">
                                             <i class="fa-solid fa-shield-check"></i> Acceptat
@@ -1066,7 +1084,7 @@
                 <div class="form-row">
                     <div class="form-group">
                         <label for="prodCategory">Categorie Principală *</label>
-                        <select id="prodCategory" name="category" required onchange="updateSubcatOptions()">
+                        <select id="prodCategory" name="category" required onchange="updateSubcatOptions(); autoSuggestTvaByCategory();">
                             {% for c in categories_list %}
                             <option value="{{ c.key }}">{{ c.display_name }}</option>
                             {% endfor %}
@@ -1076,6 +1094,20 @@
                         <label for="prodSubcategory">Subcategorie / Tip</label>
                         <input type="text" id="prodSubcategory" name="subcategory" placeholder="ex: Florasol, Humiflor, Nutrisol, Plantasol, Florimo">
                     </div>
+                </div>
+
+                <div class="form-group" style="display: flex; align-items: flex-end; gap: 12px; flex-wrap: wrap;">
+                    <div style="flex: 1; min-width: 180px;">
+                        <label for="prodCotaTva">Cotă TVA produs (%) *</label>
+                        <select id="prodCotaTva" name="cota_tva" onchange="refreshVariationBrutPreviews()" style="width: 100%; padding: 9px 12px; border: 1.5px solid #059669; border-radius: 8px; font-weight: 700;">
+                            {% for r in tva_rates %}
+                            <option value="{{ r }}">{{ r }}%</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <button type="button" class="btn-action" onclick="addNewTvaRate()" style="background: #ecfdf5; color: #065f46; border: 1px solid #6ee7b7; padding: 10px 14px;">
+                        <i class="fa-solid fa-plus"></i> Adaugă cotă nouă de TVA
+                    </button>
                 </div>
 
                 <!-- Dynamic Packaging Sizes, Prices & Internal Product Codes -->

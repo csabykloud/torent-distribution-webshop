@@ -4,7 +4,7 @@
     "name": "Nutrisol Solutie Protectie impotriva bolilor",
     "category": "Produse de Ingrijire plante",
     "subcategory": "",
-    "price": 11.0,
+    "price": 13.5,
     "stock": 25,
     "image": "/static/images/products/Nutrisol_Solutie_Protectie_impotriva_bolilor.webp",
     "description": "",
@@ -14,21 +14,27 @@
     "variations": [
       {
         "size": "0.5L",
-        "price": 11.0,
+        "price": 13.5,
         "stock": 25,
         "sku": "TD-100-1",
-        "internal_code": "30350"
+        "internal_code": "30350",
+        "pret_net": 11.0,
+        "cota_tva": 21,
+        "pret_brut": 13.5
       }
     ],
     "default_size": "0.5L",
-    "short_description": "Soluție practică de 0.5L cu pulverizator pentru prevenirea și combaterea bolilor comune ale plantelor. Acțiune rapidă în ghiveci și grădină."
+    "short_description": "Soluție practică de 0.5L cu pulverizator pentru prevenirea și combaterea bolilor comune ale plantelor. Acțiune rapidă în ghiveci și grădină.",
+    "cota_tva": 21,
+    "pret_net": 11.0,
+    "pret_brut": 13.5
   },
   {
     "id": 142,
     "name": "Nutrisol Solutie Completa pt Protectia Plantelor",
     "category": "Produse de Ingrijire plante",
     "subcategory": "",
-    "price": 11.0,
+    "price": 13.5,
     "stock": 25,
     "image": "/static/images/products/Nutrisol_Solutie_Completa_pt_Protectia_Plantelor.webp",
     "description": "",
@@ -38,21 +44,27 @@
     "variations": [
       {
         "size": "0.5L",
-        "price": 11.0,
+        "price": 13.5,
         "stock": 25,
         "sku": "TD-100-1",
-        "internal_code": "30450"
+        "internal_code": "30450",
+        "pret_net": 11.0,
+        "cota_tva": 21,
+        "pret_brut": 13.5
       }
     ],
     "default_size": "0.5L",
-    "short_description": "Spray complet de 0.5L pentru protecția zilnică a plantelor împotriva factorilor de stres. Gata preparat pentru aplicare imediată pe frunze."
+    "short_description": "Spray complet de 0.5L pentru protecția zilnică a plantelor împotriva factorilor de stres. Gata preparat pentru aplicare imediată pe frunze.",
+    "cota_tva": 21,
+    "pret_net": 11.0,
+    "pret_brut": 13.5
   },
   {
     "id": 141,
     "name": "Florimo pentru Trandafiri",
     "category": "Pamant de Flori",
     "subcategory": "Florimo",
-    "price": 18.13,
+    "price": 22.0,
     "stock": 25,
     "image": "/static/images/products/Florimo_Trandafiri_20L.webp",
     "description": "",
@@ -62,21 +74,27 @@
     "variations": [
       {
         "size": "20L",
-        "price": 18.13,
+        "price": 22.0,
         "stock": 25,
         "sku": "TD-100-1",
-        "internal_code": "20520"
+        "internal_code": "20520",
+        "pret_net": 18.13,
+        "cota_tva": 21,
+        "pret_brut": 22.0
       }
     ],
     "default_size": "20L",
-    "short_description": "Pământ special de 20L pentru trandafiri de grădină și ghiveci, stimulează înrădăcinarea profundă și formarea bobocilor parfumați."
+    "short_description": "Pământ special de 20L pentru trandafiri de grădină și ghiveci, stimulează înrădăcinarea profundă și formarea bobocilor parfumați.",
+    "cota_tva": 21,
+    "pret_net": 18.13,
+    "pret_brut": 22.0
   },
   {
     "id": 140,
     "name": "Florimo pentru răsaduri",
     "category": "Pamant de Flori",
     "subcategory": "Florimo",
-    "price": 18.12,
+    "price": 22.0,
     "stock": 50,
     "image": "/static/images/products/Florimo_Rasaduri_50L.webp",
     "description": "",
@@ -86,21 +104,30 @@
     "variations": [
       {
         "size": "20L",
-        "price": 18.12,
+        "price": 22.0,
         "stock": 25,
         "sku": "TD-100-1",
-        "internal_code": "21620"
+        "internal_code": "21620",
+        "pret_net": 18.12,
+        "cota_tva": 21,
+        "pret_brut": 22.0
       },
       {
         "size": "50L",
-        "price": 24.82,
+        "price": 30.5,
         "stock": 25,
         "sku": "TD-100-2",
-        "internal_code": "21650"
+        "internal_code": "21650",
+        "pret_net": 24.82,
+        "cota_tva": 21,
+        "pret_brut": 30.5
       }
     ],
     "default_size": "20L",
-    "short_description": "Substrat fin, cernut uniform pentru germinare sigură și răsaduri viguroase de legume sau flori. Disponibil în saci de 20L și 50L."
+    "short_description": "Substrat fin, cernut uniform pentru germinare sigură și răsaduri viguroase de legume sau flori. Disponibil în saci de 20L și 50L.",
+    "cota_tva": 21,
+    "pret_net": 18.12,
+    "pret_brut": 22.0
   },
   {
     "name": "Pământ de flori universal Plantasol",
@@ -114,35 +141,50 @@
     "variations": [
       {
         "size": "5L",
-        "price": 2.53,
+        "price": 3.5,
         "stock": 60,
-        "sku": "PL-UNI-5L"
+        "sku": "PL-UNI-5L",
+        "pret_net": 2.53,
+        "cota_tva": 21,
+        "pret_brut": 3.5
       },
       {
         "size": "10L",
-        "price": 4.76,
+        "price": 6.0,
         "stock": 55,
-        "sku": "PL-UNI-10L"
+        "sku": "PL-UNI-10L",
+        "pret_net": 4.76,
+        "cota_tva": 21,
+        "pret_brut": 6.0
       },
       {
         "size": "20L",
-        "price": 8.7,
+        "price": 11.0,
         "stock": 50,
-        "sku": "PL-UNI-20L"
+        "sku": "PL-UNI-20L",
+        "pret_net": 8.7,
+        "cota_tva": 21,
+        "pret_brut": 11.0
       },
       {
         "size": "50L",
-        "price": 18.98,
+        "price": 23.0,
         "stock": 40,
-        "sku": "PL-UNI-50L"
+        "sku": "PL-UNI-50L",
+        "pret_net": 18.98,
+        "cota_tva": 21,
+        "pret_brut": 23.0
       }
     ],
     "id": 1,
     "default_size": "5L",
-    "price": 2.53,
+    "price": 3.5,
     "stock": 205,
     "active": true,
-    "short_description": "Substrat universal echilibrat pentru transplantări rapide în ghiveci și grădină. Disponibil în saci de 5L, 10L, 20L și 50L pentru orice proiect."
+    "short_description": "Substrat universal echilibrat pentru transplantări rapide în ghiveci și grădină. Disponibil în saci de 5L, 10L, 20L și 50L pentru orice proiect.",
+    "cota_tva": 21,
+    "pret_net": 2.53,
+    "pret_brut": 3.5
   },
   {
     "name": "Pământ de flori universal Florasol",
@@ -156,34 +198,49 @@
     "variations": [
       {
         "size": "5L",
-        "price": 4.64,
+        "price": 6.0,
         "stock": 45,
-        "sku": "FL-UNI-5L"
+        "sku": "FL-UNI-5L",
+        "pret_net": 4.64,
+        "cota_tva": 21,
+        "pret_brut": 6.0
       },
       {
         "size": "10L",
-        "price": 7.97,
+        "price": 10.0,
         "stock": 40,
-        "sku": "FL-UNI-10L"
+        "sku": "FL-UNI-10L",
+        "pret_net": 7.97,
+        "cota_tva": 21,
+        "pret_brut": 10.0
       },
       {
         "size": "20L",
-        "price": 13.84,
+        "price": 17.0,
         "stock": 35,
-        "sku": "FL-UNI-20L"
+        "sku": "FL-UNI-20L",
+        "pret_net": 13.84,
+        "cota_tva": 21,
+        "pret_brut": 17.0
       },
       {
         "size": "40L",
-        "price": 23.75,
+        "price": 29.0,
         "stock": 30,
-        "sku": "FL-UNI-40L"
+        "sku": "FL-UNI-40L",
+        "pret_net": 23.75,
+        "cota_tva": 21,
+        "pret_brut": 29.0
       }
     ],
     "id": 2,
     "default_size": "5L",
-    "price": 4.64,
+    "price": 6.0,
     "stock": 150,
-    "short_description": "Amestec nutritiv aerat, gata de utilizare pentru flori de apartament și terasă. Alege rapid sacul potrivit: 5L, 10L, 20L sau 40L."
+    "short_description": "Amestec nutritiv aerat, gata de utilizare pentru flori de apartament și terasă. Alege rapid sacul potrivit: 5L, 10L, 20L sau 40L.",
+    "cota_tva": 21,
+    "pret_net": 4.64,
+    "pret_brut": 6.0
   },
   {
     "name": "Pământ de flori universal Humiflor",
@@ -197,16 +254,22 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 2.81,
+        "price": 3.5,
         "stock": 25,
-        "sku": "TD-3"
+        "sku": "TD-3",
+        "pret_net": 2.81,
+        "cota_tva": 21,
+        "pret_brut": 3.5
       }
     ],
     "id": 3,
     "default_size": "Standard",
-    "price": 2.81,
+    "price": 3.5,
     "stock": 25,
-    "short_description": "Pământ universal bogat în humus, conceput pentru înrădăcinare rapidă și drenaj curat. Soluția practică pentru replantările sezoniere."
+    "short_description": "Pământ universal bogat în humus, conceput pentru înrădăcinare rapidă și drenaj curat. Soluția practică pentru replantările sezoniere.",
+    "cota_tva": 21,
+    "pret_net": 2.81,
+    "pret_brut": 3.5
   },
   {
     "name": "Substrat de orhidee Humiflor",
@@ -220,15 +283,21 @@
     "variations": [
       {
         "size": "5L",
-        "price": 11.1,
+        "price": 13.5,
         "stock": 40,
-        "sku": "HU-ORH-5L"
+        "sku": "HU-ORH-5L",
+        "pret_net": 11.1,
+        "cota_tva": 21,
+        "pret_brut": 13.5
       }
     ],
     "id": 4,
     "default_size": "5L",
-    "price": 11.1,
-    "short_description": "Amestec aerisit cu scoarță selectată, creat special pentru rădăcinile sensibile ale orhideelor. Sac de 5L gata pentru replantare imediată."
+    "price": 13.5,
+    "short_description": "Amestec aerisit cu scoarță selectată, creat special pentru rădăcinile sensibile ale orhideelor. Sac de 5L gata pentru replantare imediată.",
+    "cota_tva": 21,
+    "pret_net": 11.1,
+    "pret_brut": 13.5
   },
   {
     "name": "Nutrisol pământ de flori pentru plante de cameră",
@@ -242,15 +311,21 @@
     "variations": [
       {
         "size": "10L",
-        "price": 5.53,
+        "price": 7.0,
         "stock": 55,
-        "sku": "NU-CAM-10L"
+        "sku": "NU-CAM-10L",
+        "pret_net": 5.53,
+        "cota_tva": 21,
+        "pret_brut": 7.0
       }
     ],
     "id": 5,
     "default_size": "10L",
-    "price": 5.53,
-    "short_description": "Substrat fin de 10L formulat pentru plantele de apartament, reține umiditatea fără băltire și susține frunzișul verde tot anul."
+    "price": 7.0,
+    "short_description": "Substrat fin de 10L formulat pentru plantele de apartament, reține umiditatea fără băltire și susține frunzișul verde tot anul.",
+    "cota_tva": 21,
+    "pret_net": 5.53,
+    "pret_brut": 7.0
   },
   {
     "name": "Nutrisol pământ pentru plante de grădină și straturi înălțate",
@@ -264,15 +339,21 @@
     "variations": [
       {
         "size": "20L",
-        "price": 10.3,
+        "price": 12.5,
         "stock": 45,
-        "sku": "NU-INA-20L"
+        "sku": "NU-INA-20L",
+        "pret_net": 10.3,
+        "cota_tva": 21,
+        "pret_brut": 12.5
       }
     ],
     "id": 6,
     "default_size": "20L",
-    "price": 10.3,
-    "short_description": "Pământ fertil de 20L ideal pentru straturi înălțate, jardiniere și ronduri de grădină. Oferă structură stabilă și pornire rapidă în vegetație."
+    "price": 12.5,
+    "short_description": "Pământ fertil de 20L ideal pentru straturi înălțate, jardiniere și ronduri de grădină. Oferă structură stabilă și pornire rapidă în vegetație.",
+    "cota_tva": 21,
+    "pret_net": 10.3,
+    "pret_brut": 12.5
   },
   {
     "name": "Nutrisol pământ de flori pentru mușcate și plante de balcon",
@@ -286,21 +367,30 @@
     "variations": [
       {
         "size": "20L",
-        "price": 10.15,
+        "price": 12.5,
         "stock": 50,
-        "sku": "NU-BAL-20L"
+        "sku": "NU-BAL-20L",
+        "pret_net": 10.15,
+        "cota_tva": 21,
+        "pret_brut": 12.5
       },
       {
         "size": "50L",
-        "price": 22.58,
+        "price": 27.5,
         "stock": 35,
-        "sku": "NU-BAL-50L"
+        "sku": "NU-BAL-50L",
+        "pret_net": 22.58,
+        "cota_tva": 21,
+        "pret_brut": 27.5
       }
     ],
     "id": 7,
     "default_size": "20L",
-    "price": 10.15,
-    "short_description": "Substrat bogat în nutrienți pentru mușcate și flori de balcon cu înflorire continuă. Comandă ușor în saci practici de 20L sau 50L."
+    "price": 12.5,
+    "short_description": "Substrat bogat în nutrienți pentru mușcate și flori de balcon cu înflorire continuă. Comandă ușor în saci practici de 20L sau 50L.",
+    "cota_tva": 21,
+    "pret_net": 10.15,
+    "pret_brut": 12.5
   },
   {
     "name": "Florimo Universal",
@@ -314,33 +404,48 @@
     "variations": [
       {
         "size": "3L",
-        "price": 4.2,
+        "price": 5.5,
         "stock": 40,
-        "sku": "FO-UNI-3L"
+        "sku": "FO-UNI-3L",
+        "pret_net": 4.2,
+        "cota_tva": 21,
+        "pret_brut": 5.5
       },
       {
         "size": "10L",
-        "price": 8.5,
+        "price": 10.5,
         "stock": 45,
-        "sku": "FO-UNI-10L"
+        "sku": "FO-UNI-10L",
+        "pret_net": 8.5,
+        "cota_tva": 21,
+        "pret_brut": 10.5
       },
       {
         "size": "20L",
-        "price": 15.5,
+        "price": 19.0,
         "stock": 40,
-        "sku": "FO-UNI-20L"
+        "sku": "FO-UNI-20L",
+        "pret_net": 15.5,
+        "cota_tva": 21,
+        "pret_brut": 19.0
       },
       {
         "size": "50L",
-        "price": 32.0,
+        "price": 39.0,
         "stock": 35,
-        "sku": "FO-UNI-50L"
+        "sku": "FO-UNI-50L",
+        "pret_net": 32.0,
+        "cota_tva": 21,
+        "pret_brut": 39.0
       }
     ],
     "id": 8,
     "default_size": "3L",
-    "price": 4.2,
-    "short_description": "Amestec universal Florimo cu drenaj sigur pentru plante ornamentale de interior și exterior. Disponibil în variante de 3L, 10L, 20L și 50L."
+    "price": 5.5,
+    "short_description": "Amestec universal Florimo cu drenaj sigur pentru plante ornamentale de interior și exterior. Disponibil în variante de 3L, 10L, 20L și 50L.",
+    "cota_tva": 21,
+    "pret_net": 4.2,
+    "pret_brut": 5.5
   },
   {
     "name": "Florimo Acidulos",
@@ -354,28 +459,40 @@
     "variations": [
       {
         "size": "3L",
-        "price": 4.9,
+        "price": 6.0,
         "stock": 30,
-        "sku": "FO-ACI-3L"
+        "sku": "FO-ACI-3L",
+        "pret_net": 4.9,
+        "cota_tva": 21,
+        "pret_brut": 6.0
       },
       {
         "size": "10L",
-        "price": 9.8,
+        "price": 12.0,
         "stock": 35,
-        "sku": "FO-ACI-10L"
+        "sku": "FO-ACI-10L",
+        "pret_net": 9.8,
+        "cota_tva": 21,
+        "pret_brut": 12.0
       },
       {
         "size": "20L",
-        "price": 18.0,
+        "price": 22.0,
         "stock": 30,
-        "sku": "FO-ACI-20L"
+        "sku": "FO-ACI-20L",
+        "pret_net": 18.0,
+        "cota_tva": 21,
+        "pret_brut": 22.0
       }
     ],
     "id": 9,
     "default_size": "3L",
-    "price": 4.9,
+    "price": 6.0,
     "stock": 25,
-    "short_description": "Substrat cu pH acid optimizat pentru hortensii, azalee, rododendroni și afini. Disponibil în saci de 3L, 10L și 20L, gata de plantare."
+    "short_description": "Substrat cu pH acid optimizat pentru hortensii, azalee, rododendroni și afini. Disponibil în saci de 3L, 10L și 20L, gata de plantare.",
+    "cota_tva": 21,
+    "pret_net": 4.9,
+    "pret_brut": 6.0
   },
   {
     "name": "Florimo pentru mușcate și plante de balcon",
@@ -389,28 +506,40 @@
     "variations": [
       {
         "size": "10L",
-        "price": 9.0,
+        "price": 11.0,
         "stock": 40,
-        "sku": "FO-MUS-10L"
+        "sku": "FO-MUS-10L",
+        "pret_net": 9.0,
+        "cota_tva": 21,
+        "pret_brut": 11.0
       },
       {
         "size": "20L",
-        "price": 16.0,
+        "price": 19.5,
         "stock": 35,
-        "sku": "FO-MUS-20L"
+        "sku": "FO-MUS-20L",
+        "pret_net": 16.0,
+        "cota_tva": 21,
+        "pret_brut": 19.5
       },
       {
         "size": "50L",
-        "price": 34.0,
+        "price": 41.5,
         "stock": 25,
-        "sku": "FO-MUS-50L"
+        "sku": "FO-MUS-50L",
+        "pret_net": 34.0,
+        "cota_tva": 21,
+        "pret_brut": 41.5
       }
     ],
     "id": 10,
     "default_size": "10L",
-    "price": 9.0,
+    "price": 11.0,
     "stock": 100,
-    "short_description": "Formulă bogată în argilă și nutrienți pentru mușcate rezistente la soare pe balcon și terasă. Variante avantajoase de 10L, 20L și 50L."
+    "short_description": "Formulă bogată în argilă și nutrienți pentru mușcate rezistente la soare pe balcon și terasă. Variante avantajoase de 10L, 20L și 50L.",
+    "cota_tva": 21,
+    "pret_net": 9.0,
+    "pret_brut": 11.0
   },
   {
     "name": "Florimo pentru conifere",
@@ -424,22 +553,31 @@
     "variations": [
       {
         "size": "20L",
-        "price": 18.0,
+        "price": 22.0,
         "stock": 35,
-        "sku": "FO-CON-20L"
+        "sku": "FO-CON-20L",
+        "pret_net": 18.0,
+        "cota_tva": 21,
+        "pret_brut": 22.0
       },
       {
         "size": "50L",
-        "price": 36.0,
+        "price": 44.0,
         "stock": 30,
-        "sku": "FO-CON-50L"
+        "sku": "FO-CON-50L",
+        "pret_net": 36.0,
+        "cota_tva": 21,
+        "pret_brut": 44.0
       }
     ],
     "id": 11,
     "default_size": "20L",
-    "price": 18.0,
+    "price": 22.0,
     "stock": 65,
-    "short_description": "Substrat dedicat tujelor, pinilor și arbuștilor veșnic verzi, previne îngălbenirea acelor. Disponibil în saci economici de 20L și 50L."
+    "short_description": "Substrat dedicat tujelor, pinilor și arbuștilor veșnic verzi, previne îngălbenirea acelor. Disponibil în saci economici de 20L și 50L.",
+    "cota_tva": 21,
+    "pret_net": 18.0,
+    "pret_brut": 22.0
   },
   {
     "name": "Florimo pentru orchidee",
@@ -453,16 +591,22 @@
     "variations": [
       {
         "size": "3L",
-        "price": 24.07,
+        "price": 29.5,
         "stock": 40,
-        "sku": "FO-ORH-3L"
+        "sku": "FO-ORH-3L",
+        "pret_net": 24.07,
+        "cota_tva": 21,
+        "pret_brut": 29.5
       }
     ],
     "id": 12,
     "default_size": "3L",
-    "price": 24.07,
+    "price": 29.5,
     "stock": 40,
-    "short_description": "Amestec poros de 3L pentru orhidee Phalaenopsis și specii epifite, asigură aerarea constantă a rădăcinilor și prelungirea înfloririi."
+    "short_description": "Amestec poros de 3L pentru orhidee Phalaenopsis și specii epifite, asigură aerarea constantă a rădăcinilor și prelungirea înfloririi.",
+    "cota_tva": 21,
+    "pret_net": 24.07,
+    "pret_brut": 29.5
   },
   {
     "name": "Vitaflora 1 Pt. plante cu flori",
@@ -476,27 +620,39 @@
     "variations": [
       {
         "size": "0.1L",
-        "price": 4.48,
+        "price": 5.0,
         "stock": 40,
-        "sku": "10101"
+        "sku": "10101",
+        "pret_net": 4.48,
+        "cota_tva": 11,
+        "pret_brut": 5.0
       },
       {
         "size": "0.5L",
-        "price": 9.71,
+        "price": 11.0,
         "stock": 50,
-        "sku": "10105"
+        "sku": "10105",
+        "pret_net": 9.71,
+        "cota_tva": 11,
+        "pret_brut": 11.0
       },
       {
         "size": "1L",
-        "price": 15.89,
+        "price": 18.0,
         "stock": 60,
-        "sku": "10110"
+        "sku": "10110",
+        "pret_net": 15.89,
+        "cota_tva": 11,
+        "pret_brut": 18.0
       }
     ],
     "id": 13,
     "default_size": "0.1L",
-    "price": 4.48,
-    "short_description": "Soluție nutritivă concentrată pentru culori intense și flori abundente tot sezonul. Dozare ușoară la udare, disponibilă la 0.1L, 0.5L și 1L."
+    "price": 5.0,
+    "short_description": "Soluție nutritivă concentrată pentru culori intense și flori abundente tot sezonul. Dozare ușoară la udare, disponibilă la 0.1L, 0.5L și 1L.",
+    "cota_tva": 11,
+    "pret_net": 4.48,
+    "pret_brut": 5.0
   },
   {
     "name": "Vitaflora 2 Pt. plante cu frunze",
@@ -510,27 +666,39 @@
     "variations": [
       {
         "size": "0.1L",
-        "price": 4.48,
+        "price": 5.0,
         "stock": 35,
-        "sku": "10201"
+        "sku": "10201",
+        "pret_net": 4.48,
+        "cota_tva": 11,
+        "pret_brut": 5.0
       },
       {
         "size": "0.5L",
-        "price": 9.71,
+        "price": 11.0,
         "stock": 45,
-        "sku": "10205"
+        "sku": "10205",
+        "pret_net": 9.71,
+        "cota_tva": 11,
+        "pret_brut": 11.0
       },
       {
         "size": "1L",
-        "price": 15.89,
+        "price": 18.0,
         "stock": 50,
-        "sku": "10210"
+        "sku": "10210",
+        "pret_net": 15.89,
+        "cota_tva": 11,
+        "pret_brut": 18.0
       }
     ],
     "id": 14,
     "default_size": "0.1L",
-    "price": 4.48,
-    "short_description": "Fertilizant lichid bogat în azot pentru frunziș dens, lucios și verde intens la plantele decorative. Flacoane practice de 0.1L, 0.5L și 1L."
+    "price": 5.0,
+    "short_description": "Fertilizant lichid bogat în azot pentru frunziș dens, lucios și verde intens la plantele decorative. Flacoane practice de 0.1L, 0.5L și 1L.",
+    "cota_tva": 11,
+    "pret_net": 4.48,
+    "pret_brut": 5.0
   },
   {
     "name": "Vitaflora 3 Universal",
@@ -544,27 +712,39 @@
     "variations": [
       {
         "size": "0.1L",
-        "price": 4.48,
+        "price": 5.0,
         "stock": 40,
-        "sku": "10301"
+        "sku": "10301",
+        "pret_net": 4.48,
+        "cota_tva": 11,
+        "pret_brut": 5.0
       },
       {
         "size": "0.5L",
-        "price": 9.71,
+        "price": 11.0,
         "stock": 55,
-        "sku": "10305"
+        "sku": "10305",
+        "pret_net": 9.71,
+        "cota_tva": 11,
+        "pret_brut": 11.0
       },
       {
         "size": "1L",
-        "price": 15.89,
+        "price": 18.0,
         "stock": 65,
-        "sku": "10310"
+        "sku": "10310",
+        "pret_net": 15.89,
+        "cota_tva": 11,
+        "pret_brut": 18.0
       }
     ],
     "id": 15,
     "default_size": "0.1L",
-    "price": 4.48,
-    "short_description": "Îngrășământ lichid complet pentru toate plantele de casă, balcon și grădină. Absorbție rapidă, disponibil în variante de 0.1L, 0.5L și 1L."
+    "price": 5.0,
+    "short_description": "Îngrășământ lichid complet pentru toate plantele de casă, balcon și grădină. Absorbție rapidă, disponibil în variante de 0.1L, 0.5L și 1L.",
+    "cota_tva": 11,
+    "pret_net": 4.48,
+    "pret_brut": 5.0
   },
   {
     "name": "Vitaflora 5 Pt. stimularea înfloririi",
@@ -578,27 +758,39 @@
     "variations": [
       {
         "size": "0.1L",
-        "price": 4.48,
+        "price": 5.0,
         "stock": 30,
-        "sku": "10501"
+        "sku": "10501",
+        "pret_net": 4.48,
+        "cota_tva": 11,
+        "pret_brut": 5.0
       },
       {
         "size": "0.5L",
-        "price": 9.93,
+        "price": 11.5,
         "stock": 40,
-        "sku": "10505"
+        "sku": "10505",
+        "pret_net": 9.93,
+        "cota_tva": 11,
+        "pret_brut": 11.5
       },
       {
         "size": "1L",
-        "price": 16.18,
+        "price": 18.0,
         "stock": 45,
-        "sku": "10510"
+        "sku": "10510",
+        "pret_net": 16.18,
+        "cota_tva": 11,
+        "pret_brut": 18.0
       }
     ],
     "id": 16,
     "default_size": "0.1L",
-    "price": 4.48,
-    "short_description": "Concentrat bogat în fosfor și potasiu pentru declanșarea rapidă a bobocilor și înflorire îndelungată. Flacoane de 0.1L, 0.5L și 1L."
+    "price": 5.0,
+    "short_description": "Concentrat bogat în fosfor și potasiu pentru declanșarea rapidă a bobocilor și înflorire îndelungată. Flacoane de 0.1L, 0.5L și 1L.",
+    "cota_tva": 11,
+    "pret_net": 4.48,
+    "pret_brut": 5.0
   },
   {
     "name": "Vitaflora 6 Pt. mușcate",
@@ -612,27 +804,39 @@
     "variations": [
       {
         "size": "0.1L",
-        "price": 4.48,
+        "price": 5.0,
         "stock": 45,
-        "sku": "10601"
+        "sku": "10601",
+        "pret_net": 4.48,
+        "cota_tva": 11,
+        "pret_brut": 5.0
       },
       {
         "size": "0.5L",
-        "price": 10.13,
+        "price": 11.5,
         "stock": 55,
-        "sku": "10605"
+        "sku": "10605",
+        "pret_net": 10.13,
+        "cota_tva": 11,
+        "pret_brut": 11.5
       },
       {
         "size": "1L",
-        "price": 16.51,
+        "price": 18.5,
         "stock": 70,
-        "sku": "10610"
+        "sku": "10610",
+        "pret_net": 16.51,
+        "cota_tva": 11,
+        "pret_brut": 18.5
       }
     ],
     "id": 17,
     "default_size": "0.1L",
-    "price": 4.48,
-    "short_description": "Nutriție dedicată mușcatelor de balcon, pentru tufe compacte și ciorchini bogați de flori. Alege flaconul potrivit: 0.1L, 0.5L sau 1L."
+    "price": 5.0,
+    "short_description": "Nutriție dedicată mușcatelor de balcon, pentru tufe compacte și ciorchini bogați de flori. Alege flaconul potrivit: 0.1L, 0.5L sau 1L.",
+    "cota_tva": 11,
+    "pret_net": 4.48,
+    "pret_brut": 5.0
   },
   {
     "name": "Vitaflora 7 Pt. gazon",
@@ -646,15 +850,21 @@
     "variations": [
       {
         "size": "1L",
-        "price": 16.72,
+        "price": 19.0,
         "stock": 40,
-        "sku": "10710"
+        "sku": "10710",
+        "pret_net": 16.72,
+        "cota_tva": 11,
+        "pret_brut": 19.0
       }
     ],
     "id": 18,
     "default_size": "1L",
-    "price": 16.72,
-    "short_description": "Soluție concentrată de 1L pentru un gazon des, verde smarald și rezistent la călcare. Aplicare rapidă cu stropitoarea, efect vizibil rapid."
+    "price": 19.0,
+    "short_description": "Soluție concentrată de 1L pentru un gazon des, verde smarald și rezistent la călcare. Aplicare rapidă cu stropitoarea, efect vizibil rapid.",
+    "cota_tva": 11,
+    "pret_net": 16.72,
+    "pret_brut": 19.0
   },
   {
     "name": "Vitaflora 8 Pt. cactuși",
@@ -668,21 +878,30 @@
     "variations": [
       {
         "size": "0.1L",
-        "price": 4.48,
+        "price": 5.0,
         "stock": 30,
-        "sku": "10801"
+        "sku": "10801",
+        "pret_net": 4.48,
+        "cota_tva": 11,
+        "pret_brut": 5.0
       },
       {
         "size": "0.5L",
-        "price": 9.93,
+        "price": 11.5,
         "stock": 35,
-        "sku": "10805"
+        "sku": "10805",
+        "pret_net": 9.93,
+        "cota_tva": 11,
+        "pret_brut": 11.5
       }
     ],
     "id": 19,
     "default_size": "0.1L",
-    "price": 4.48,
-    "short_description": "Formulă echilibrată cu azot redus pentru cactuși și suculente compacte, fără alungire. Flacoane practice de 0.1L și 0.5L pentru colecții."
+    "price": 5.0,
+    "short_description": "Formulă echilibrată cu azot redus pentru cactuși și suculente compacte, fără alungire. Flacoane practice de 0.1L și 0.5L pentru colecții.",
+    "cota_tva": 11,
+    "pret_net": 4.48,
+    "pret_brut": 5.0
   },
   {
     "name": "Vitaflora Pt. orhidee",
@@ -696,21 +915,30 @@
     "variations": [
       {
         "size": "0.1L",
-        "price": 4.73,
+        "price": 5.5,
         "stock": 40,
-        "sku": "11301"
+        "sku": "11301",
+        "pret_net": 4.73,
+        "cota_tva": 11,
+        "pret_brut": 5.5
       },
       {
         "size": "0.5L",
-        "price": 11.37,
+        "price": 13.0,
         "stock": 45,
-        "sku": "11305"
+        "sku": "11305",
+        "pret_net": 11.37,
+        "cota_tva": 11,
+        "pret_brut": 13.0
       }
     ],
     "id": 20,
     "default_size": "0.1L",
-    "price": 4.73,
-    "short_description": "Îngrășământ delicat pentru orhidee, susține tije florale viguroase și rădăcini sănătoase fără ardere. Disponibil în flacoane de 0.1L și 0.5L."
+    "price": 5.5,
+    "short_description": "Îngrășământ delicat pentru orhidee, susține tije florale viguroase și rădăcini sănătoase fără ardere. Disponibil în flacoane de 0.1L și 0.5L.",
+    "cota_tva": 11,
+    "pret_net": 4.73,
+    "pret_brut": 5.5
   },
   {
     "name": "Vitaflora Pt. citrice și pl. medit.",
@@ -724,15 +952,21 @@
     "variations": [
       {
         "size": "0.5L",
-        "price": 10.93,
+        "price": 12.5,
         "stock": 35,
-        "sku": "10905"
+        "sku": "10905",
+        "pret_net": 10.93,
+        "cota_tva": 11,
+        "pret_brut": 12.5
       }
     ],
     "id": 21,
     "default_size": "0.5L",
-    "price": 10.93,
-    "short_description": "Soluție de 0.5L îmbogățită cu fier împotriva clorozei la lămâi, portocali, leandri și măslini. Susține legarea și coacerea fructelor."
+    "price": 12.5,
+    "short_description": "Soluție de 0.5L îmbogățită cu fier împotriva clorozei la lămâi, portocali, leandri și măslini. Susține legarea și coacerea fructelor.",
+    "cota_tva": 11,
+    "pret_net": 10.93,
+    "pret_brut": 12.5
   },
   {
     "name": "Vitaflora Bonsai",
@@ -746,21 +980,30 @@
     "variations": [
       {
         "size": "0.1L",
-        "price": 4.48,
+        "price": 5.0,
         "stock": 25,
-        "sku": "10001"
+        "sku": "10001",
+        "pret_net": 4.48,
+        "cota_tva": 11,
+        "pret_brut": 5.0
       },
       {
         "size": "0.5L",
-        "price": 10.13,
+        "price": 11.5,
         "stock": 30,
-        "sku": "10005"
+        "sku": "10005",
+        "pret_net": 10.13,
+        "cota_tva": 11,
+        "pret_brut": 11.5
       }
     ],
     "id": 22,
     "default_size": "0.1L",
-    "price": 4.48,
-    "short_description": "Nutriție blândă pentru bonsai sănătoși, cu creștere controlată și coroane echilibrate. Dozare precisă la udare, în flacoane de 0.1L și 0.5L."
+    "price": 5.0,
+    "short_description": "Nutriție blândă pentru bonsai sănătoși, cu creștere controlată și coroane echilibrate. Dozare precisă la udare, în flacoane de 0.1L și 0.5L.",
+    "cota_tva": 11,
+    "pret_net": 4.48,
+    "pret_brut": 5.0
   },
   {
     "name": "Vitaflora Pt. Plante curgătoare",
@@ -774,21 +1017,30 @@
     "variations": [
       {
         "size": "0.5L",
-        "price": 10.13,
+        "price": 11.5,
         "stock": 35,
-        "sku": "11005"
+        "sku": "11005",
+        "pret_net": 10.13,
+        "cota_tva": 11,
+        "pret_brut": 11.5
       },
       {
         "size": "1L",
-        "price": 15.7,
+        "price": 17.5,
         "stock": 40,
-        "sku": "11010"
+        "sku": "11010",
+        "pret_net": 15.7,
+        "cota_tva": 11,
+        "pret_brut": 17.5
       }
     ],
     "id": 23,
     "default_size": "0.5L",
-    "price": 10.13,
-    "short_description": "Fertilizant cu fier activ pentru petunii, surfinii și plante curgătoare cu cascade bogate de flori. Disponibil în variante de 0.5L și 1L."
+    "price": 11.5,
+    "short_description": "Fertilizant cu fier activ pentru petunii, surfinii și plante curgătoare cu cascade bogate de flori. Disponibil în variante de 0.5L și 1L.",
+    "cota_tva": 11,
+    "pret_net": 10.13,
+    "pret_brut": 11.5
   },
   {
     "name": "Vitaflora Pt. conifere",
@@ -802,15 +1054,21 @@
     "variations": [
       {
         "size": "1L",
-        "price": 15.38,
+        "price": 17.5,
         "stock": 40,
-        "sku": "11110"
+        "sku": "11110",
+        "pret_net": 15.38,
+        "cota_tva": 11,
+        "pret_brut": 17.5
       }
     ],
     "id": 24,
     "default_size": "1L",
-    "price": 15.38,
-    "short_description": "Îngrășământ lichid de 1L cu magneziu pentru tuje și conifere, menține culoarea verde intens și previne brunificarea acelor."
+    "price": 17.5,
+    "short_description": "Îngrășământ lichid de 1L cu magneziu pentru tuje și conifere, menține culoarea verde intens și previne brunificarea acelor.",
+    "cota_tva": 11,
+    "pret_net": 15.38,
+    "pret_brut": 17.5
   },
   {
     "name": "Vitaflora Pt. legume",
@@ -824,15 +1082,21 @@
     "variations": [
       {
         "size": "1L",
-        "price": 16.51,
+        "price": 18.5,
         "stock": 35,
-        "sku": "11210"
+        "sku": "11210",
+        "pret_net": 16.51,
+        "cota_tva": 11,
+        "pret_brut": 18.5
       }
     ],
     "id": 25,
     "default_size": "1L",
-    "price": 16.51,
-    "short_description": "Soluție nutritivă de 1L pentru roșii, ardei și legume de grădină cu recolte bogate și gustoase. Aplicare simplă săptămânală la rădăcină."
+    "price": 18.5,
+    "short_description": "Soluție nutritivă de 1L pentru roșii, ardei și legume de grădină cu recolte bogate și gustoase. Aplicare simplă săptămânală la rădăcină.",
+    "cota_tva": 11,
+    "pret_net": 16.51,
+    "pret_brut": 18.5
   },
   {
     "name": "Florasol Universal",
@@ -846,21 +1110,30 @@
     "variations": [
       {
         "size": "0.5L",
-        "price": 8.16,
+        "price": 9.5,
         "stock": 40,
-        "sku": "19305"
+        "sku": "19305",
+        "pret_net": 8.16,
+        "cota_tva": 11,
+        "pret_brut": 9.5
       },
       {
         "size": "1L",
-        "price": 12.15,
+        "price": 13.5,
         "stock": 45,
-        "sku": "19310"
+        "sku": "19310",
+        "pret_net": 12.15,
+        "cota_tva": 11,
+        "pret_brut": 13.5
       }
     ],
     "id": 26,
     "default_size": "0.5L",
-    "price": 8.16,
-    "short_description": "Nutrienți lichizi universali Florasol pentru vitalitatea zilnică a plantelor de interior și balcon. Disponibil în flacoane de 0.5L și 1L."
+    "price": 9.5,
+    "short_description": "Nutrienți lichizi universali Florasol pentru vitalitatea zilnică a plantelor de interior și balcon. Disponibil în flacoane de 0.5L și 1L.",
+    "cota_tva": 11,
+    "pret_net": 8.16,
+    "pret_brut": 9.5
   },
   {
     "name": "Florasol Pt. mușcate",
@@ -874,21 +1147,30 @@
     "variations": [
       {
         "size": "0.5L",
-        "price": 8.16,
+        "price": 9.5,
         "stock": 40,
-        "sku": "19605"
+        "sku": "19605",
+        "pret_net": 8.16,
+        "cota_tva": 11,
+        "pret_brut": 9.5
       },
       {
         "size": "1L",
-        "price": 12.15,
+        "price": 13.5,
         "stock": 45,
-        "sku": "19610"
+        "sku": "19610",
+        "pret_net": 12.15,
+        "cota_tva": 11,
+        "pret_brut": 13.5
       }
     ],
     "id": 27,
     "default_size": "0.5L",
-    "price": 8.16,
-    "short_description": "Soluție nutritivă Florasol specială pentru mușcate și flori de balcon, oferă culoare intensă și rezistență la arșiță. Variante de 0.5L și 1L."
+    "price": 9.5,
+    "short_description": "Soluție nutritivă Florasol specială pentru mușcate și flori de balcon, oferă culoare intensă și rezistență la arșiță. Variante de 0.5L și 1L.",
+    "cota_tva": 11,
+    "pret_net": 8.16,
+    "pret_brut": 9.5
   },
   {
     "name": "Humiflor pentru plante de balcon 1L",
@@ -902,15 +1184,21 @@
     "variations": [
       {
         "size": "1L",
-        "price": 11.98,
+        "price": 13.5,
         "stock": 35,
-        "sku": "H610"
+        "sku": "H610",
+        "pret_net": 11.98,
+        "cota_tva": 11,
+        "pret_brut": 13.5
       }
     ],
     "id": 28,
     "default_size": "1L",
-    "price": 11.98,
-    "short_description": "Fertilizant lichid Humiflor de 1L cu acizi humici pentru jardiniere pline de flori și rezistență sporită la stresul termic estival."
+    "price": 13.5,
+    "short_description": "Fertilizant lichid Humiflor de 1L cu acizi humici pentru jardiniere pline de flori și rezistență sporită la stresul termic estival.",
+    "cota_tva": 11,
+    "pret_net": 11.98,
+    "pret_brut": 13.5
   },
   {
     "name": "Humiflor pentru plante de gradina 1L",
@@ -924,15 +1212,21 @@
     "variations": [
       {
         "size": "1L",
-        "price": 12.47,
+        "price": 14.0,
         "stock": 30,
-        "sku": "H510"
+        "sku": "H510",
+        "pret_net": 12.47,
+        "cota_tva": 11,
+        "pret_brut": 14.0
       }
     ],
     "id": 29,
     "default_size": "1L",
-    "price": 12.47,
-    "short_description": "Soluție nutritivă Humiflor de 1L pentru flori, arbuști și legume din grădină. Stimulează rădăcinile și îmbunătățește absorbția din sol."
+    "price": 14.0,
+    "short_description": "Soluție nutritivă Humiflor de 1L pentru flori, arbuști și legume din grădină. Stimulează rădăcinile și îmbunătățește absorbția din sol.",
+    "cota_tva": 11,
+    "pret_net": 12.47,
+    "pret_brut": 14.0
   },
   {
     "name": "Humiflor pentru plante de camera 1L",
@@ -946,15 +1240,21 @@
     "variations": [
       {
         "size": "1L",
-        "price": 11.78,
+        "price": 13.5,
         "stock": 35,
-        "sku": "H310"
+        "sku": "H310",
+        "pret_net": 11.78,
+        "cota_tva": 11,
+        "pret_brut": 13.5
       }
     ],
     "id": 30,
     "default_size": "1L",
-    "price": 11.78,
-    "short_description": "Îngrășământ lichid Humiflor de 1L cu substanțe humice pentru plante de apartament viguroase, cu frunziș strălucitor în orice sezon."
+    "price": 13.5,
+    "short_description": "Îngrășământ lichid Humiflor de 1L cu substanțe humice pentru plante de apartament viguroase, cu frunziș strălucitor în orice sezon.",
+    "cota_tva": 11,
+    "pret_net": 11.78,
+    "pret_brut": 13.5
   },
   {
     "name": "Vitaflora Pt. plante cu flori (Batoane)",
@@ -968,15 +1268,21 @@
     "variations": [
       {
         "size": "30g (30 buc)",
-        "price": 7.24,
+        "price": 8.5,
         "stock": 60,
-        "sku": "10100"
+        "sku": "10100",
+        "pret_net": 7.24,
+        "cota_tva": 11,
+        "pret_brut": 8.5
       }
     ],
     "id": 31,
     "default_size": "30g (30 buc)",
-    "price": 7.24,
-    "short_description": "30 de batoane fertilizante cu eliberare treptată, hrănesc plantele cu flori până la 2 luni. Doar le introduci în ghiveci, fără dozare."
+    "price": 8.5,
+    "short_description": "30 de batoane fertilizante cu eliberare treptată, hrănesc plantele cu flori până la 2 luni. Doar le introduci în ghiveci, fără dozare.",
+    "cota_tva": 11,
+    "pret_net": 7.24,
+    "pret_brut": 8.5
   },
   {
     "name": "Vitaflora Pt. plante cu frunze (Batoane)",
@@ -990,15 +1296,21 @@
     "variations": [
       {
         "size": "30g (30 buc)",
-        "price": 7.24,
+        "price": 8.5,
         "stock": 55,
-        "sku": "10200"
+        "sku": "10200",
+        "pret_net": 7.24,
+        "cota_tva": 11,
+        "pret_brut": 8.5
       }
     ],
     "id": 32,
     "default_size": "30g (30 buc)",
-    "price": 7.24,
-    "short_description": "Set de 30 batoane solide pentru plante verzi de interior, asigură nutriție constantă timp de 60 de zile. Soluție curată, fără miros."
+    "price": 8.5,
+    "short_description": "Set de 30 batoane solide pentru plante verzi de interior, asigură nutriție constantă timp de 60 de zile. Soluție curată, fără miros.",
+    "cota_tva": 11,
+    "pret_net": 7.24,
+    "pret_brut": 8.5
   },
   {
     "name": "Vitaflora Pt. orhidee (Batoane)",
@@ -1012,15 +1324,21 @@
     "variations": [
       {
         "size": "15g (20 buc)",
-        "price": 7.72,
+        "price": 9.0,
         "stock": 50,
-        "sku": "11300"
+        "sku": "11300",
+        "pret_net": 7.72,
+        "cota_tva": 11,
+        "pret_brut": 9.0
       }
     ],
     "id": 33,
     "default_size": "15g (20 buc)",
-    "price": 7.72,
-    "short_description": "20 de batoane nutritive create special pentru orhidee, eliberează treptat microelementele esențiale pentru o înflorire prelungită."
+    "price": 9.0,
+    "short_description": "20 de batoane nutritive create special pentru orhidee, eliberează treptat microelementele esențiale pentru o înflorire prelungită.",
+    "cota_tva": 11,
+    "pret_net": 7.72,
+    "pret_brut": 9.0
   },
   {
     "name": "Florasol Solutie Ecologica Ingrijire plante 0.5L",
@@ -1034,15 +1352,21 @@
     "variations": [
       {
         "size": "0.5L",
-        "price": 12.12,
+        "price": 15.0,
         "stock": 45,
-        "sku": "19500"
+        "sku": "19500",
+        "pret_net": 12.12,
+        "cota_tva": 21,
+        "pret_brut": 15.0
       }
     ],
     "id": 34,
     "default_size": "0.5L",
-    "price": 12.12,
-    "short_description": "Spray ecologic de 0.5L gata de pulverizare pentru îngrijirea și fortifierea plantelor de casă și grădină. Protecție rapidă, fără diluare."
+    "price": 15.0,
+    "short_description": "Spray ecologic de 0.5L gata de pulverizare pentru îngrijirea și fortifierea plantelor de casă și grădină. Protecție rapidă, fără diluare.",
+    "cota_tva": 21,
+    "pret_net": 12.12,
+    "pret_brut": 15.0
   },
   {
     "id": 35,
@@ -1057,14 +1381,20 @@
     "variations": [
       {
         "size": "500ml",
-        "price": 11.0,
+        "price": 13.5,
         "stock": 35,
-        "sku": "TD-PR-135"
+        "sku": "TD-PR-135",
+        "pret_net": 11.0,
+        "cota_tva": 21,
+        "pret_brut": 13.5
       }
     ],
     "default_size": "500ml",
-    "price": 11.0,
-    "short_description": "Soluție ecologică de 500ml cu pulverizator, curăță frunzișul și protejează plantele în mod natural. Utilizare sigură în casă și pe balcon."
+    "price": 13.5,
+    "short_description": "Soluție ecologică de 500ml cu pulverizator, curăță frunzișul și protejează plantele în mod natural. Utilizare sigură în casă și pe balcon.",
+    "cota_tva": 21,
+    "pret_net": 11.0,
+    "pret_brut": 13.5
   },
   {
     "id": 36,
@@ -1079,14 +1409,20 @@
     "variations": [
       {
         "size": "500ml",
-        "price": 11.0,
+        "price": 13.5,
         "stock": 35,
-        "sku": "TD-PR-136"
+        "sku": "TD-PR-136",
+        "pret_net": 11.0,
+        "cota_tva": 21,
+        "pret_brut": 13.5
       }
     ],
     "default_size": "500ml",
-    "price": 11.0,
-    "short_description": "Spray organic de 500ml cu extracte naturale pentru susținerea imunității plantelor ornamentale și de grădină. Aplicare directă, efect rapid."
+    "price": 13.5,
+    "short_description": "Spray organic de 500ml cu extracte naturale pentru susținerea imunității plantelor ornamentale și de grădină. Aplicare directă, efect rapid.",
+    "cota_tva": 21,
+    "pret_net": 11.0,
+    "pret_brut": 13.5
   },
   {
     "id": 37,
@@ -1101,13 +1437,19 @@
     "variations": [
       {
         "size": "Bucată",
-        "price": 7.0,
+        "price": 8.5,
         "stock": 35,
-        "sku": "TD-GH-138"
+        "sku": "TD-GH-138",
+        "pret_net": 7.0,
+        "cota_tva": 21,
+        "pret_brut": 8.5
       }
     ],
     "default_size": "Bucată",
-    "price": 7.0
+    "price": 8.5,
+    "cota_tva": 21,
+    "pret_net": 7.0,
+    "pret_brut": 8.5
   },
   {
     "id": 38,
@@ -1122,13 +1464,19 @@
     "variations": [
       {
         "size": "Bucată",
-        "price": 82.0,
+        "price": 99.5,
         "stock": 35,
-        "sku": "TD-GH-139"
+        "sku": "TD-GH-139",
+        "pret_net": 82.0,
+        "cota_tva": 21,
+        "pret_brut": 99.5
       }
     ],
     "default_size": "Bucată",
-    "price": 82.0
+    "price": 99.5,
+    "cota_tva": 21,
+    "pret_net": 82.0,
+    "pret_brut": 99.5
   },
   {
     "id": 39,
@@ -1143,13 +1491,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 1.0,
+        "price": 1.5,
         "stock": 35,
-        "sku": "TD-DE-140"
+        "sku": "TD-DE-140",
+        "pret_net": 1.0,
+        "cota_tva": 21,
+        "pret_brut": 1.5
       }
     ],
     "default_size": "Standard",
-    "price": 1.0
+    "price": 1.5,
+    "cota_tva": 21,
+    "pret_net": 1.0,
+    "pret_brut": 1.5
   },
   {
     "id": 40,
@@ -1164,13 +1518,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 1.0,
+        "price": 1.5,
         "stock": 35,
-        "sku": "TD-DE-141"
+        "sku": "TD-DE-141",
+        "pret_net": 1.0,
+        "cota_tva": 21,
+        "pret_brut": 1.5
       }
     ],
     "default_size": "Standard",
-    "price": 1.0
+    "price": 1.5,
+    "cota_tva": 21,
+    "pret_net": 1.0,
+    "pret_brut": 1.5
   },
   {
     "id": 41,
@@ -1185,13 +1545,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 1.0,
+        "price": 1.5,
         "stock": 35,
-        "sku": "TD-DE-142"
+        "sku": "TD-DE-142",
+        "pret_net": 1.0,
+        "cota_tva": 21,
+        "pret_brut": 1.5
       }
     ],
     "default_size": "Standard",
-    "price": 1.0
+    "price": 1.5,
+    "cota_tva": 21,
+    "pret_net": 1.0,
+    "pret_brut": 1.5
   },
   {
     "id": 42,
@@ -1206,13 +1572,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 2.0,
+        "price": 2.5,
         "stock": 35,
-        "sku": "TD-DE-143"
+        "sku": "TD-DE-143",
+        "pret_net": 2.0,
+        "cota_tva": 21,
+        "pret_brut": 2.5
       }
     ],
     "default_size": "Standard",
-    "price": 2.0
+    "price": 2.5,
+    "cota_tva": 21,
+    "pret_net": 2.0,
+    "pret_brut": 2.5
   },
   {
     "id": 43,
@@ -1227,13 +1599,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 2.0,
+        "price": 2.5,
         "stock": 35,
-        "sku": "TD-DE-144"
+        "sku": "TD-DE-144",
+        "pret_net": 2.0,
+        "cota_tva": 21,
+        "pret_brut": 2.5
       }
     ],
     "default_size": "Standard",
-    "price": 2.0
+    "price": 2.5,
+    "cota_tva": 21,
+    "pret_net": 2.0,
+    "pret_brut": 2.5
   },
   {
     "id": 44,
@@ -1248,13 +1626,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 2.0,
+        "price": 2.5,
         "stock": 35,
-        "sku": "TD-DE-145"
+        "sku": "TD-DE-145",
+        "pret_net": 2.0,
+        "cota_tva": 21,
+        "pret_brut": 2.5
       }
     ],
     "default_size": "Standard",
-    "price": 2.0
+    "price": 2.5,
+    "cota_tva": 21,
+    "pret_net": 2.0,
+    "pret_brut": 2.5
   },
   {
     "id": 45,
@@ -1269,13 +1653,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 3.0,
+        "price": 4.0,
         "stock": 35,
-        "sku": "TD-DE-146"
+        "sku": "TD-DE-146",
+        "pret_net": 3.0,
+        "cota_tva": 21,
+        "pret_brut": 4.0
       }
     ],
     "default_size": "Standard",
-    "price": 3.0
+    "price": 4.0,
+    "cota_tva": 21,
+    "pret_net": 3.0,
+    "pret_brut": 4.0
   },
   {
     "id": 46,
@@ -1290,13 +1680,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 3.0,
+        "price": 4.0,
         "stock": 35,
-        "sku": "TD-DE-147"
+        "sku": "TD-DE-147",
+        "pret_net": 3.0,
+        "cota_tva": 21,
+        "pret_brut": 4.0
       }
     ],
     "default_size": "Standard",
-    "price": 3.0
+    "price": 4.0,
+    "cota_tva": 21,
+    "pret_net": 3.0,
+    "pret_brut": 4.0
   },
   {
     "id": 47,
@@ -1311,13 +1707,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 3.0,
+        "price": 4.0,
         "stock": 35,
-        "sku": "TD-DE-148"
+        "sku": "TD-DE-148",
+        "pret_net": 3.0,
+        "cota_tva": 21,
+        "pret_brut": 4.0
       }
     ],
     "default_size": "Standard",
-    "price": 3.0
+    "price": 4.0,
+    "cota_tva": 21,
+    "pret_net": 3.0,
+    "pret_brut": 4.0
   },
   {
     "id": 48,
@@ -1332,13 +1734,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 3.0,
+        "price": 4.0,
         "stock": 35,
-        "sku": "TD-DE-149"
+        "sku": "TD-DE-149",
+        "pret_net": 3.0,
+        "cota_tva": 21,
+        "pret_brut": 4.0
       }
     ],
     "default_size": "Standard",
-    "price": 3.0
+    "price": 4.0,
+    "cota_tva": 21,
+    "pret_net": 3.0,
+    "pret_brut": 4.0
   },
   {
     "id": 49,
@@ -1353,13 +1761,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 3.0,
+        "price": 4.0,
         "stock": 35,
-        "sku": "TD-DE-150"
+        "sku": "TD-DE-150",
+        "pret_net": 3.0,
+        "cota_tva": 21,
+        "pret_brut": 4.0
       }
     ],
     "default_size": "Standard",
-    "price": 3.0
+    "price": 4.0,
+    "cota_tva": 21,
+    "pret_net": 3.0,
+    "pret_brut": 4.0
   },
   {
     "id": 50,
@@ -1374,13 +1788,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 3.0,
+        "price": 4.0,
         "stock": 35,
-        "sku": "TD-DE-151"
+        "sku": "TD-DE-151",
+        "pret_net": 3.0,
+        "cota_tva": 21,
+        "pret_brut": 4.0
       }
     ],
     "default_size": "Standard",
-    "price": 3.0
+    "price": 4.0,
+    "cota_tva": 21,
+    "pret_net": 3.0,
+    "pret_brut": 4.0
   },
   {
     "id": 51,
@@ -1395,13 +1815,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 3.0,
+        "price": 4.0,
         "stock": 35,
-        "sku": "TD-DE-152"
+        "sku": "TD-DE-152",
+        "pret_net": 3.0,
+        "cota_tva": 21,
+        "pret_brut": 4.0
       }
     ],
     "default_size": "Standard",
-    "price": 3.0
+    "price": 4.0,
+    "cota_tva": 21,
+    "pret_net": 3.0,
+    "pret_brut": 4.0
   },
   {
     "id": 52,
@@ -1416,13 +1842,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-153"
+        "sku": "TD-DE-153",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 53,
@@ -1437,13 +1869,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-154"
+        "sku": "TD-DE-154",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 54,
@@ -1458,13 +1896,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-155"
+        "sku": "TD-DE-155",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 55,
@@ -1479,13 +1923,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-156"
+        "sku": "TD-DE-156",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 56,
@@ -1500,13 +1950,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-157"
+        "sku": "TD-DE-157",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 57,
@@ -1521,13 +1977,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-158"
+        "sku": "TD-DE-158",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 58,
@@ -1542,13 +2004,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-159"
+        "sku": "TD-DE-159",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 59,
@@ -1563,13 +2031,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-160"
+        "sku": "TD-DE-160",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 60,
@@ -1584,13 +2058,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-161"
+        "sku": "TD-DE-161",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 61,
@@ -1605,13 +2085,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-162"
+        "sku": "TD-DE-162",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 62,
@@ -1626,13 +2112,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-163"
+        "sku": "TD-DE-163",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 63,
@@ -1647,13 +2139,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-164"
+        "sku": "TD-DE-164",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 64,
@@ -1668,13 +2166,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-165"
+        "sku": "TD-DE-165",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 65,
@@ -1689,13 +2193,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-166"
+        "sku": "TD-DE-166",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 66,
@@ -1710,13 +2220,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-167"
+        "sku": "TD-DE-167",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 67,
@@ -1731,13 +2247,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-168"
+        "sku": "TD-DE-168",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 68,
@@ -1752,13 +2274,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-169"
+        "sku": "TD-DE-169",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 69,
@@ -1773,13 +2301,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-170"
+        "sku": "TD-DE-170",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 70,
@@ -1794,13 +2328,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-171"
+        "sku": "TD-DE-171",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 71,
@@ -1815,13 +2355,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-172"
+        "sku": "TD-DE-172",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 72,
@@ -1836,13 +2382,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-173"
+        "sku": "TD-DE-173",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 73,
@@ -1857,13 +2409,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-174"
+        "sku": "TD-DE-174",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 74,
@@ -1878,13 +2436,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-175"
+        "sku": "TD-DE-175",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 75,
@@ -1899,13 +2463,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-176"
+        "sku": "TD-DE-176",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 76,
@@ -1920,13 +2490,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-177"
+        "sku": "TD-DE-177",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 77,
@@ -1941,13 +2517,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 4.0,
+        "price": 5.0,
         "stock": 35,
-        "sku": "TD-DE-178"
+        "sku": "TD-DE-178",
+        "pret_net": 4.0,
+        "cota_tva": 21,
+        "pret_brut": 5.0
       }
     ],
     "default_size": "Standard",
-    "price": 4.0
+    "price": 5.0,
+    "cota_tva": 21,
+    "pret_net": 4.0,
+    "pret_brut": 5.0
   },
   {
     "id": 78,
@@ -1962,13 +2544,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 5.0,
+        "price": 6.5,
         "stock": 35,
-        "sku": "TD-DE-179"
+        "sku": "TD-DE-179",
+        "pret_net": 5.0,
+        "cota_tva": 21,
+        "pret_brut": 6.5
       }
     ],
     "default_size": "Standard",
-    "price": 5.0
+    "price": 6.5,
+    "cota_tva": 21,
+    "pret_net": 5.0,
+    "pret_brut": 6.5
   },
   {
     "id": 79,
@@ -1983,13 +2571,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 5.0,
+        "price": 6.5,
         "stock": 35,
-        "sku": "TD-DE-180"
+        "sku": "TD-DE-180",
+        "pret_net": 5.0,
+        "cota_tva": 21,
+        "pret_brut": 6.5
       }
     ],
     "default_size": "Standard",
-    "price": 5.0
+    "price": 6.5,
+    "cota_tva": 21,
+    "pret_net": 5.0,
+    "pret_brut": 6.5
   },
   {
     "id": 80,
@@ -2004,13 +2598,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 5.0,
+        "price": 6.5,
         "stock": 35,
-        "sku": "TD-DE-181"
+        "sku": "TD-DE-181",
+        "pret_net": 5.0,
+        "cota_tva": 21,
+        "pret_brut": 6.5
       }
     ],
     "default_size": "Standard",
-    "price": 5.0
+    "price": 6.5,
+    "cota_tva": 21,
+    "pret_net": 5.0,
+    "pret_brut": 6.5
   },
   {
     "id": 81,
@@ -2025,13 +2625,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 5.0,
+        "price": 6.5,
         "stock": 35,
-        "sku": "TD-DE-182"
+        "sku": "TD-DE-182",
+        "pret_net": 5.0,
+        "cota_tva": 21,
+        "pret_brut": 6.5
       }
     ],
     "default_size": "Standard",
-    "price": 5.0
+    "price": 6.5,
+    "cota_tva": 21,
+    "pret_net": 5.0,
+    "pret_brut": 6.5
   },
   {
     "id": 82,
@@ -2046,13 +2652,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 5.0,
+        "price": 6.5,
         "stock": 35,
-        "sku": "TD-DE-183"
+        "sku": "TD-DE-183",
+        "pret_net": 5.0,
+        "cota_tva": 21,
+        "pret_brut": 6.5
       }
     ],
     "default_size": "Standard",
-    "price": 5.0
+    "price": 6.5,
+    "cota_tva": 21,
+    "pret_net": 5.0,
+    "pret_brut": 6.5
   },
   {
     "id": 83,
@@ -2067,13 +2679,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 5.0,
+        "price": 6.5,
         "stock": 35,
-        "sku": "TD-DE-184"
+        "sku": "TD-DE-184",
+        "pret_net": 5.0,
+        "cota_tva": 21,
+        "pret_brut": 6.5
       }
     ],
     "default_size": "Standard",
-    "price": 5.0
+    "price": 6.5,
+    "cota_tva": 21,
+    "pret_net": 5.0,
+    "pret_brut": 6.5
   },
   {
     "id": 84,
@@ -2088,13 +2706,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 5.0,
+        "price": 6.5,
         "stock": 35,
-        "sku": "TD-DE-185"
+        "sku": "TD-DE-185",
+        "pret_net": 5.0,
+        "cota_tva": 21,
+        "pret_brut": 6.5
       }
     ],
     "default_size": "Standard",
-    "price": 5.0
+    "price": 6.5,
+    "cota_tva": 21,
+    "pret_net": 5.0,
+    "pret_brut": 6.5
   },
   {
     "id": 85,
@@ -2109,13 +2733,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 5.0,
+        "price": 6.5,
         "stock": 35,
-        "sku": "TD-DE-186"
+        "sku": "TD-DE-186",
+        "pret_net": 5.0,
+        "cota_tva": 21,
+        "pret_brut": 6.5
       }
     ],
     "default_size": "Standard",
-    "price": 5.0
+    "price": 6.5,
+    "cota_tva": 21,
+    "pret_net": 5.0,
+    "pret_brut": 6.5
   },
   {
     "id": 86,
@@ -2130,13 +2760,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 5.0,
+        "price": 6.5,
         "stock": 35,
-        "sku": "TD-DE-187"
+        "sku": "TD-DE-187",
+        "pret_net": 5.0,
+        "cota_tva": 21,
+        "pret_brut": 6.5
       }
     ],
     "default_size": "Standard",
-    "price": 5.0
+    "price": 6.5,
+    "cota_tva": 21,
+    "pret_net": 5.0,
+    "pret_brut": 6.5
   },
   {
     "id": 87,
@@ -2151,13 +2787,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 5.0,
+        "price": 6.5,
         "stock": 35,
-        "sku": "TD-DE-188"
+        "sku": "TD-DE-188",
+        "pret_net": 5.0,
+        "cota_tva": 21,
+        "pret_brut": 6.5
       }
     ],
     "default_size": "Standard",
-    "price": 5.0
+    "price": 6.5,
+    "cota_tva": 21,
+    "pret_net": 5.0,
+    "pret_brut": 6.5
   },
   {
     "id": 88,
@@ -2172,13 +2814,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 5.0,
+        "price": 6.5,
         "stock": 35,
-        "sku": "TD-DE-189"
+        "sku": "TD-DE-189",
+        "pret_net": 5.0,
+        "cota_tva": 21,
+        "pret_brut": 6.5
       }
     ],
     "default_size": "Standard",
-    "price": 5.0
+    "price": 6.5,
+    "cota_tva": 21,
+    "pret_net": 5.0,
+    "pret_brut": 6.5
   },
   {
     "id": 89,
@@ -2193,13 +2841,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 6.0,
+        "price": 7.5,
         "stock": 35,
-        "sku": "TD-DE-190"
+        "sku": "TD-DE-190",
+        "pret_net": 6.0,
+        "cota_tva": 21,
+        "pret_brut": 7.5
       }
     ],
     "default_size": "Standard",
-    "price": 6.0
+    "price": 7.5,
+    "cota_tva": 21,
+    "pret_net": 6.0,
+    "pret_brut": 7.5
   },
   {
     "id": 90,
@@ -2214,13 +2868,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 6.0,
+        "price": 7.5,
         "stock": 35,
-        "sku": "TD-DE-191"
+        "sku": "TD-DE-191",
+        "pret_net": 6.0,
+        "cota_tva": 21,
+        "pret_brut": 7.5
       }
     ],
     "default_size": "Standard",
-    "price": 6.0
+    "price": 7.5,
+    "cota_tva": 21,
+    "pret_net": 6.0,
+    "pret_brut": 7.5
   },
   {
     "id": 91,
@@ -2235,13 +2895,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 6.0,
+        "price": 7.5,
         "stock": 35,
-        "sku": "TD-DE-192"
+        "sku": "TD-DE-192",
+        "pret_net": 6.0,
+        "cota_tva": 21,
+        "pret_brut": 7.5
       }
     ],
     "default_size": "Standard",
-    "price": 6.0
+    "price": 7.5,
+    "cota_tva": 21,
+    "pret_net": 6.0,
+    "pret_brut": 7.5
   },
   {
     "id": 92,
@@ -2256,13 +2922,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 6.0,
+        "price": 7.5,
         "stock": 35,
-        "sku": "TD-DE-193"
+        "sku": "TD-DE-193",
+        "pret_net": 6.0,
+        "cota_tva": 21,
+        "pret_brut": 7.5
       }
     ],
     "default_size": "Standard",
-    "price": 6.0
+    "price": 7.5,
+    "cota_tva": 21,
+    "pret_net": 6.0,
+    "pret_brut": 7.5
   },
   {
     "id": 93,
@@ -2277,13 +2949,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 6.0,
+        "price": 7.5,
         "stock": 35,
-        "sku": "TD-DE-194"
+        "sku": "TD-DE-194",
+        "pret_net": 6.0,
+        "cota_tva": 21,
+        "pret_brut": 7.5
       }
     ],
     "default_size": "Standard",
-    "price": 6.0
+    "price": 7.5,
+    "cota_tva": 21,
+    "pret_net": 6.0,
+    "pret_brut": 7.5
   },
   {
     "id": 94,
@@ -2298,13 +2976,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 6.0,
+        "price": 7.5,
         "stock": 35,
-        "sku": "TD-DE-195"
+        "sku": "TD-DE-195",
+        "pret_net": 6.0,
+        "cota_tva": 21,
+        "pret_brut": 7.5
       }
     ],
     "default_size": "Standard",
-    "price": 6.0
+    "price": 7.5,
+    "cota_tva": 21,
+    "pret_net": 6.0,
+    "pret_brut": 7.5
   },
   {
     "id": 95,
@@ -2319,13 +3003,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 6.0,
+        "price": 7.5,
         "stock": 35,
-        "sku": "TD-DE-196"
+        "sku": "TD-DE-196",
+        "pret_net": 6.0,
+        "cota_tva": 21,
+        "pret_brut": 7.5
       }
     ],
     "default_size": "Standard",
-    "price": 6.0
+    "price": 7.5,
+    "cota_tva": 21,
+    "pret_net": 6.0,
+    "pret_brut": 7.5
   },
   {
     "id": 96,
@@ -2340,13 +3030,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 6.0,
+        "price": 7.5,
         "stock": 35,
-        "sku": "TD-DE-197"
+        "sku": "TD-DE-197",
+        "pret_net": 6.0,
+        "cota_tva": 21,
+        "pret_brut": 7.5
       }
     ],
     "default_size": "Standard",
-    "price": 6.0
+    "price": 7.5,
+    "cota_tva": 21,
+    "pret_net": 6.0,
+    "pret_brut": 7.5
   },
   {
     "id": 97,
@@ -2361,13 +3057,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 6.0,
+        "price": 7.5,
         "stock": 35,
-        "sku": "TD-DE-198"
+        "sku": "TD-DE-198",
+        "pret_net": 6.0,
+        "cota_tva": 21,
+        "pret_brut": 7.5
       }
     ],
     "default_size": "Standard",
-    "price": 6.0
+    "price": 7.5,
+    "cota_tva": 21,
+    "pret_net": 6.0,
+    "pret_brut": 7.5
   },
   {
     "id": 98,
@@ -2382,13 +3084,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 6.0,
+        "price": 7.5,
         "stock": 35,
-        "sku": "TD-DE-199"
+        "sku": "TD-DE-199",
+        "pret_net": 6.0,
+        "cota_tva": 21,
+        "pret_brut": 7.5
       }
     ],
     "default_size": "Standard",
-    "price": 6.0
+    "price": 7.5,
+    "cota_tva": 21,
+    "pret_net": 6.0,
+    "pret_brut": 7.5
   },
   {
     "id": 99,
@@ -2403,13 +3111,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 6.0,
+        "price": 7.5,
         "stock": 35,
-        "sku": "TD-DE-200"
+        "sku": "TD-DE-200",
+        "pret_net": 6.0,
+        "cota_tva": 21,
+        "pret_brut": 7.5
       }
     ],
     "default_size": "Standard",
-    "price": 6.0
+    "price": 7.5,
+    "cota_tva": 21,
+    "pret_net": 6.0,
+    "pret_brut": 7.5
   },
   {
     "id": 100,
@@ -2424,13 +3138,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 6.0,
+        "price": 7.5,
         "stock": 35,
-        "sku": "TD-DE-201"
+        "sku": "TD-DE-201",
+        "pret_net": 6.0,
+        "cota_tva": 21,
+        "pret_brut": 7.5
       }
     ],
     "default_size": "Standard",
-    "price": 6.0
+    "price": 7.5,
+    "cota_tva": 21,
+    "pret_net": 6.0,
+    "pret_brut": 7.5
   },
   {
     "id": 101,
@@ -2445,13 +3165,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 6.0,
+        "price": 7.5,
         "stock": 35,
-        "sku": "TD-DE-202"
+        "sku": "TD-DE-202",
+        "pret_net": 6.0,
+        "cota_tva": 21,
+        "pret_brut": 7.5
       }
     ],
     "default_size": "Standard",
-    "price": 6.0
+    "price": 7.5,
+    "cota_tva": 21,
+    "pret_net": 6.0,
+    "pret_brut": 7.5
   },
   {
     "id": 102,
@@ -2466,13 +3192,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 6.0,
+        "price": 7.5,
         "stock": 35,
-        "sku": "TD-DE-203"
+        "sku": "TD-DE-203",
+        "pret_net": 6.0,
+        "cota_tva": 21,
+        "pret_brut": 7.5
       }
     ],
     "default_size": "Standard",
-    "price": 6.0
+    "price": 7.5,
+    "cota_tva": 21,
+    "pret_net": 6.0,
+    "pret_brut": 7.5
   },
   {
     "id": 103,
@@ -2487,13 +3219,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 6.0,
+        "price": 7.5,
         "stock": 35,
-        "sku": "TD-DE-204"
+        "sku": "TD-DE-204",
+        "pret_net": 6.0,
+        "cota_tva": 21,
+        "pret_brut": 7.5
       }
     ],
     "default_size": "Standard",
-    "price": 6.0
+    "price": 7.5,
+    "cota_tva": 21,
+    "pret_net": 6.0,
+    "pret_brut": 7.5
   },
   {
     "id": 104,
@@ -2508,13 +3246,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 6.0,
+        "price": 7.5,
         "stock": 35,
-        "sku": "TD-DE-205"
+        "sku": "TD-DE-205",
+        "pret_net": 6.0,
+        "cota_tva": 21,
+        "pret_brut": 7.5
       }
     ],
     "default_size": "Standard",
-    "price": 6.0
+    "price": 7.5,
+    "cota_tva": 21,
+    "pret_net": 6.0,
+    "pret_brut": 7.5
   },
   {
     "id": 105,
@@ -2529,13 +3273,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 6.0,
+        "price": 7.5,
         "stock": 35,
-        "sku": "TD-DE-206"
+        "sku": "TD-DE-206",
+        "pret_net": 6.0,
+        "cota_tva": 21,
+        "pret_brut": 7.5
       }
     ],
     "default_size": "Standard",
-    "price": 6.0
+    "price": 7.5,
+    "cota_tva": 21,
+    "pret_net": 6.0,
+    "pret_brut": 7.5
   },
   {
     "id": 106,
@@ -2550,13 +3300,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 6.0,
+        "price": 7.5,
         "stock": 35,
-        "sku": "TD-DE-207"
+        "sku": "TD-DE-207",
+        "pret_net": 6.0,
+        "cota_tva": 21,
+        "pret_brut": 7.5
       }
     ],
     "default_size": "Standard",
-    "price": 6.0
+    "price": 7.5,
+    "cota_tva": 21,
+    "pret_net": 6.0,
+    "pret_brut": 7.5
   },
   {
     "id": 107,
@@ -2571,13 +3327,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 6.0,
+        "price": 7.5,
         "stock": 35,
-        "sku": "TD-DE-208"
+        "sku": "TD-DE-208",
+        "pret_net": 6.0,
+        "cota_tva": 21,
+        "pret_brut": 7.5
       }
     ],
     "default_size": "Standard",
-    "price": 6.0
+    "price": 7.5,
+    "cota_tva": 21,
+    "pret_net": 6.0,
+    "pret_brut": 7.5
   },
   {
     "id": 108,
@@ -2592,13 +3354,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 6.0,
+        "price": 7.5,
         "stock": 35,
-        "sku": "TD-DE-209"
+        "sku": "TD-DE-209",
+        "pret_net": 6.0,
+        "cota_tva": 21,
+        "pret_brut": 7.5
       }
     ],
     "default_size": "Standard",
-    "price": 6.0
+    "price": 7.5,
+    "cota_tva": 21,
+    "pret_net": 6.0,
+    "pret_brut": 7.5
   },
   {
     "id": 109,
@@ -2613,13 +3381,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 6.0,
+        "price": 7.5,
         "stock": 35,
-        "sku": "TD-DE-210"
+        "sku": "TD-DE-210",
+        "pret_net": 6.0,
+        "cota_tva": 21,
+        "pret_brut": 7.5
       }
     ],
     "default_size": "Standard",
-    "price": 6.0
+    "price": 7.5,
+    "cota_tva": 21,
+    "pret_net": 6.0,
+    "pret_brut": 7.5
   },
   {
     "id": 110,
@@ -2634,13 +3408,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 7.0,
+        "price": 8.5,
         "stock": 35,
-        "sku": "TD-DE-211"
+        "sku": "TD-DE-211",
+        "pret_net": 7.0,
+        "cota_tva": 21,
+        "pret_brut": 8.5
       }
     ],
     "default_size": "Standard",
-    "price": 7.0
+    "price": 8.5,
+    "cota_tva": 21,
+    "pret_net": 7.0,
+    "pret_brut": 8.5
   },
   {
     "id": 111,
@@ -2655,13 +3435,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 7.0,
+        "price": 8.5,
         "stock": 35,
-        "sku": "TD-DE-212"
+        "sku": "TD-DE-212",
+        "pret_net": 7.0,
+        "cota_tva": 21,
+        "pret_brut": 8.5
       }
     ],
     "default_size": "Standard",
-    "price": 7.0
+    "price": 8.5,
+    "cota_tva": 21,
+    "pret_net": 7.0,
+    "pret_brut": 8.5
   },
   {
     "id": 112,
@@ -2676,13 +3462,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 7.0,
+        "price": 8.5,
         "stock": 35,
-        "sku": "TD-DE-213"
+        "sku": "TD-DE-213",
+        "pret_net": 7.0,
+        "cota_tva": 21,
+        "pret_brut": 8.5
       }
     ],
     "default_size": "Standard",
-    "price": 7.0
+    "price": 8.5,
+    "cota_tva": 21,
+    "pret_net": 7.0,
+    "pret_brut": 8.5
   },
   {
     "id": 113,
@@ -2697,13 +3489,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 7.0,
+        "price": 8.5,
         "stock": 35,
-        "sku": "TD-DE-214"
+        "sku": "TD-DE-214",
+        "pret_net": 7.0,
+        "cota_tva": 21,
+        "pret_brut": 8.5
       }
     ],
     "default_size": "Standard",
-    "price": 7.0
+    "price": 8.5,
+    "cota_tva": 21,
+    "pret_net": 7.0,
+    "pret_brut": 8.5
   },
   {
     "id": 114,
@@ -2718,13 +3516,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 7.0,
+        "price": 8.5,
         "stock": 35,
-        "sku": "TD-DE-215"
+        "sku": "TD-DE-215",
+        "pret_net": 7.0,
+        "cota_tva": 21,
+        "pret_brut": 8.5
       }
     ],
     "default_size": "Standard",
-    "price": 7.0
+    "price": 8.5,
+    "cota_tva": 21,
+    "pret_net": 7.0,
+    "pret_brut": 8.5
   },
   {
     "id": 115,
@@ -2739,13 +3543,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 7.0,
+        "price": 8.5,
         "stock": 35,
-        "sku": "TD-DE-216"
+        "sku": "TD-DE-216",
+        "pret_net": 7.0,
+        "cota_tva": 21,
+        "pret_brut": 8.5
       }
     ],
     "default_size": "Standard",
-    "price": 7.0
+    "price": 8.5,
+    "cota_tva": 21,
+    "pret_net": 7.0,
+    "pret_brut": 8.5
   },
   {
     "id": 116,
@@ -2760,13 +3570,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 7.0,
+        "price": 8.5,
         "stock": 35,
-        "sku": "TD-DE-217"
+        "sku": "TD-DE-217",
+        "pret_net": 7.0,
+        "cota_tva": 21,
+        "pret_brut": 8.5
       }
     ],
     "default_size": "Standard",
-    "price": 7.0
+    "price": 8.5,
+    "cota_tva": 21,
+    "pret_net": 7.0,
+    "pret_brut": 8.5
   },
   {
     "id": 117,
@@ -2781,13 +3597,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 7.0,
+        "price": 8.5,
         "stock": 35,
-        "sku": "TD-DE-218"
+        "sku": "TD-DE-218",
+        "pret_net": 7.0,
+        "cota_tva": 21,
+        "pret_brut": 8.5
       }
     ],
     "default_size": "Standard",
-    "price": 7.0
+    "price": 8.5,
+    "cota_tva": 21,
+    "pret_net": 7.0,
+    "pret_brut": 8.5
   },
   {
     "id": 118,
@@ -2802,13 +3624,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 8.0,
+        "price": 10.0,
         "stock": 35,
-        "sku": "TD-DE-219"
+        "sku": "TD-DE-219",
+        "pret_net": 8.0,
+        "cota_tva": 21,
+        "pret_brut": 10.0
       }
     ],
     "default_size": "Standard",
-    "price": 8.0
+    "price": 10.0,
+    "cota_tva": 21,
+    "pret_net": 8.0,
+    "pret_brut": 10.0
   },
   {
     "id": 119,
@@ -2823,13 +3651,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 8.0,
+        "price": 10.0,
         "stock": 35,
-        "sku": "TD-DE-220"
+        "sku": "TD-DE-220",
+        "pret_net": 8.0,
+        "cota_tva": 21,
+        "pret_brut": 10.0
       }
     ],
     "default_size": "Standard",
-    "price": 8.0
+    "price": 10.0,
+    "cota_tva": 21,
+    "pret_net": 8.0,
+    "pret_brut": 10.0
   },
   {
     "id": 120,
@@ -2844,13 +3678,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 8.0,
+        "price": 10.0,
         "stock": 35,
-        "sku": "TD-DE-221"
+        "sku": "TD-DE-221",
+        "pret_net": 8.0,
+        "cota_tva": 21,
+        "pret_brut": 10.0
       }
     ],
     "default_size": "Standard",
-    "price": 8.0
+    "price": 10.0,
+    "cota_tva": 21,
+    "pret_net": 8.0,
+    "pret_brut": 10.0
   },
   {
     "id": 121,
@@ -2865,13 +3705,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 9.0,
+        "price": 11.0,
         "stock": 35,
-        "sku": "TD-DE-222"
+        "sku": "TD-DE-222",
+        "pret_net": 9.0,
+        "cota_tva": 21,
+        "pret_brut": 11.0
       }
     ],
     "default_size": "Standard",
-    "price": 9.0
+    "price": 11.0,
+    "cota_tva": 21,
+    "pret_net": 9.0,
+    "pret_brut": 11.0
   },
   {
     "id": 122,
@@ -2886,13 +3732,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 10.0,
+        "price": 12.5,
         "stock": 35,
-        "sku": "TD-DE-223"
+        "sku": "TD-DE-223",
+        "pret_net": 10.0,
+        "cota_tva": 21,
+        "pret_brut": 12.5
       }
     ],
     "default_size": "Standard",
-    "price": 10.0
+    "price": 12.5,
+    "cota_tva": 21,
+    "pret_net": 10.0,
+    "pret_brut": 12.5
   },
   {
     "id": 123,
@@ -2907,13 +3759,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 11.0,
+        "price": 13.5,
         "stock": 35,
-        "sku": "TD-DE-224"
+        "sku": "TD-DE-224",
+        "pret_net": 11.0,
+        "cota_tva": 21,
+        "pret_brut": 13.5
       }
     ],
     "default_size": "Standard",
-    "price": 11.0
+    "price": 13.5,
+    "cota_tva": 21,
+    "pret_net": 11.0,
+    "pret_brut": 13.5
   },
   {
     "id": 124,
@@ -2928,13 +3786,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 13.0,
+        "price": 16.0,
         "stock": 35,
-        "sku": "TD-DE-225"
+        "sku": "TD-DE-225",
+        "pret_net": 13.0,
+        "cota_tva": 21,
+        "pret_brut": 16.0
       }
     ],
     "default_size": "Standard",
-    "price": 13.0
+    "price": 16.0,
+    "cota_tva": 21,
+    "pret_net": 13.0,
+    "pret_brut": 16.0
   },
   {
     "id": 125,
@@ -2949,13 +3813,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 13.0,
+        "price": 16.0,
         "stock": 35,
-        "sku": "TD-DE-226"
+        "sku": "TD-DE-226",
+        "pret_net": 13.0,
+        "cota_tva": 21,
+        "pret_brut": 16.0
       }
     ],
     "default_size": "Standard",
-    "price": 13.0
+    "price": 16.0,
+    "cota_tva": 21,
+    "pret_net": 13.0,
+    "pret_brut": 16.0
   },
   {
     "id": 126,
@@ -2970,13 +3840,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 13.0,
+        "price": 16.0,
         "stock": 35,
-        "sku": "TD-DE-227"
+        "sku": "TD-DE-227",
+        "pret_net": 13.0,
+        "cota_tva": 21,
+        "pret_brut": 16.0
       }
     ],
     "default_size": "Standard",
-    "price": 13.0
+    "price": 16.0,
+    "cota_tva": 21,
+    "pret_net": 13.0,
+    "pret_brut": 16.0
   },
   {
     "id": 127,
@@ -2991,13 +3867,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 13.0,
+        "price": 16.0,
         "stock": 35,
-        "sku": "TD-DE-228"
+        "sku": "TD-DE-228",
+        "pret_net": 13.0,
+        "cota_tva": 21,
+        "pret_brut": 16.0
       }
     ],
     "default_size": "Standard",
-    "price": 13.0
+    "price": 16.0,
+    "cota_tva": 21,
+    "pret_net": 13.0,
+    "pret_brut": 16.0
   },
   {
     "id": 128,
@@ -3012,13 +3894,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 13.0,
+        "price": 16.0,
         "stock": 35,
-        "sku": "TD-DE-229"
+        "sku": "TD-DE-229",
+        "pret_net": 13.0,
+        "cota_tva": 21,
+        "pret_brut": 16.0
       }
     ],
     "default_size": "Standard",
-    "price": 13.0
+    "price": 16.0,
+    "cota_tva": 21,
+    "pret_net": 13.0,
+    "pret_brut": 16.0
   },
   {
     "id": 129,
@@ -3033,13 +3921,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 14.0,
+        "price": 17.0,
         "stock": 35,
-        "sku": "TD-DE-230"
+        "sku": "TD-DE-230",
+        "pret_net": 14.0,
+        "cota_tva": 21,
+        "pret_brut": 17.0
       }
     ],
     "default_size": "Standard",
-    "price": 14.0
+    "price": 17.0,
+    "cota_tva": 21,
+    "pret_net": 14.0,
+    "pret_brut": 17.0
   },
   {
     "id": 130,
@@ -3054,13 +3948,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 21.0,
+        "price": 25.5,
         "stock": 35,
-        "sku": "TD-DE-231"
+        "sku": "TD-DE-231",
+        "pret_net": 21.0,
+        "cota_tva": 21,
+        "pret_brut": 25.5
       }
     ],
     "default_size": "Standard",
-    "price": 21.0
+    "price": 25.5,
+    "cota_tva": 21,
+    "pret_net": 21.0,
+    "pret_brut": 25.5
   },
   {
     "id": 131,
@@ -3075,13 +3975,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 21.0,
+        "price": 25.5,
         "stock": 35,
-        "sku": "TD-DE-232"
+        "sku": "TD-DE-232",
+        "pret_net": 21.0,
+        "cota_tva": 21,
+        "pret_brut": 25.5
       }
     ],
     "default_size": "Standard",
-    "price": 21.0
+    "price": 25.5,
+    "cota_tva": 21,
+    "pret_net": 21.0,
+    "pret_brut": 25.5
   },
   {
     "id": 132,
@@ -3096,13 +4002,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 22.0,
+        "price": 27.0,
         "stock": 35,
-        "sku": "TD-DE-233"
+        "sku": "TD-DE-233",
+        "pret_net": 22.0,
+        "cota_tva": 21,
+        "pret_brut": 27.0
       }
     ],
     "default_size": "Standard",
-    "price": 22.0
+    "price": 27.0,
+    "cota_tva": 21,
+    "pret_net": 22.0,
+    "pret_brut": 27.0
   },
   {
     "id": 133,
@@ -3117,13 +4029,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 22.0,
+        "price": 27.0,
         "stock": 35,
-        "sku": "TD-DE-234"
+        "sku": "TD-DE-234",
+        "pret_net": 22.0,
+        "cota_tva": 21,
+        "pret_brut": 27.0
       }
     ],
     "default_size": "Standard",
-    "price": 22.0
+    "price": 27.0,
+    "cota_tva": 21,
+    "pret_net": 22.0,
+    "pret_brut": 27.0
   },
   {
     "id": 134,
@@ -3138,13 +4056,19 @@
     "variations": [
       {
         "size": "Standard",
-        "price": 28.0,
+        "price": 34.0,
         "stock": 35,
-        "sku": "TD-DE-235"
+        "sku": "TD-DE-235",
+        "pret_net": 28.0,
+        "cota_tva": 21,
+        "pret_brut": 34.0
       }
     ],
     "default_size": "Standard",
-    "price": 28.0
+    "price": 34.0,
+    "cota_tva": 21,
+    "pret_net": 28.0,
+    "pret_brut": 34.0
   },
   {
     "id": 135,
@@ -3159,13 +4083,19 @@
     "variations": [
       {
         "size": "Bucată",
-        "price": 38.0,
+        "price": 46.0,
         "stock": 20,
-        "sku": "TD-GH-239"
+        "sku": "TD-GH-239",
+        "pret_net": 38.0,
+        "cota_tva": 21,
+        "pret_brut": 46.0
       }
     ],
     "default_size": "Bucată",
-    "price": 38.0
+    "price": 46.0,
+    "cota_tva": 21,
+    "pret_net": 38.0,
+    "pret_brut": 46.0
   },
   {
     "id": 136,
@@ -3180,13 +4110,19 @@
     "variations": [
       {
         "size": "Bucată",
-        "price": 29.5,
+        "price": 36.0,
         "stock": 25,
-        "sku": "TD-GH-240"
+        "sku": "TD-GH-240",
+        "pret_net": 29.5,
+        "cota_tva": 21,
+        "pret_brut": 36.0
       }
     ],
     "default_size": "Bucată",
-    "price": 29.5
+    "price": 36.0,
+    "cota_tva": 21,
+    "pret_net": 29.5,
+    "pret_brut": 36.0
   },
   {
     "id": 137,
@@ -3201,13 +4137,19 @@
     "variations": [
       {
         "size": "Bucată",
-        "price": 34.0,
+        "price": 41.5,
         "stock": 30,
-        "sku": "TD-GH-241"
+        "sku": "TD-GH-241",
+        "pret_net": 34.0,
+        "cota_tva": 21,
+        "pret_brut": 41.5
       }
     ],
     "default_size": "Bucată",
-    "price": 34.0
+    "price": 41.5,
+    "cota_tva": 21,
+    "pret_net": 34.0,
+    "pret_brut": 41.5
   },
   {
     "id": 138,
@@ -3222,13 +4164,19 @@
     "variations": [
       {
         "size": "Bucată",
-        "price": 32.0,
+        "price": 39.0,
         "stock": 18,
-        "sku": "TD-GH-242"
+        "sku": "TD-GH-242",
+        "pret_net": 32.0,
+        "cota_tva": 21,
+        "pret_brut": 39.0
       }
     ],
     "default_size": "Bucată",
-    "price": 32.0
+    "price": 39.0,
+    "cota_tva": 21,
+    "pret_net": 32.0,
+    "pret_brut": 39.0
   },
   {
     "id": 139,
@@ -3243,12 +4191,18 @@
     "variations": [
       {
         "size": "Bucată",
-        "price": 42.0,
+        "price": 51.0,
         "stock": 15,
-        "sku": "TD-GH-243"
+        "sku": "TD-GH-243",
+        "pret_net": 42.0,
+        "cota_tva": 21,
+        "pret_brut": 51.0
       }
     ],
     "default_size": "Bucată",
-    "price": 42.0
+    "price": 51.0,
+    "cota_tva": 21,
+    "pret_net": 42.0,
+    "pret_brut": 51.0
   }
 ]

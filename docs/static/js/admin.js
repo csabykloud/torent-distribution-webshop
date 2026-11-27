@@ -247,12 +247,111 @@ function updateSubcatOptions() {
     }
 }
 
+function calcBrutCeilHalf(netVal, tvaPct) {
+    const net = parseFloat(String(netVal).replace(',', '.'));
+    const tva = parseFloat(String(tvaPct).replace(',', '.'));
+    if (isNaN(net) || net < 0) return 0;
+    const rawGross = Math.round((net * (1 + (isNaN(tva) ? 21 : tva) / 100)) * 100) / 100;
+    return Math.ceil(Math.round(rawGross * 200) / 100) / 2;
+}
+
+function autoSuggestTvaByCategory() {
+    const pid = document.getElementById('editProductId').value;
+    if (pid) return; // Don't overwrite existing product's TVA when editing
+    const cat = document.getElementById('prodCategory').value;
+    const tvaSelect = document.getElementById('prodCotaTva');
+    if (tvaSelect) {
+        tvaSelect.value = (cat === 'Ingrasaminte') ? '11' : '21';
+        refreshVariationBrutPreviews();
+    }
+}
+
+function refreshVariationBrutPreviews() {
+    const tvaSelect = document.getElementById('prodCotaTva');
+    const tvaPct = tvaSelect ? parseFloat(tvaSelect.value) : 21;
+    document.querySelectorAll('#variationRowsContainer .var-editor-row').forEach(row => {
+        const netInput = row.querySelector('.var-price-input');
+        const brutBadge = row.querySelector('.var-brut-preview');
+        if (netInput && brutBadge) {
+            const brut = calcBrutCeilHalf(netInput.value, tvaPct);
+            brutBadge.innerText = brut > 0 ? `${brut.toFixed(2)} RON` : '0.00 RON';
+        }
+    });
+}
+
+async function addNewTvaRate() {
+    const input = prompt('Introduceți noua cotă de TVA (procent numeric, ex: 9, 19, 5):');
+    if (input === null) return;
+    const trimmed = input.trim();
+    if (!trimmed) return;
+
+    try {
+        const resp = await fetch('/admin/api/tva/add', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ rate: trimmed })
+        });
+        const res = await resp.json();
+        if (res.success && Array.isArray(res.tva_rates)) {
+            window.ADMIN_TVA_RATES = res.tva_rates;
+            // Immediately update every TVA dropdown on the page (table + modal)
+            document.querySelectorAll('.admin-tva-select, #prodCotaTva').forEach(sel => {
+                const currentVal = sel.value;
+                sel.innerHTML = res.tva_rates.map(r => `<option value="${r}" ${String(r) === String(currentVal) ? 'selected' : ''}>${r}%</option>`).join('');
+            });
+            alert(res.message);
+        } else {
+            alert(res.message || 'Eroare la adăugarea cotei TVA.');
+        }
+    } catch (err) {
+        alert('Eroare de conexiune la adăugarea cotei TVA.');
+    }
+}
+
+async function updateProductTva(productId, selectEl) {
+    const newTva = selectEl.value;
+    selectEl.disabled = true;
+    try {
+        const resp = await fetch(`/admin/api/product/tva/${productId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ cota_tva: newTva })
+        });
+        const res = await resp.json();
+        if (res.success && res.product) {
+            const row = selectEl.closest('tr');
+            if (row) {
+                const netCell = row.querySelector('.admin-net-cell');
+                const brutCell = row.querySelector('.admin-brut-cell');
+                const varsCell = row.querySelector('.admin-vars-cell');
+                if (netCell) netCell.innerText = `${Number(res.product.pret_net).toFixed(2)} RON`;
+                if (brutCell) brutCell.innerHTML = `<strong style="color: #065f46;">${Number(res.product.pret_brut).toFixed(2)} RON</strong>`;
+                if (varsCell && Array.isArray(res.product.variations)) {
+                    varsCell.innerHTML = res.product.variations.map(v => {
+                        const codeHtml = v.internal_code
+                            ? `<small style="color: #0369a1; font-weight: 700;">[Cod: ${v.internal_code}]</small>`
+                            : (v.sku ? `<small style="color: #64748b;">[${v.sku}]</small>` : '');
+                        return `<span class="var-badge" style="margin: 2px; display: inline-block;"><strong>${v.size}</strong>: ${Number(v.pret_net).toFixed(2)} &rarr; <strong style="color:#065f46;">${Number(v.pret_brut).toFixed(2)} RON</strong> ${codeHtml}</span>`;
+                    }).join('');
+                }
+            }
+        } else {
+            alert(res.message || 'Eroare la actualizarea TVA.');
+        }
+    } catch (err) {
+        alert('Eroare de conexiune la actualizarea TVA.');
+    } finally {
+        selectEl.disabled = false;
+    }
+}
+
 function collectCurrentVariationRows() {
     const rows = document.querySelectorAll('#variationRowsContainer .var-editor-row');
     const result = [];
     rows.forEach(row => {
         result.push({
             size: row.querySelector('.var-size-input').value.trim(),
+            pret_net: row.querySelector('.var-price-input').value.trim(),
             price: row.querySelector('.var-price-input').value.trim(),
             internal_code: row.querySelector('.var-code-input').value.trim(),
             stock: row.querySelector('.var-stock-input').value.trim() || '25',
@@ -274,12 +373,15 @@ function renderVariationRows(presetVariations = null) {
         countInput.value = 15;
     }
 
+    const tvaSelect = document.getElementById('prodCotaTva');
+    const tvaPct = tvaSelect ? parseFloat(tvaSelect.value) : 21;
     const existing = presetVariations !== null ? presetVariations : collectCurrentVariationRows();
     let html = `
-        <div style="display: grid; grid-template-columns: 1.1fr 1fr 1.2fr 0.7fr; gap: 8px; font-size: 0.78rem; font-weight: 700; color: #065f46; padding: 0 4px;">
+        <div style="display: grid; grid-template-columns: 1fr 0.95fr 0.9fr 1.15fr 0.65fr; gap: 8px; font-size: 0.76rem; font-weight: 700; color: #065f46; padding: 0 4px;">
             <span>Mărime / Ambalaj *</span>
-            <span>Preț (RON + TVA) *</span>
-            <span>Cod intern produs (doar admin)</span>
+            <span>Preț NET (RON) *</span>
+            <span>Preț BRUT (.50/.00)</span>
+            <span>Cod intern (admin)</span>
             <span>Stoc</span>
         </div>
     `;
@@ -287,17 +389,19 @@ function renderVariationRows(presetVariations = null) {
     for (let i = 0; i < count; i++) {
         const v = existing[i] || {};
         const sizeVal = (v.size !== undefined && v.size !== null) ? String(v.size).replace(/"/g, '&quot;') : '';
-        const priceVal = (v.price !== undefined && v.price !== null && v.price !== '') ? v.price : '';
+        const netRaw = (v.pret_net !== undefined && v.pret_net !== null && v.pret_net !== '') ? v.pret_net : ((v.price !== undefined && v.price !== null && v.price !== '') ? v.price : '');
+        const brutPreview = netRaw !== '' ? calcBrutCeilHalf(netRaw, tvaPct).toFixed(2) + ' RON' : '0.00 RON';
         const codeVal = (v.internal_code !== undefined && v.internal_code !== null) ? String(v.internal_code).replace(/"/g, '&quot;') : '';
         const stockVal = (v.stock !== undefined && v.stock !== null && v.stock !== '') ? v.stock : 25;
         const skuVal = (v.sku || '').replace(/"/g, '&quot;');
 
         html += `
-            <div class="var-editor-row" data-sku="${skuVal}" style="display: grid; grid-template-columns: 1.1fr 1fr 1.2fr 0.7fr; gap: 8px; align-items: center;">
+            <div class="var-editor-row" data-sku="${skuVal}" style="display: grid; grid-template-columns: 1fr 0.95fr 0.9fr 1.15fr 0.65fr; gap: 8px; align-items: center;">
                 <input type="text" class="var-size-input" required placeholder="ex: ${i === 0 ? '20L' : (i === 1 ? '50L' : '10L')}" value="${sizeVal}"
                        style="padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 8px; background: #fff;">
-                <input type="number" step="0.01" min="0" class="var-price-input" required placeholder="ex: 15.50" value="${priceVal}"
+                <input type="number" step="0.01" min="0" class="var-price-input" required placeholder="ex: 12.50" value="${netRaw}" oninput="refreshVariationBrutPreviews()"
                        style="padding: 8px 10px; border: 1px solid #cbd5e1; border-radius: 8px; background: #fff;">
+                <span class="var-brut-preview" style="padding: 8px 10px; border-radius: 8px; background: #ecfdf5; color: #065f46; font-weight: 700; font-size: 0.85rem; text-align: center; border: 1px solid #a7f3d0;">${brutPreview}</span>
                 <input type="text" class="var-code-input" placeholder="ex: FL-RAS-20" value="${codeVal}"
                        style="padding: 8px 10px; border: 1px solid #93c5fd; border-radius: 8px; background: #f8fafc;">
                 <input type="number" min="0" class="var-stock-input" value="${stockVal}"
@@ -316,8 +420,11 @@ function openAddProductModal() {
     document.getElementById('imagePreviewImg').style.display = 'none';
     document.getElementById('imagePreviewText').style.display = 'block';
     document.getElementById('varCountInput').value = 1;
-    renderVariationRows([{ size: '', price: '', internal_code: '', stock: 25 }]);
+    const tvaSel = document.getElementById('prodCotaTva');
+    if (tvaSel) tvaSel.value = '21';
+    renderVariationRows([{ size: '', pret_net: '', internal_code: '', stock: 25 }]);
     updateSubcatOptions();
+    autoSuggestTvaByCategory();
     document.getElementById('adminProductModal').classList.add('active');
 }
 
@@ -332,14 +439,19 @@ function editProduct(prod) {
     document.getElementById('prodCategory').value = prod.category;
     updateSubcatOptions();
     document.getElementById('prodSubcategory').value = prod.subcategory || '';
-    document.getElementById('prodPrice').value = prod.price;
+    const tvaSel = document.getElementById('prodCotaTva');
+    if (tvaSel) {
+        const cota = prod.cota_tva !== undefined ? prod.cota_tva : (prod.category === 'Ingrasaminte' ? 11 : 21);
+        tvaSel.value = String(cota);
+    }
+    document.getElementById('prodPrice').value = prod.pret_net !== undefined ? prod.pret_net : prod.price;
     document.getElementById('prodStock').value = prod.stock || 25;
     document.getElementById('prodDescription').value = prod.description || '';
     document.getElementById('prodFeatured').checked = !!prod.featured;
 
     const vars = (prod.variations && prod.variations.length > 0)
         ? prod.variations
-        : [{ size: 'Standard', price: prod.price, internal_code: prod.internal_code || '', stock: prod.stock || 25 }];
+        : [{ size: 'Standard', pret_net: prod.pret_net !== undefined ? prod.pret_net : prod.price, internal_code: prod.internal_code || '', stock: prod.stock || 25 }];
     document.getElementById('varCountInput').value = vars.length;
     renderVariationRows(vars);
 
@@ -397,6 +509,7 @@ async function submitAdminProduct(e) {
         const stockNum = parseInt(rawVars[i].stock, 10) || 25;
         variations.push({
             size: size,
+            pret_net: Number(priceNum.toFixed(2)),
             price: Number(priceNum.toFixed(2)),
             stock: stockNum,
             internal_code: rawVars[i].internal_code || '',
@@ -806,14 +919,52 @@ function openOrderDetailModal(order) {
     document.getElementById('orderModalTitle').innerHTML = `<i class="fa-solid fa-receipt"></i> Comandă #${order.id} — ${order.date || ''}`;
 
     const cust = order.customer || {};
-    const itemsHtml = (order.items || []).map(it => `
-        <tr style="border-bottom: 1px solid #f1f5f9;">
-            <td style="padding: 8px 6px;"><strong>${it.name}</strong></td>
-            <td style="padding: 8px 6px; text-align: center;">${it.quantity} buc</td>
-            <td style="padding: 8px 6px; text-align: right;">${Number(it.price).toFixed(2)} RON + TVA</td>
-            <td style="padding: 8px 6px; text-align: right; font-weight: 700;">${(Number(it.price) * Number(it.quantity)).toFixed(2)} RON + TVA</td>
-        </tr>
-    `).join('');
+    let fallbackTotalNet = 0;
+    let fallbackTotalTva = 0;
+    let fallbackTotalBrut = 0;
+
+    const itemsHtml = (order.items || []).map(it => {
+        const qty = Number(it.quantity || 1);
+        const cota = it.cota_tva !== undefined ? Number(it.cota_tva) : 21;
+        const unitBrut = Number(it.pret_brut_unitar !== undefined ? it.pret_brut_unitar : (it.price || 0));
+        const unitNet = it.pret_net_recalculat !== undefined
+            ? Number(it.pret_net_recalculat)
+            : Number((unitBrut / (1 + cota / 100)).toFixed(2));
+        const valBrut = it.valoare_bruta !== undefined ? Number(it.valoare_bruta) : Number((unitBrut * qty).toFixed(2));
+        const valNet = it.valoare_neta !== undefined ? Number(it.valoare_neta) : Number((unitNet * qty).toFixed(2));
+        const valTva = it.valoare_tva !== undefined ? Number(it.valoare_tva) : Number((valBrut - valNet).toFixed(2));
+
+        fallbackTotalNet += valNet;
+        fallbackTotalTva += valTva;
+        fallbackTotalBrut += valBrut;
+
+        return `
+            <tr style="border-bottom: 1px solid #e2e8f0;">
+                <td style="padding: 8px 6px;"><strong>${it.name}</strong></td>
+                <td style="padding: 8px 6px; text-align: center;">${qty} buc</td>
+                <td style="padding: 8px 6px; text-align: center;"><span style="background:#ecfdf5;color:#065f46;padding:2px 7px;border-radius:6px;font-weight:700;font-size:0.8rem;">${cota}%</span></td>
+                <td style="padding: 8px 6px; text-align: right; color:#475569;">${unitNet.toFixed(2)} RON</td>
+                <td style="padding: 8px 6px; text-align: right; font-weight:600;">${unitBrut.toFixed(2)} RON</td>
+                <td style="padding: 8px 6px; text-align: right; color:#475569;">${valNet.toFixed(2)} RON</td>
+                <td style="padding: 8px 6px; text-align: right; color:#0369a1;">${valTva.toFixed(2)} RON</td>
+                <td style="padding: 8px 6px; text-align: right; font-weight: 700; color:#064e3b;">${valBrut.toFixed(2)} RON</td>
+            </tr>
+        `;
+    }).join('');
+
+    const totalNet = order.total_net !== undefined ? Number(order.total_net) : fallbackTotalNet;
+    const totalTva = order.total_tva !== undefined ? Number(order.total_tva) : fallbackTotalTva;
+    const shippingBrut = order.shipping_brut !== undefined ? Number(order.shipping_brut) : 0;
+    const grandTotal = Number(order.total !== undefined ? order.total : (fallbackTotalBrut + shippingBrut));
+
+    const breakdownHtml = (order.tva_breakdown && order.tva_breakdown.length > 0)
+        ? order.tva_breakdown.map(b => `
+            <div style="display:flex;justify-content:space-between;font-size:0.84rem;color:#475569;padding:2px 0;">
+                <span>&bull; TVA ${b.cota_tva}% (bază netă ${Number(b.valoare_neta).toFixed(2)} RON):</span>
+                <strong>${Number(b.valoare_tva).toFixed(2)} RON</strong>
+            </div>
+        `).join('')
+        : '';
 
     document.getElementById('orderModalBody').innerHTML = `
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 18px; background: #f8fafc; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0;">
@@ -830,19 +981,38 @@ function openOrderDetailModal(order) {
                 <div style="margin-top: 4px;">Plată: <strong>${order.payment_method || '-'}</strong></div>
             </div>
         </div>
-        <table style="width: 100%; border-collapse: collapse; font-size: 0.9rem; margin-bottom: 14px;">
-            <thead>
-                <tr style="background: #f1f5f9; text-align: left;">
-                    <th style="padding: 8px 6px;">Produs</th>
-                    <th style="padding: 8px 6px; text-align: center;">Cant.</th>
-                    <th style="padding: 8px 6px; text-align: right;">Preț unitar</th>
-                    <th style="padding: 8px 6px; text-align: right;">Subtotal</th>
-                </tr>
-            </thead>
-            <tbody>${itemsHtml}</tbody>
-        </table>
-        <div style="text-align: right; font-size: 1.15rem; font-weight: 800; color: #064e3b;">
-            TOTAL: ${Number(order.total || 0).toFixed(2)} RON + TVA
+        <div style="overflow-x:auto;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-bottom: 14px;">
+                <thead>
+                    <tr style="background: #f1f5f9; text-align: left;">
+                        <th style="padding: 8px 6px;">Produs &amp; ambalaj</th>
+                        <th style="padding: 8px 6px; text-align: center;">Cant.</th>
+                        <th style="padding: 8px 6px; text-align: center;">TVA %</th>
+                        <th style="padding: 8px 6px; text-align: right;">Preț net</th>
+                        <th style="padding: 8px 6px; text-align: right;">Preț brut</th>
+                        <th style="padding: 8px 6px; text-align: right;">Total net</th>
+                        <th style="padding: 8px 6px; text-align: right;">TVA</th>
+                        <th style="padding: 8px 6px; text-align: right;">Total brut</th>
+                    </tr>
+                </thead>
+                <tbody>${itemsHtml}</tbody>
+            </table>
+        </div>
+        <div style="margin-left: auto; max-width: 390px; background: #f8fbf9; border: 1px solid #d1fae5; border-radius: 12px; padding: 14px 16px;">
+            <div style="display:flex;justify-content:space-between;font-size:0.9rem;padding:3px 0;">
+                <span>Total Net (fără TVA):</span>
+                <strong>${totalNet.toFixed(2)} RON</strong>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:0.9rem;padding:3px 0;color:#0369a1;">
+                <span>Total TVA produse:</span>
+                <strong>${totalTva.toFixed(2)} RON</strong>
+            </div>
+            ${breakdownHtml}
+            ${shippingBrut > 0 ? `<div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:3px 0;color:#475569;"><span>Transport (TVA inclus):</span><span>${shippingBrut.toFixed(2)} RON</span></div>` : ''}
+            <div style="display:flex;justify-content:space-between;font-size:1.1rem;font-weight:800;color:#064e3b;border-top:1px solid #a7f3d0;margin-top:8px;padding-top:8px;">
+                <span>Total de plată (TVA inclus):</span>
+                <span>${grandTotal.toFixed(2)} RON</span>
+            </div>
         </div>
     `;
 

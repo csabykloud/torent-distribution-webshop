@@ -33,7 +33,7 @@
           "@type": "UnitPriceSpecification",
           "price": "{{ '%.2f'|format(v.price) }}",
           "priceCurrency": "RON",
-          "valueAddedTaxIncluded": false
+          "valueAddedTaxIncluded": true
         },
         "availability": "https://schema.org/InStock",
         "url": {{ canonical_url | tojson }}
@@ -131,7 +131,7 @@
                             data-sku="{{ v.sku }}"
                             onclick="selectDetailVariation(this)">
                         <span class="var-btn-size">{{ v.size }}</span>
-                        <span class="var-btn-price">{{ "%.2f"|format(v.price) }} RON + TVA</span>
+                        <span class="var-btn-price">{{ "%.2f"|format(v.price) }} RON</span>
                     </button>
                     {% endfor %}
                 </div>
@@ -143,7 +143,7 @@
                 <span style="font-size: 0.85rem; color: #64748b; font-weight: 600; display: block; margin-bottom: 4px;">Preț:</span>
                 <div style="font-size: 2.2rem; font-weight: 800; color: #064e3b;">
                     <span id="detailProdPrice">{{ "%.2f"|format(product.variations[0].price if product.variations else product.price) }}</span>
-                    <span style="font-size: 1.1rem; color: #64748b; font-weight: 600;">RON + TVA</span>
+                    <span style="font-size: 1.05rem; color: #64748b; font-weight: 600;">RON (TVA inclus)</span>
                 </div>
             </div>
 
@@ -191,7 +191,7 @@
                     <div class="product-pricing">
                         <div class="price-val">
                             <span class="amount">{{ "%.2f"|format(r.price) }}</span>
-                            <span class="currency">RON + TVA</span>
+                            <span class="currency">RON</span>
                         </div>
                     </div>
                     <button type="button" class="btn-add-cart" onclick="location.href='/produs/{{ r.id }}'">

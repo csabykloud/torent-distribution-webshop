@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="x-catalog-token" content="1795761293.a7e47b55e1d7aa13.d260da41076652896a02e746">
+    <meta name="x-catalog-token" content="1795763564.97591f4f00d4e4c8.ba72b363c9b0819cfbc7885e">
     <title>Politica de Confidențialitate &amp; GDPR – Torent Distribution</title>
     <meta name="description" content="Politica de Confidențialitate &amp; GDPR pentru magazinul online de horticultură Torent Distribution SRL. Informații oficiale despre comenzi, livrare și protecția datelor în România.">
     <link rel="canonical" href="https://csabykloud.github.io/torent-distribution-webshop/politica-gdpr">
@@ -223,8 +223,11 @@
                 <i class="fa-solid fa-circle-check"></i> Transport GRATUIT la comenzi peste 150 RON!
             </div>
             <div class="cart-summary-line total-line">
-                <span>Total estimat:</span>
+                <span>Total de plată (TVA inclus):</span>
                 <span class="total-val" id="cartTotal">0.00 RON</span>
+            </div>
+            <div id="cartTvaBreakdown" style="font-size: 0.78rem; color: #64748b; text-align: right; margin-top: -6px; margin-bottom: 10px;">
+                din care TVA: 0.00 RON
             </div>
             <button class="checkout-btn" id="openCheckoutModalBtn">
                 <i class="fa-solid fa-credit-card"></i> Finalizează Comanda
@@ -288,8 +291,11 @@
 
                 <div class="checkout-order-summary">
                     <div class="summary-row">
-                        <span>Total de plată cu livrare inclusă:</span>
-                        <strong id="modalCheckoutTotal">0.00 RON + TVA</strong>
+                        <span>Total de plată (TVA inclus):</span>
+                        <strong id="modalCheckoutTotal">0.00 RON</strong>
+                    </div>
+                    <div id="checkoutTvaBreakdown" style="font-size: 0.78rem; color: #64748b; text-align: right; margin-top: 4px;">
+                        din care TVA: 0.00 RON
                     </div>
                 </div>
 
@@ -343,8 +349,8 @@
 
                     <!-- Dynamic Price Wrap -->
                     <div class="quick-view-price-wrap">
-                        <div class="price-label-small">Preț unitar:</div>
-                        <span class="quick-view-price" id="modalProdPrice">0.00 RON + TVA</span>
+                        <div class="price-label-small">Preț unitar (TVA inclus):</div>
+                        <span class="quick-view-price" id="modalProdPrice">0.00 RON</span>
                     </div>
 
                     <div class="quick-view-desc-wrap">

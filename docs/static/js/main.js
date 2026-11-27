@@ -202,15 +202,22 @@ function addToCart(productId, quantity = 1, size = null, price = null) {
         ? `${prod.name} (${itemSize})`
         : prod.name;
 
+    const cotaTva = (selectedVar && selectedVar.cota_tva !== undefined)
+        ? Number(selectedVar.cota_tva)
+        : (prod.cota_tva !== undefined ? Number(prod.cota_tva) : (prod.category === 'Ingrasaminte' ? 11 : 21));
+
     const existing = cart.find(item => item.cartKey === itemKey);
     if (existing) {
         existing.quantity += quantity;
+        existing.cota_tva = cotaTva;
     } else {
         cart.push({
             cartKey: itemKey,
             id: productId,
             name: displayName,
             size: itemSize,
+            sku: (selectedVar && selectedVar.sku) ? selectedVar.sku : `TD-${productId}`,
+            cota_tva: cotaTva,
             price: itemPrice,
             image: prod.image,
             quantity: quantity
@@ -255,13 +262,41 @@ function updateCartUI() {
     const shipping = (subtotal >= 150 || subtotal === 0) ? 0.00 : 19.00;
     const grandTotal = subtotal + shipping;
 
+    // Exact per-item TVA back-calculation (supports mixed 11% + 21% carts)
+    let totalTvaProduse = 0;
+    const tvaByRate = {};
+    cart.forEach(item => {
+        const prodRef = allProducts.find(p => p.id === item.id);
+        const cota = (item.cota_tva !== undefined)
+            ? Number(item.cota_tva)
+            : (prodRef && prodRef.cota_tva !== undefined ? Number(prodRef.cota_tva) : (prodRef && prodRef.category === 'Ingrasaminte' ? 11 : 21));
+        const qty = Number(item.quantity || 1);
+        const unitBrut = Number(item.price || 0);
+        const unitNet = Math.round((unitBrut / (1 + cota / 100)) * 100) / 100;
+        const valBrut = Math.round(unitBrut * qty * 100) / 100;
+        const valNet = Math.round(unitNet * qty * 100) / 100;
+        const valTva = Math.round((valBrut - valNet) * 100) / 100;
+        totalTvaProduse += valTva;
+        tvaByRate[cota] = (tvaByRate[cota] || 0) + valTva;
+    });
+    const rateKeys = Object.keys(tvaByRate).sort((a, b) => Number(a) - Number(b));
+    let tvaText = `din care TVA: ${totalTvaProduse.toFixed(2)} RON`;
+    if (rateKeys.length > 1) {
+        const parts = rateKeys.map(r => `TVA ${r}%: ${tvaByRate[r].toFixed(2)} RON`);
+        tvaText = `din care TVA: ${totalTvaProduse.toFixed(2)} RON (${parts.join(' + ')})`;
+    }
+
     if (badge) badge.innerText = totalQty;
-    if (headerTotal) headerTotal.innerText = `${subtotal.toFixed(2)} RON + TVA`;
+    if (headerTotal) headerTotal.innerText = `${subtotal.toFixed(2)} RON`;
     if (drawerCount) drawerCount.innerText = totalQty;
-    if (subtotalEl) subtotalEl.innerText = `${subtotal.toFixed(2)} RON + TVA`;
+    if (subtotalEl) subtotalEl.innerText = `${subtotal.toFixed(2)} RON`;
     if (shippingEl) shippingEl.innerText = shipping === 0 ? 'GRATUIT' : `${shipping.toFixed(2)} RON`;
-    if (totalEl) totalEl.innerText = `${grandTotal.toFixed(2)} RON + TVA`;
-    if (checkoutTotalEl) checkoutTotalEl.innerText = `${grandTotal.toFixed(2)} RON + TVA`;
+    if (totalEl) totalEl.innerText = `${grandTotal.toFixed(2)} RON`;
+    if (checkoutTotalEl) checkoutTotalEl.innerText = `${grandTotal.toFixed(2)} RON`;
+    const cartTvaEl = document.getElementById('cartTvaBreakdown');
+    const checkoutTvaEl = document.getElementById('checkoutTvaBreakdown');
+    if (cartTvaEl) cartTvaEl.innerText = tvaText;
+    if (checkoutTvaEl) checkoutTvaEl.innerText = tvaText;
 
     if (shippingNotice) {
         if (subtotal >= 150) {
@@ -297,7 +332,7 @@ function updateCartUI() {
                 </div>
                 <div class="cart-item-info">
                     <div class="cart-item-title">${item.name}</div>
-                    <div class="cart-item-price">${(item.price * item.quantity).toFixed(2)} RON + TVA</div>
+                    <div class="cart-item-price">${(item.price * item.quantity).toFixed(2)} RON</div>
                     <div class="cart-item-qty-row">
                         <div class="qty-control">
                             <button type="button" onclick="updateQuantity('${item.cartKey}', -1)">-</button>
@@ -742,7 +777,7 @@ function openProductQuickView(productId) {
                     data-stock="${v.stock || 25}"
                     onclick="selectModalVariation(this)">
                 <span class="var-btn-size">${v.size}</span>
-                <span class="var-btn-price">${v.price.toFixed(2)} RON + TVA</span>
+                <span class="var-btn-price">${v.price.toFixed(2)} RON</span>
             </button>
         `).join('');
 
@@ -778,7 +813,7 @@ function selectModalVariation(btn) {
 }
 
 function updateModalPriceDisplay() {
-    document.getElementById('modalProdPrice').innerText = `${currentModalPrice.toFixed(2)} RON + TVA`;
+    document.getElementById('modalProdPrice').innerText = `${currentModalPrice.toFixed(2)} RON (TVA inclus)`;
     document.getElementById('modalProdSku').innerText = currentModalSku;
     document.getElementById('modalProdStock').innerText = currentModalStock;
 }
