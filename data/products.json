@@ -1611,7 +1611,8 @@
     "price": 2.5,
     "cota_tva": 21,
     "pret_net": 2.0,
-    "pret_brut": 2.5
+    "pret_brut": 2.5,
+    "active": false
   },
   {
     "id": 45,
@@ -2664,7 +2665,8 @@
     "price": 7.5,
     "cota_tva": 21,
     "pret_net": 6.0,
-    "pret_brut": 7.5
+    "pret_brut": 7.5,
+    "active": false
   },
   {
     "id": 97,
@@ -2745,7 +2747,8 @@
     "price": 7.5,
     "cota_tva": 21,
     "pret_net": 6.0,
-    "pret_brut": 7.5
+    "pret_brut": 7.5,
+    "active": false
   },
   {
     "id": 100,

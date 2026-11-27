@@ -1585,33 +1585,6 @@
     "category": "Decoratiuni",
     "cota_tva": 21,
     "default_size": "Standard",
-    "description": "Decoratiune toamna lemn/textil dd4852 aduce un plus de farmec și originalitate grădinii, balconului sau locuinței dumneavoastră, fiind realizat din materiale rezistente și finisat cu atenție la detalii.",
-    "featured": false,
-    "id": 44,
-    "image": "/torent-distribution-webshop/static/images/products/decoratiune-toamna-lemn-textil-dd4852.webp",
-    "name": "Decoratiune toamna lemn/textil dd4852",
-    "pret_brut": 2.5,
-    "pret_net": 2.0,
-    "price": 2.5,
-    "rating": 4.5,
-    "reviews_count": 30,
-    "subcategory": "",
-    "variations": [
-      {
-        "cota_tva": 21,
-        "pret_brut": 2.5,
-        "pret_net": 2.0,
-        "price": 2.5,
-        "size": "Standard",
-        "sku": "TD-DE-145",
-        "stock": 35
-      }
-    ]
-  },
-  {
-    "category": "Decoratiuni",
-    "cota_tva": 21,
-    "default_size": "Standard",
     "description": "Decoratiune casa si gradina dd10250 aduce un plus de farmec și originalitate grădinii, balconului sau locuinței dumneavoastră, fiind realizat din materiale rezistente și finisat cu atenție la detalii.",
     "featured": false,
     "id": 45,
@@ -2638,33 +2611,6 @@
     "category": "Decoratiuni",
     "cota_tva": 21,
     "default_size": "Standard",
-    "description": "Decoratiune-ambalaje decorative-snur 261010.Z.0015 aduce un plus de farmec și originalitate grădinii, balconului sau locuinței dumneavoastră, fiind realizat din materiale rezistente și finisat cu atenție la detalii.",
-    "featured": false,
-    "id": 96,
-    "image": "/torent-distribution-webshop/static/images/products/decoratiune-ambalaje-decorative-snur-261.webp",
-    "name": "Decoratiune-ambalaje decorative-snur 261010.Z.0015",
-    "pret_brut": 7.5,
-    "pret_net": 6.0,
-    "price": 7.5,
-    "rating": 4.7,
-    "reviews_count": 13,
-    "subcategory": "",
-    "variations": [
-      {
-        "cota_tva": 21,
-        "pret_brut": 7.5,
-        "pret_net": 6.0,
-        "price": 7.5,
-        "size": "Standard",
-        "sku": "TD-DE-197",
-        "stock": 35
-      }
-    ]
-  },
-  {
-    "category": "Decoratiuni",
-    "cota_tva": 21,
-    "default_size": "Standard",
     "description": "Decoratiune-figurina fantoma dd0886 aduce un plus de farmec și originalitate grădinii, balconului sau locuinței dumneavoastră, fiind realizat din materiale rezistente și finisat cu atenție la detalii.",
     "featured": false,
     "id": 97,
@@ -2711,33 +2657,6 @@
         "price": 7.5,
         "size": "Standard",
         "sku": "TD-DE-199",
-        "stock": 35
-      }
-    ]
-  },
-  {
-    "category": "Decoratiuni",
-    "cota_tva": 21,
-    "default_size": "Standard",
-    "description": "Decoratiune- figurine 13cm dd3700 aduce un plus de farmec și originalitate grădinii, balconului sau locuinței dumneavoastră, fiind realizat din materiale rezistente și finisat cu atenție la detalii.",
-    "featured": false,
-    "id": 99,
-    "image": "/torent-distribution-webshop/static/images/products/decoratiune-figurine-13cm-dd3700.webp",
-    "name": "Decoratiune - figurine 13cm dd3700",
-    "pret_brut": 7.5,
-    "pret_net": 6.0,
-    "price": 7.5,
-    "rating": 4.5,
-    "reviews_count": 16,
-    "subcategory": "",
-    "variations": [
-      {
-        "cota_tva": 21,
-        "pret_brut": 7.5,
-        "pret_net": 6.0,
-        "price": 7.5,
-        "size": "Standard",
-        "sku": "TD-DE-200",
         "stock": 35
       }
     ]
