@@ -352,9 +352,6 @@ def compute_order_efactura_snapshot(raw_items, products_catalog):
             "valoare_bruta": float(val_bruta_d)
         })
 
-    shipping_d = Decimal('0.00') if subtotal_brut_d >= Decimal('150.00') else Decimal('19.00')
-    grand_total_d = (subtotal_brut_d + shipping_d).quantize(Decimal('0.01'))
-
     tva_breakdown_list = [
         {
             "cota_tva": b["cota_tva"],
@@ -365,16 +362,98 @@ def compute_order_efactura_snapshot(raw_items, products_catalog):
         for _, b in sorted(breakdown.items(), key=lambda kv: float(kv[0]))
     ]
 
+    sub_brut = float(subtotal_brut_d.quantize(Decimal('0.01')))
+    tot_net = float(total_net_d.quantize(Decimal('0.01')))
+    tot_tva = float(total_tva_d.quantize(Decimal('0.01')))
+
     return {
         "items": snapshot_items,
-        "subtotal_brut": float(subtotal_brut_d.quantize(Decimal('0.01'))),
-        "shipping_brut": float(shipping_d),
-        "total_net": float(total_net_d.quantize(Decimal('0.01'))),
-        "total_tva": float(total_tva_d.quantize(Decimal('0.01'))),
-        "total_brut": float(subtotal_brut_d.quantize(Decimal('0.01'))),
-        "total": float(grand_total_d),
-        "tva_breakdown": tva_breakdown_list
+        "subtotal_brut": sub_brut,
+        "cost_transport_brut": None,
+        "cota_tva_transport": 21,
+        "cost_transport_net": None,
+        "cost_transport_tva": None,
+        "total_net": tot_net,
+        "total_tva": tot_tva,
+        "total_brut": sub_brut,
+        "total_facturat_net": tot_net,
+        "total_facturat_tva": tot_tva,
+        "total_facturat_brut": sub_brut,
+        "total": sub_brut,
+        "tva_breakdown": tva_breakdown_list,
+        "tva_breakdown_facturat": [dict(b) for b in tva_breakdown_list]
     }
+
+
+def recalculate_order_invoice_totals(order):
+    """Recalculates transport net/TVA (default 21%) and combined invoice totals (products + transport) using Decimal."""
+    prod_net_d = Decimal(str(order.get('total_net', 0.0))).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+    prod_tva_d = Decimal(str(order.get('total_tva', 0.0))).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+    prod_brut_d = Decimal(str(order.get('subtotal_brut', order.get('total_brut', order.get('total', 0.0))))).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+
+    cota_t = order.get('cota_tva_transport', 21)
+    try:
+        cota_t_num = int(float(cota_t)) if float(cota_t).is_integer() else round(float(cota_t), 2)
+    except Exception:
+        cota_t_num = 21
+    order['cota_tva_transport'] = cota_t_num
+
+    raw_transport = order.get('cost_transport_brut')
+    merged = {}
+    for b in order.get('tva_breakdown', []):
+        k = str(b['cota_tva'])
+        merged[k] = {
+            "cota_tva": b['cota_tva'],
+            "valoare_neta": Decimal(str(b['valoare_neta'])).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP),
+            "valoare_tva": Decimal(str(b['valoare_tva'])).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP),
+            "valoare_bruta": Decimal(str(b['valoare_bruta'])).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP),
+        }
+
+    if raw_transport is None or str(raw_transport).strip() == '':
+        order['cost_transport_brut'] = None
+        order['cost_transport_net'] = None
+        order['cost_transport_tva'] = None
+        t_net_d = Decimal('0.00')
+        t_tva_d = Decimal('0.00')
+        t_brut_d = Decimal('0.00')
+    else:
+        t_brut_d = Decimal(str(raw_transport)).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+        if t_brut_d < Decimal('0.00'):
+            t_brut_d = Decimal('0.00')
+        divisor = Decimal('1') + (Decimal(str(cota_t_num)) / Decimal('100'))
+        t_net_d = (t_brut_d / divisor).quantize(Decimal('0.01'), rounding=ROUND_HALF_UP)
+        t_tva_d = (t_brut_d - t_net_d).quantize(Decimal('0.01'))
+        order['cost_transport_brut'] = float(t_brut_d)
+        order['cost_transport_net'] = float(t_net_d)
+        order['cost_transport_tva'] = float(t_tva_d)
+
+        if t_brut_d > Decimal('0.00'):
+            tk = str(cota_t_num)
+            if tk not in merged:
+                merged[tk] = {
+                    "cota_tva": cota_t_num,
+                    "valoare_neta": Decimal('0.00'),
+                    "valoare_tva": Decimal('0.00'),
+                    "valoare_bruta": Decimal('0.00'),
+                }
+            merged[tk]["valoare_neta"] += t_net_d
+            merged[tk]["valoare_tva"] += t_tva_d
+            merged[tk]["valoare_bruta"] += t_brut_d
+
+    order['total_facturat_net'] = float((prod_net_d + t_net_d).quantize(Decimal('0.01')))
+    order['total_facturat_tva'] = float((prod_tva_d + t_tva_d).quantize(Decimal('0.01')))
+    order['total_facturat_brut'] = float((prod_brut_d + t_brut_d).quantize(Decimal('0.01')))
+    order['total'] = order['total_facturat_brut']
+    order['tva_breakdown_facturat'] = [
+        {
+            "cota_tva": b["cota_tva"],
+            "valoare_neta": float(b["valoare_neta"].quantize(Decimal('0.01'))),
+            "valoare_tva": float(b["valoare_tva"].quantize(Decimal('0.01'))),
+            "valoare_bruta": float(b["valoare_bruta"].quantize(Decimal('0.01')))
+        }
+        for _, b in sorted(merged.items(), key=lambda kv: float(kv[0]))
+    ]
+    return order
 
 
 def build_company_order_email(order):
@@ -385,8 +464,18 @@ def build_company_order_email(order):
     total_net = float(order.get('total_net', 0.0))
     total_tva = float(order.get('total_tva', 0.0))
     subtotal_brut = float(order.get('subtotal_brut', order.get('total_brut', order.get('total', 0.0))))
-    shipping_brut = float(order.get('shipping_brut', 0.0))
-    grand_total = float(order.get('total', subtotal_brut))
+    cost_transport = order.get('cost_transport_brut')
+    grand_total = float(order.get('total_facturat_brut', order.get('total', subtotal_brut)))
+    transport_plain = (
+        f"{float(cost_transport):.2f} RON (TVA {order.get('cota_tva_transport', 21)}% inclus)"
+        if cost_transport is not None
+        else "Se comunică telefonic (după cotația curierului)"
+    )
+    transport_html = (
+        f"<strong>{float(cost_transport):.2f} RON</strong>"
+        if cost_transport is not None
+        else "<em style='color:#047857;'>Se comunică telefonic</em>"
+    )
 
     subject = f"Comandă nouă #{order['id']} - {cust.get('name', 'Client')} ({grand_total:.2f} RON TVA inclus)"
 
@@ -428,8 +517,8 @@ def build_company_order_email(order):
         f"Total TVA produse:            {total_tva:.2f} RON\n"
         + (f"{breakdown_plain}\n" if breakdown_plain else "")
         + f"Subtotal produse (TVA inclus): {subtotal_brut:.2f} RON\n"
-        + f"Transport (TVA inclus):        {shipping_brut:.2f} RON\n"
-        + f"TOTAL DE PLATĂ (TVA INCLUS):   {grand_total:.2f} RON\n"
+        + f"Cost transport:                {transport_plain}\n"
+        + f"TOTAL PRODUSE (TVA INCLUS):    {grand_total:.2f} RON\n"
     )
 
     # HTML version
@@ -489,9 +578,9 @@ def build_company_order_email(order):
   <tr><td style="padding:5px 8px;">Total Net (fără TVA):</td><td style="padding:5px 8px;text-align:right;font-weight:700;">{total_net:.2f} RON</td></tr>
   <tr><td style="padding:5px 8px;">Total TVA produse:</td><td style="padding:5px 8px;text-align:right;font-weight:700;">{total_tva:.2f} RON</td></tr>
   {breakdown_html}
-  <tr><td style="padding:5px 8px;">Transport (TVA inclus):</td><td style="padding:5px 8px;text-align:right;">{shipping_brut:.2f} RON</td></tr>
+  <tr><td style="padding:5px 8px;">Cost transport:</td><td style="padding:5px 8px;text-align:right;">{transport_html}</td></tr>
   <tr style="background:#ecfdf5;color:#064e3b;font-size:16px;">
-    <td style="padding:8px;font-weight:800;">TOTAL DE PLATĂ (TVA inclus):</td>
+    <td style="padding:8px;font-weight:800;">TOTAL PRODUSE (TVA inclus):</td>
     <td style="padding:8px;text-align:right;font-weight:800;">{grand_total:.2f} RON</td>
   </tr>
 </table>
@@ -538,8 +627,8 @@ def send_order_email(order, settings):
                     f"Bună ziua, {cust.get('name', '')}!\n\n"
                     f"Vă mulțumim pentru comanda #{order['id']} plasată pe Torent Distribution.\n\n"
                     f"Produse comandate:\n{cust_items}\n\n"
-                    f"Transport: {float(order.get('shipping_brut', 0.0)):.2f} RON\n"
-                    f"TOTAL DE PLATĂ (TVA inclus): {float(order.get('total', 0.0)):.2f} RON\n"
+                    f"Cost transport: Se comunică telefonic înainte de expediere (după cotația curierului)\n"
+                    f"TOTAL PRODUSE (TVA inclus): {float(order.get('subtotal_brut', order.get('total', 0.0))):.2f} RON\n"
                     f"Metodă plată: {order.get('payment_method', '-')}\n\n"
                     f"Echipa Torent Distribution vă va contacta în cel mai scurt timp pentru confirmarea livrării.\n"
                 )
@@ -1240,6 +1329,12 @@ def api_place_order():
 
     products_catalog = load_products()
     snapshot = compute_order_efactura_snapshot(data.get('items', []), products_catalog)
+    if snapshot['subtotal_brut'] < 150.00:
+        diff = round(150.00 - snapshot['subtotal_brut'], 2)
+        return jsonify({
+            "success": False,
+            "message": f"Comanda minimă este de 150.00 RON. Mai adaugă produse de {diff:.2f} RON pentru a putea plasa comanda."
+        }), 400
     total_val = snapshot['total']
 
     settings = load_settings()
@@ -1250,12 +1345,19 @@ def api_place_order():
         "customer": customer,
         "items": snapshot['items'],
         "subtotal_brut": snapshot['subtotal_brut'],
-        "shipping_brut": snapshot['shipping_brut'],
+        "cost_transport_brut": None,
+        "cota_tva_transport": 21,
+        "cost_transport_net": None,
+        "cost_transport_tva": None,
         "total_net": snapshot['total_net'],
         "total_tva": snapshot['total_tva'],
         "total_brut": snapshot['total_brut'],
+        "total_facturat_net": snapshot['total_facturat_net'],
+        "total_facturat_tva": snapshot['total_facturat_tva'],
+        "total_facturat_brut": snapshot['total_facturat_brut'],
         "total": total_val,
         "tva_breakdown": snapshot['tva_breakdown'],
+        "tva_breakdown_facturat": snapshot['tva_breakdown_facturat'],
         "payment_method": data.get('payment_method', 'Ramburs la livrare'),
         "status": "Comandă nouă",
         "date": now_str,
@@ -1588,6 +1690,40 @@ def admin_toggle_product_active(product_id):
     })
 
 
+@app.route('/admin/api/order/shipping/<int:order_id>', methods=['POST'])
+def admin_update_order_shipping(order_id):
+    if not is_admin_logged():
+        return jsonify({"success": False, "message": "Neautorizat"}), 403
+
+    data = request.get_json() or {}
+    raw_cost = data.get('cost_transport_brut')
+    if raw_cost is None or str(raw_cost).strip() == '':
+        return jsonify({"success": False, "message": "Introduceți costul de transport (0 pentru transport gratuit / ridicare personală)."}), 400
+    try:
+        cost_val = float(str(raw_cost).replace(',', '.').strip())
+        if cost_val < 0:
+            raise ValueError()
+    except ValueError:
+        return jsonify({"success": False, "message": "Cost de transport invalid (trebuie să fie un număr >= 0)."}), 400
+
+    cota_t = data.get('cota_tva_transport', 21)
+    orders = load_orders()
+    order = next((o for o in orders if o.get('id') == order_id), None)
+    if not order:
+        return jsonify({"success": False, "message": "Comanda nu a fost găsită."}), 404
+
+    order['cost_transport_brut'] = round(cost_val, 2)
+    order['cota_tva_transport'] = cota_t
+    recalculate_order_invoice_totals(order)
+    save_orders(orders)
+
+    return jsonify({
+        "success": True,
+        "order": order,
+        "message": f"Costul de transport ({order['cost_transport_brut']:.2f} RON) a fost salvat și totalul de facturat a fost recalculat."
+    })
+
+
 @app.route('/admin/api/order/status/<int:order_id>', methods=['POST'])
 def admin_update_order_status(order_id):
     if not is_admin_logged():
@@ -1604,12 +1740,31 @@ def admin_update_order_status(order_id):
     if not order:
         return jsonify({"success": False, "message": "Comanda nu a fost găsită."}), 404
 
+    # Optional inline shipping cost when finalizing
+    if 'cost_transport_brut' in data and data.get('cost_transport_brut') is not None and str(data.get('cost_transport_brut')).strip() != '':
+        try:
+            c_val = float(str(data.get('cost_transport_brut')).replace(',', '.').strip())
+            if c_val >= 0:
+                order['cost_transport_brut'] = round(c_val, 2)
+                order['cota_tva_transport'] = data.get('cota_tva_transport', order.get('cota_tva_transport', 21))
+                recalculate_order_invoice_totals(order)
+        except ValueError:
+            pass
+
+    if new_status == 'Finalizată' and order.get('cost_transport_brut') is None:
+        return jsonify({
+            "success": False,
+            "require_shipping": True,
+            "message": "Introduceți costul de transport (TVA inclus) stabilit cu curierul înainte de a marca comanda ca Finalizată."
+        }), 400
+
     order['status'] = new_status
     save_orders(orders)
     return jsonify({
         "success": True,
         "order_id": order_id,
         "status": new_status,
+        "order": order,
         "message": f"Statusul comenzii #{order_id} a fost schimbat în „{new_status}”."
     })
 

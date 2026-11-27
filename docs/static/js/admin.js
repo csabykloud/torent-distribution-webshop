@@ -883,6 +883,22 @@ function styleOrderStatusSelect(selectEl, status) {
 async function updateOrderStatus(orderId, newStatus, selectEl = null) {
     const rowSelect = selectEl || document.querySelector(`.order-status-select[data-order-id="${orderId}"]`);
     const modalSelect = document.getElementById('orderModalStatusSelect');
+    const cachedOrder = window.ADMIN_ORDERS_MAP ? window.ADMIN_ORDERS_MAP[orderId] : null;
+    const prevStatus = cachedOrder ? (cachedOrder.status || 'Comandă nouă') : 'În prelucrare';
+
+    // Client-side gate before finalizing without shipping cost
+    if (newStatus === 'Finalizată' && cachedOrder && (cachedOrder.cost_transport_brut === null || cachedOrder.cost_transport_brut === undefined)) {
+        if (rowSelect) {
+            rowSelect.value = prevStatus;
+            styleOrderStatusSelect(rowSelect, prevStatus);
+        }
+        if (modalSelect && currentOpenOrderId === orderId) {
+            modalSelect.value = prevStatus;
+            styleOrderStatusSelect(modalSelect, prevStatus);
+        }
+        openOrderDetailModal(cachedOrder, true);
+        return;
+    }
 
     try {
         const resp = await fetch(`/admin/api/order/status/${orderId}`, {
@@ -892,6 +908,8 @@ async function updateOrderStatus(orderId, newStatus, selectEl = null) {
         });
         const res = await resp.json();
         if (res.success) {
+            if (cachedOrder) cachedOrder.status = newStatus;
+            if (res.order && window.ADMIN_ORDERS_MAP) window.ADMIN_ORDERS_MAP[orderId] = res.order;
             if (rowSelect) {
                 rowSelect.value = newStatus;
                 styleOrderStatusSelect(rowSelect, newStatus);
@@ -904,6 +922,17 @@ async function updateOrderStatus(orderId, newStatus, selectEl = null) {
             if (finalBtn && currentOpenOrderId === orderId) {
                 finalBtn.style.display = (newStatus === 'Finalizată') ? 'none' : 'inline-flex';
             }
+        } else if (res.require_shipping) {
+            if (rowSelect) {
+                rowSelect.value = prevStatus;
+                styleOrderStatusSelect(rowSelect, prevStatus);
+            }
+            if (modalSelect && currentOpenOrderId === orderId) {
+                modalSelect.value = prevStatus;
+                styleOrderStatusSelect(modalSelect, prevStatus);
+            }
+            if (cachedOrder) openOrderDetailModal(cachedOrder, true);
+            else alert(res.message);
         } else {
             alert(res.message || 'Eroare la schimbarea statusului.');
         }
@@ -912,7 +941,63 @@ async function updateOrderStatus(orderId, newStatus, selectEl = null) {
     }
 }
 
-function openOrderDetailModal(order) {
+async function saveOrderShipping(orderId) {
+    const input = document.getElementById('orderShippingInput');
+    const feedback = document.getElementById('orderShippingFeedback');
+    const btn = document.getElementById('saveOrderShippingBtn');
+    if (!input) return;
+
+    const rawVal = input.value.trim();
+    if (rawVal === '') {
+        if (feedback) {
+            feedback.style.display = 'block';
+            feedback.style.color = '#b91c1c';
+            feedback.innerText = 'Introduceți costul de transport (0 pentru transport gratuit / ridicare personală).';
+        }
+        input.focus();
+        return;
+    }
+
+    if (btn) btn.disabled = true;
+    try {
+        const resp = await fetch(`/admin/api/order/shipping/${orderId}`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ cost_transport_brut: rawVal, cota_tva_transport: 21 })
+        });
+        const res = await resp.json();
+        if (res.success && res.order) {
+            if (window.ADMIN_ORDERS_MAP) window.ADMIN_ORDERS_MAP[orderId] = res.order;
+            const row = document.querySelector(`tr[data-order-id="${orderId}"]`);
+            if (row) {
+                const totalCell = row.querySelector('.order-total-cell');
+                if (totalCell) {
+                    totalCell.innerHTML = `<strong style="color: #059669;">${Number(res.order.total).toFixed(2)} RON (TVA inclus)</strong>`;
+                }
+            }
+            openOrderDetailModal(res.order, false);
+            const fb = document.getElementById('orderShippingFeedback');
+            if (fb) {
+                fb.style.display = 'block';
+                fb.style.color = '#15803d';
+                fb.innerHTML = '<i class="fa-solid fa-circle-check"></i> Costul de transport a fost salvat și totalul de facturat recalculat.';
+            }
+        } else {
+            if (feedback) {
+                feedback.style.display = 'block';
+                feedback.style.color = '#b91c1c';
+                feedback.innerText = res.message || 'Eroare la salvarea costului de transport.';
+            }
+        }
+    } catch (err) {
+        alert('Eroare de conexiune la salvarea costului de transport.');
+    } finally {
+        if (btn) btn.disabled = false;
+    }
+}
+
+function openOrderDetailModal(order, highlightMissingShipping = false) {
+    if (!order) return;
     currentOpenOrderId = order.id;
     const rowSelect = document.querySelector(`.order-status-select[data-order-id="${order.id}"]`);
     let currentStatus = rowSelect ? rowSelect.value : (order.status || 'Comandă nouă');
@@ -953,19 +1038,40 @@ function openOrderDetailModal(order) {
         `;
     }).join('');
 
-    const totalNet = order.total_net !== undefined ? Number(order.total_net) : fallbackTotalNet;
-    const totalTva = order.total_tva !== undefined ? Number(order.total_tva) : fallbackTotalTva;
-    const shippingBrut = order.shipping_brut !== undefined ? Number(order.shipping_brut) : 0;
-    const grandTotal = Number(order.total !== undefined ? order.total : (fallbackTotalBrut + shippingBrut));
+    const prodNet = order.total_net !== undefined ? Number(order.total_net) : fallbackTotalNet;
+    const prodTva = order.total_tva !== undefined ? Number(order.total_tva) : fallbackTotalTva;
+    const prodBrut = order.subtotal_brut !== undefined ? Number(order.subtotal_brut) : fallbackTotalBrut;
 
-    const breakdownHtml = (order.tva_breakdown && order.tva_breakdown.length > 0)
-        ? order.tva_breakdown.map(b => `
-            <div style="display:flex;justify-content:space-between;font-size:0.84rem;color:#475569;padding:2px 0;">
-                <span>&bull; TVA ${b.cota_tva}% (bază netă ${Number(b.valoare_neta).toFixed(2)} RON):</span>
-                <strong>${Number(b.valoare_tva).toFixed(2)} RON</strong>
-            </div>
-        `).join('')
-        : '';
+    const hasShipping = order.cost_transport_brut !== null && order.cost_transport_brut !== undefined;
+    const shipCota = order.cota_tva_transport !== undefined ? Number(order.cota_tva_transport) : 21;
+    const shipBrut = hasShipping ? Number(order.cost_transport_brut) : 0;
+    const shipNet = hasShipping && order.cost_transport_net !== null && order.cost_transport_net !== undefined
+        ? Number(order.cost_transport_net)
+        : (hasShipping ? Number((shipBrut / (1 + shipCota / 100)).toFixed(2)) : 0);
+    const shipTva = hasShipping && order.cost_transport_tva !== null && order.cost_transport_tva !== undefined
+        ? Number(order.cost_transport_tva)
+        : (hasShipping ? Number((shipBrut - shipNet).toFixed(2)) : 0);
+
+    const factNet = order.total_facturat_net !== undefined ? Number(order.total_facturat_net) : (prodNet + shipNet);
+    const factTva = order.total_facturat_tva !== undefined ? Number(order.total_facturat_tva) : (prodTva + shipTva);
+    const factBrut = order.total_facturat_brut !== undefined ? Number(order.total_facturat_brut) : (prodBrut + shipBrut);
+
+    const activeBreakdown = (order.tva_breakdown_facturat && order.tva_breakdown_facturat.length > 0)
+        ? order.tva_breakdown_facturat
+        : (order.tva_breakdown || []);
+
+    const breakdownHtml = activeBreakdown.map(b => `
+        <div style="display:flex;justify-content:space-between;font-size:0.83rem;color:#475569;padding:2px 0;">
+            <span>&bull; TVA ${b.cota_tva}% (bază netă ${Number(b.valoare_neta).toFixed(2)} RON):</span>
+            <strong>${Number(b.valoare_tva).toFixed(2)} RON</strong>
+        </div>
+    `).join('');
+
+    const shippingWarningHtml = highlightMissingShipping ? `
+        <div style="background:#fff7ed;border:1.5px solid #fb923c;color:#9a3412;padding:10px 14px;border-radius:10px;font-size:0.86rem;font-weight:700;margin-bottom:10px;">
+            <i class="fa-solid fa-triangle-exclamation"></i> Introduceți costul de transport (TVA inclus) stabilit cu curierul înainte de a marca comanda ca Finalizată.
+        </div>
+    ` : '';
 
     document.getElementById('orderModalBody').innerHTML = `
         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 18px; background: #f8fafc; padding: 16px; border-radius: 12px; border: 1px solid #e2e8f0;">
@@ -983,7 +1089,7 @@ function openOrderDetailModal(order) {
             </div>
         </div>
         <div style="overflow-x:auto;">
-            <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-bottom: 14px;">
+            <table style="width: 100%; border-collapse: collapse; font-size: 0.85rem; margin-bottom: 16px;">
                 <thead>
                     <tr style="background: #f1f5f9; text-align: left;">
                         <th style="padding: 8px 6px;">Produs &amp; ambalaj</th>
@@ -999,20 +1105,61 @@ function openOrderDetailModal(order) {
                 <tbody>${itemsHtml}</tbody>
             </table>
         </div>
-        <div style="margin-left: auto; max-width: 390px; background: #f8fbf9; border: 1px solid #d1fae5; border-radius: 12px; padding: 14px 16px;">
-            <div style="display:flex;justify-content:space-between;font-size:0.9rem;padding:3px 0;">
-                <span>Total Net (fără TVA):</span>
-                <strong>${totalNet.toFixed(2)} RON</strong>
+
+        <!-- Editable Courier Shipping Cost (mandatory before Finalizată) -->
+        <div style="background: #f0fdf4; border: 1.5px solid #86efac; border-radius: 12px; padding: 14px 16px; margin-bottom: 16px;">
+            ${shippingWarningHtml}
+            <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:12px;">
+                <div>
+                    <label for="orderShippingInput" style="font-weight:700;color:#065f46;font-size:0.9rem;display:block;">
+                        <i class="fa-solid fa-truck"></i> Cost transport (RON, TVA ${shipCota}% inclus)
+                    </label>
+                    <small style="color:#475569;">Introduceți <strong>0</strong> pentru transport gratuit sau ridicare personală.</small>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;">
+                    <input type="number" step="0.01" min="0" id="orderShippingInput"
+                           value="${hasShipping ? shipBrut.toFixed(2) : ''}"
+                           placeholder="ex: 25.00"
+                           style="width:120px;padding:8px 10px;border:1.5px solid ${highlightMissingShipping ? '#ea580c' : '#059669'};border-radius:8px;font-weight:700;text-align:right;background:#fff;">
+                    <button type="button" id="saveOrderShippingBtn" class="btn-action" onclick="saveOrderShipping(${order.id})"
+                            style="background:#059669;color:#fff;padding:9px 14px;border-radius:8px;">
+                        <i class="fa-solid fa-floppy-disk"></i> Salvează transport
+                    </button>
+                </div>
             </div>
-            <div style="display:flex;justify-content:space-between;font-size:0.9rem;padding:3px 0;color:#0369a1;">
-                <span>Total TVA produse:</span>
-                <strong>${totalTva.toFixed(2)} RON</strong>
+            <div id="orderShippingFeedback" style="display:none;margin-top:8px;font-size:0.84rem;font-weight:600;"></div>
+        </div>
+
+        <!-- Full Invoice Summary (Subtotal produse + Cost transport = Total general de facturat) -->
+        <div style="display:grid;grid-template-columns:1fr 1.15fr;gap:14px;">
+            <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:14px 16px;font-size:0.86rem;">
+                <div style="font-weight:800;color:#0f172a;margin-bottom:8px;">Defalcare Produse &amp; Transport</div>
+                <div style="padding:4px 0;border-bottom:1px dashed #cbd5e1;">
+                    <strong>Subtotal produse:</strong><br>
+                    Net: ${prodNet.toFixed(2)} RON | TVA: ${prodTva.toFixed(2)} RON | <strong>Brut: ${prodBrut.toFixed(2)} RON</strong>
+                </div>
+                <div style="padding:6px 0 0 0;">
+                    <strong>Cost transport (${shipCota}% TVA):</strong><br>
+                    ${hasShipping
+                        ? `Net: ${shipNet.toFixed(2)} RON | TVA ${shipCota}%: ${shipTva.toFixed(2)} RON | <strong>Brut: ${shipBrut.toFixed(2)} RON</strong>`
+                        : '<span style="color:#9a3412;font-weight:600;">Necompletat (se comunică telefonic)</span>'}
+                </div>
             </div>
-            ${breakdownHtml}
-            ${shippingBrut > 0 ? `<div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:3px 0;color:#475569;"><span>Transport (TVA inclus):</span><span>${shippingBrut.toFixed(2)} RON</span></div>` : ''}
-            <div style="display:flex;justify-content:space-between;font-size:1.1rem;font-weight:800;color:#064e3b;border-top:1px solid #a7f3d0;margin-top:8px;padding-top:8px;">
-                <span>Total de plată (TVA inclus):</span>
-                <span>${grandTotal.toFixed(2)} RON</span>
+            <div style="background: #f8fbf9; border: 1.5px solid #a7f3d0; border-radius: 12px; padding: 14px 16px;">
+                <div style="font-weight:800;color:#064e3b;font-size:0.9rem;margin-bottom:6px;">Total general de facturat</div>
+                <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:3px 0;">
+                    <span>Total Net (fără TVA):</span>
+                    <strong>${factNet.toFixed(2)} RON</strong>
+                </div>
+                <div style="display:flex;justify-content:space-between;font-size:0.88rem;padding:3px 0;color:#0369a1;">
+                    <span>Total TVA (produse + transport):</span>
+                    <strong>${factTva.toFixed(2)} RON</strong>
+                </div>
+                ${breakdownHtml}
+                <div style="display:flex;justify-content:space-between;font-size:1.08rem;font-weight:800;color:#064e3b;border-top:1px solid #a7f3d0;margin-top:8px;padding-top:8px;">
+                    <span>Total de facturat (TVA inclus):</span>
+                    <span>${factBrut.toFixed(2)} RON</span>
+                </div>
             </div>
         </div>
     `;
@@ -1029,8 +1176,12 @@ function openOrderDetailModal(order) {
 
     document.getElementById('adminOrderModal').classList.add('active');
 
-    // Automatically transition 'Comandă nouă' -> 'În prelucrare' when opened!
-    if (currentStatus === 'Comandă nouă') {
+    if (highlightMissingShipping) {
+        setTimeout(() => {
+            const inp = document.getElementById('orderShippingInput');
+            if (inp) inp.focus();
+        }, 80);
+    } else if (currentStatus === 'Comandă nouă') {
         updateOrderStatus(order.id, 'În prelucrare', rowSelect);
     }
 }

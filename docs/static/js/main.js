@@ -257,10 +257,10 @@ function updateCartUI() {
     const shippingNotice = document.getElementById('shippingNotice');
     const checkoutTotalEl = document.getElementById('modalCheckoutTotal');
 
+    const MIN_ORDER_TOTAL = 150.00;
     const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-    const shipping = (subtotal >= 150 || subtotal === 0) ? 0.00 : 19.00;
-    const grandTotal = subtotal + shipping;
+    const grandTotal = subtotal; // Products only; shipping is quoted by courier & confirmed by phone
 
     // Exact per-item TVA back-calculation (supports mixed 11% + 21% carts)
     let totalTvaProduse = 0;
@@ -290,7 +290,7 @@ function updateCartUI() {
     if (headerTotal) headerTotal.innerText = `${subtotal.toFixed(2)} RON`;
     if (drawerCount) drawerCount.innerText = totalQty;
     if (subtotalEl) subtotalEl.innerText = `${subtotal.toFixed(2)} RON`;
-    if (shippingEl) shippingEl.innerText = shipping === 0 ? 'GRATUIT' : `${shipping.toFixed(2)} RON`;
+    if (shippingEl) shippingEl.innerText = 'Se comunică telefonic';
     if (totalEl) totalEl.innerText = `${grandTotal.toFixed(2)} RON`;
     if (checkoutTotalEl) checkoutTotalEl.innerText = `${grandTotal.toFixed(2)} RON`;
     const cartTvaEl = document.getElementById('cartTvaBreakdown');
@@ -298,15 +298,27 @@ function updateCartUI() {
     if (cartTvaEl) cartTvaEl.innerText = tvaText;
     if (checkoutTvaEl) checkoutTvaEl.innerText = tvaText;
 
+    const minReached = subtotal >= MIN_ORDER_TOTAL;
     if (shippingNotice) {
-        if (subtotal >= 150) {
-            shippingNotice.innerHTML = '<i class="fa-solid fa-circle-check"></i> Felicitări! Beneficiezi de <strong>Transport GRATUIT</strong>!';
+        if (minReached) {
+            shippingNotice.innerHTML = '<i class="fa-solid fa-circle-check"></i> Comanda minimă de <strong>150.00 RON</strong> a fost atinsă.';
             shippingNotice.style.background = '#dcfce7';
+            shippingNotice.style.color = '#166534';
+            shippingNotice.style.border = '1px solid #86efac';
         } else {
-            const diff = (150 - subtotal).toFixed(2);
-            shippingNotice.innerHTML = `<i class="fa-solid fa-truck"></i> Mai adaugă produse de <strong>${diff} RON</strong> pentru transport gratuit!`;
-            shippingNotice.style.background = '#ecfdf5';
+            const diff = (MIN_ORDER_TOTAL - subtotal).toFixed(2);
+            shippingNotice.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Comanda minimă este de <strong>150.00 RON</strong>. Mai adaugă produse de <strong>${diff} RON</strong> pentru a putea plasa comanda.`;
+            shippingNotice.style.background = '#fff7ed';
+            shippingNotice.style.color = '#9a3412';
+            shippingNotice.style.border = '1px solid #fdba74';
         }
+    }
+
+    const openCheckoutBtn = document.getElementById('openCheckoutModalBtn');
+    if (openCheckoutBtn) {
+        openCheckoutBtn.disabled = (cart.length === 0 || !minReached);
+        openCheckoutBtn.style.opacity = openCheckoutBtn.disabled ? '0.55' : '1';
+        openCheckoutBtn.style.cursor = openCheckoutBtn.disabled ? 'not-allowed' : 'pointer';
     }
 
     if (!itemsContainer) return;
@@ -316,14 +328,10 @@ function updateCartUI() {
             <div style="text-align: center; padding: 40px 10px; color: #94a3b8;">
                 <i class="fa-solid fa-bag-shopping" style="font-size: 3rem; margin-bottom: 12px; opacity: 0.5;"></i>
                 <h4 style="color: #475569; margin-bottom: 6px;">Coșul tău este gol</h4>
-                <p style="font-size: 0.85rem;">Alege pământ de flori sau îngrășăminte pentru a plasa o comandă.</p>
+                <p style="font-size: 0.85rem;">Alege pământ de flori sau îngrășăminte pentru a plasa o comandă (minim 150.00 RON).</p>
             </div>
         `;
-        const openCheckoutBtn = document.getElementById('openCheckoutModalBtn');
-        if (openCheckoutBtn) openCheckoutBtn.disabled = true;
     } else {
-        const openCheckoutBtn = document.getElementById('openCheckoutModalBtn');
-        if (openCheckoutBtn) openCheckoutBtn.disabled = false;
 
         itemsContainer.innerHTML = cart.map(item => `
             <div class="cart-item">
@@ -666,13 +674,18 @@ function initModals() {
                 return;
             }
 
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            if (subtotal < 150.00) {
+                const diff = (150.00 - subtotal).toFixed(2);
+                showToast(`Comanda minimă este de 150.00 RON. Mai adaugă produse de ${diff} RON.`, 'error');
+                return;
+            }
+
             const submitBtn = document.getElementById('submitOrderBtn');
             submitBtn.disabled = true;
             submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Se trimite comanda...';
 
-            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            const shipping = (subtotal >= 150) ? 0.00 : 19.00;
-            const grandTotal = subtotal + shipping;
+            const grandTotal = subtotal;
 
             const orderData = {
                 customer: {
