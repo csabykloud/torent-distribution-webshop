@@ -646,10 +646,11 @@ def inject_security_context():
     host = request.host_url.rstrip('/')
     clean_path = request.path or '/'
     canonical_url = f"{host}{clean_path}"
+    active_phone = (public_settings.get('company_phone') or '').strip() or SUPPORT_PHONE
     return {
         "catalog_token": generate_catalog_token(),
         "site_settings": public_settings,
-        "SUPPORT_PHONE": SUPPORT_PHONE,
+        "SUPPORT_PHONE": active_phone,
         "canonical_url": canonical_url,
         "site_host": host
     }
