@@ -74,7 +74,7 @@
       "name": "Care sunt condițiile de livrare în România?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Asigurăm livrare națională prin curier, cu trimitere săptămânală și ambalare sigură, pentru comenzi de minim 150 lei. Costul exact de transport va fi comunicat la confirmarea telefonică a comenzii, după obținerea cotației de la curier, înainte de expediere."
+        "text": "Asigurăm livrare națională prin curier, cu trimitere săptămânală și ambalare sigură{% if comanda_minima > 0 %}, pentru comenzi de minim {{ comanda_minima | int if comanda_minima == comanda_minima | int else '%.2f'|format(comanda_minima) }} lei{% endif %}. Costul exact de transport va fi comunicat la confirmarea telefonică a comenzii, după obținerea cotației de la curier, înainte de expediere."
       }
     },
     {
@@ -361,7 +361,7 @@
         <div class="faq-list">
             <details class="faq-item" open>
                 <summary>Care sunt condițiile de livrare în România?</summary>
-                <p>Asigurăm livrare națională prin curier, cu trimitere săptămânală și ambalare sigură, pentru comenzi de minim 150 lei. Costul exact de transport va fi comunicat la confirmarea telefonică a comenzii, după obținerea cotației de la curier, înainte de expediere.</p>
+                <p>Asigurăm livrare națională prin curier, cu trimitere săptămânală și ambalare sigură{% if comanda_minima > 0 %}, pentru comenzi de minim {{ comanda_minima | int if comanda_minima == comanda_minima | int else '%.2f'|format(comanda_minima) }} lei{% endif %}. Costul exact de transport va fi comunicat la confirmarea telefonică a comenzii, după obținerea cotației de la curier, înainte de expediere.</p>
             </details>
             <details class="faq-item">
                 <summary>Cum aleg cel mai potrivit pământ de flori pentru plantele mele?</summary>

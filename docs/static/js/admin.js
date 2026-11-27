@@ -941,6 +941,51 @@ async function updateOrderStatus(orderId, newStatus, selectEl = null) {
     }
 }
 
+async function saveAdminMinOrder() {
+    const input = document.getElementById('adminMinOrderInput');
+    const btn = document.getElementById('saveMinOrderBtn');
+    const statusEl = document.getElementById('adminMinOrderStatus');
+    if (!input) return;
+
+    const rawVal = input.value.trim();
+    if (rawVal === '' || isNaN(parseFloat(rawVal)) || parseFloat(rawVal) < 0) {
+        if (statusEl) {
+            statusEl.style.display = 'inline';
+            statusEl.style.color = '#b91c1c';
+            statusEl.innerText = 'Valoare invalidă (>= 0)';
+        }
+        input.focus();
+        return;
+    }
+
+    if (btn) btn.disabled = true;
+    try {
+        const resp = await fetch('/admin/api/settings/min-order', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ comanda_minima: parseFloat(rawVal) })
+        });
+        const res = await resp.json();
+        if (res.success) {
+            input.value = Number(res.comanda_minima).toFixed(2);
+            if (statusEl) {
+                statusEl.style.display = 'inline';
+                statusEl.style.color = '#15803d';
+                statusEl.innerHTML = `<i class="fa-solid fa-circle-check"></i> ${res.message}`;
+                setTimeout(() => { statusEl.style.display = 'none'; }, 4000);
+            }
+        } else if (statusEl) {
+            statusEl.style.display = 'inline';
+            statusEl.style.color = '#b91c1c';
+            statusEl.innerText = res.message || 'Eroare la salvare.';
+        }
+    } catch (err) {
+        alert('Eroare de conexiune la salvarea comenzii minime.');
+    } finally {
+        if (btn) btn.disabled = false;
+    }
+}
+
 async function saveOrderShipping(orderId) {
     const input = document.getElementById('orderShippingInput');
     const feedback = document.getElementById('orderShippingFeedback');

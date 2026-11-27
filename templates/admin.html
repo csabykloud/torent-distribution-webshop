@@ -730,9 +730,24 @@
                     {% endfor %}
                 </script>
                 <div class="panel-card">
-                    <div class="panel-card-header">
-                        <h3><i class="fa-solid fa-cart-shopping"></i> Comenzi Primite din Magazin</h3>
-                        <span style="font-size: 0.88rem; color: #64748b;">Comenzile transmise de clienți prin checkout</span>
+                    <div class="panel-card-header" style="align-items: center;">
+                        <div>
+                            <h3><i class="fa-solid fa-cart-shopping"></i> Comenzi Primite din Magazin</h3>
+                            <span style="font-size: 0.84rem; color: #64748b;">Comenzile transmise de clienți prin checkout</span>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap; background: #f0fdf4; border: 1px solid #a7f3d0; padding: 8px 14px; border-radius: 10px;">
+                            <label for="adminMinOrderInput" style="font-size: 0.85rem; font-weight: 700; color: #065f46; margin: 0; white-space: nowrap;">
+                                <i class="fa-solid fa-coins"></i> Comandă minimă (RON, TVA inclus):
+                            </label>
+                            <input type="number" id="adminMinOrderInput" min="0" step="0.50"
+                                   value="{{ '%.2f'|format(settings.comanda_minima if settings.comanda_minima is not none else 150) }}"
+                                   style="width: 96px; padding: 6px 10px; border: 1.5px solid #059669; border-radius: 8px; font-weight: 700; font-size: 0.9rem; text-align: right; background: #fff;">
+                            <button type="button" id="saveMinOrderBtn" class="btn-action" onclick="saveAdminMinOrder()"
+                                    style="background: #059669; color: #ffffff; padding: 7px 14px; border-radius: 8px;">
+                                <i class="fa-solid fa-floppy-disk"></i> Salvează
+                            </button>
+                            <span id="adminMinOrderStatus" style="display: none; font-size: 0.82rem; font-weight: 700;"></span>
+                        </div>
                     </div>
                     <div class="table-responsive">
                         <table class="admin-table">

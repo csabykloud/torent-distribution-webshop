@@ -257,7 +257,9 @@ function updateCartUI() {
     const shippingNotice = document.getElementById('shippingNotice');
     const checkoutTotalEl = document.getElementById('modalCheckoutTotal');
 
-    const MIN_ORDER_TOTAL = 150.00;
+    const MIN_ORDER_TOTAL = (typeof window.COMANDA_MINIMA === 'number' && !isNaN(window.COMANDA_MINIMA) && window.COMANDA_MINIMA >= 0)
+        ? window.COMANDA_MINIMA
+        : 150.00;
     const totalQty = cart.reduce((sum, item) => sum + item.quantity, 0);
     const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
     const grandTotal = subtotal; // Products only; shipping is quoted by courier & confirmed by phone
@@ -298,19 +300,24 @@ function updateCartUI() {
     if (cartTvaEl) cartTvaEl.innerText = tvaText;
     if (checkoutTvaEl) checkoutTvaEl.innerText = tvaText;
 
-    const minReached = subtotal >= MIN_ORDER_TOTAL;
+    const minReached = (MIN_ORDER_TOTAL === 0 || subtotal >= MIN_ORDER_TOTAL);
     if (shippingNotice) {
-        if (minReached) {
-            shippingNotice.innerHTML = '<i class="fa-solid fa-circle-check"></i> Comanda minimă de <strong>150.00 RON</strong> a fost atinsă.';
-            shippingNotice.style.background = '#dcfce7';
-            shippingNotice.style.color = '#166534';
-            shippingNotice.style.border = '1px solid #86efac';
+        if (MIN_ORDER_TOTAL === 0) {
+            shippingNotice.style.display = 'none';
         } else {
-            const diff = (MIN_ORDER_TOTAL - subtotal).toFixed(2);
-            shippingNotice.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Comanda minimă este de <strong>150.00 RON</strong>. Mai adaugă produse de <strong>${diff} RON</strong> pentru a putea plasa comanda.`;
-            shippingNotice.style.background = '#fff7ed';
-            shippingNotice.style.color = '#9a3412';
-            shippingNotice.style.border = '1px solid #fdba74';
+            shippingNotice.style.display = 'block';
+            if (minReached) {
+                shippingNotice.innerHTML = `<i class="fa-solid fa-circle-check"></i> Comanda minimă de <strong>${MIN_ORDER_TOTAL.toFixed(2)} RON</strong> a fost atinsă.`;
+                shippingNotice.style.background = '#dcfce7';
+                shippingNotice.style.color = '#166534';
+                shippingNotice.style.border = '1px solid #86efac';
+            } else {
+                const diff = (MIN_ORDER_TOTAL - subtotal).toFixed(2);
+                shippingNotice.innerHTML = `<i class="fa-solid fa-triangle-exclamation"></i> Comanda minimă este de <strong>${MIN_ORDER_TOTAL.toFixed(2)} RON</strong>. Mai adaugă produse de <strong>${diff} RON</strong> pentru a putea plasa comanda.`;
+                shippingNotice.style.background = '#fff7ed';
+                shippingNotice.style.color = '#9a3412';
+                shippingNotice.style.border = '1px solid #fdba74';
+            }
         }
     }
 
@@ -324,11 +331,12 @@ function updateCartUI() {
     if (!itemsContainer) return;
 
     if (cart.length === 0) {
+        const minHint = MIN_ORDER_TOTAL > 0 ? ` (minim ${MIN_ORDER_TOTAL.toFixed(2)} RON)` : '';
         itemsContainer.innerHTML = `
             <div style="text-align: center; padding: 40px 10px; color: #94a3b8;">
                 <i class="fa-solid fa-bag-shopping" style="font-size: 3rem; margin-bottom: 12px; opacity: 0.5;"></i>
                 <h4 style="color: #475569; margin-bottom: 6px;">Coșul tău este gol</h4>
-                <p style="font-size: 0.85rem;">Alege pământ de flori sau îngrășăminte pentru a plasa o comandă (minim 150.00 RON).</p>
+                <p style="font-size: 0.85rem;">Alege pământ de flori sau îngrășăminte pentru a plasa o comandă${minHint}.</p>
             </div>
         `;
     } else {
@@ -674,10 +682,13 @@ function initModals() {
                 return;
             }
 
+            const minOrder = (typeof window.COMANDA_MINIMA === 'number' && !isNaN(window.COMANDA_MINIMA) && window.COMANDA_MINIMA >= 0)
+                ? window.COMANDA_MINIMA
+                : 150.00;
             const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
-            if (subtotal < 150.00) {
-                const diff = (150.00 - subtotal).toFixed(2);
-                showToast(`Comanda minimă este de 150.00 RON. Mai adaugă produse de ${diff} RON.`, 'error');
+            if (minOrder > 0 && subtotal < minOrder) {
+                const diff = (minOrder - subtotal).toFixed(2);
+                showToast(`Comanda minimă este de ${minOrder.toFixed(2)} RON. Mai adaugă produse de ${diff} RON.`, 'error');
                 return;
             }
 

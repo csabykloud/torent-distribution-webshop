@@ -104,6 +104,7 @@ DEFAULT_SETTINGS = {
     "company_address": "România",
     "company_phone": "+40 700 000 000",
     "company_schedule": "Luni - Vineri: 08:00 - 16:00",
+    "comanda_minima": 150.0,
     "smtp_host": "",
     "smtp_port": 587,
     "smtp_user": "",
@@ -227,6 +228,16 @@ def get_tva_rates(settings=None):
         except (TypeError, ValueError):
             continue
     return sorted(set(cleaned)) or list(DEFAULT_TVA_RATES)
+
+
+def get_comanda_minima(settings=None):
+    if settings is None:
+        settings = load_settings()
+    try:
+        val = float(settings.get('comanda_minima', 150.0))
+        return round(max(0.0, val), 2)
+    except (TypeError, ValueError):
+        return 150.0
 
 
 def default_tva_for_category(category):
@@ -737,10 +748,13 @@ def inject_security_context():
     clean_path = request.path or '/'
     canonical_url = f"{host}{clean_path}"
     active_phone = (public_settings.get('company_phone') or '').strip() or SUPPORT_PHONE
+    min_order = get_comanda_minima(s)
+    public_settings['comanda_minima'] = min_order
     return {
         "catalog_token": generate_catalog_token(),
         "site_settings": public_settings,
         "SUPPORT_PHONE": active_phone,
+        "comanda_minima": min_order,
         "canonical_url": canonical_url,
         "site_host": host
     }
@@ -1327,17 +1341,18 @@ def api_place_order():
     customer = data.get('customer', {})
     gdpr_crm_consent = bool(data.get('gdpr_crm_consent', False))
 
+    settings = load_settings()
+    min_order = get_comanda_minima(settings)
     products_catalog = load_products()
     snapshot = compute_order_efactura_snapshot(data.get('items', []), products_catalog)
-    if snapshot['subtotal_brut'] < 150.00:
-        diff = round(150.00 - snapshot['subtotal_brut'], 2)
+    if min_order > 0 and snapshot['subtotal_brut'] < min_order:
+        diff = round(min_order - snapshot['subtotal_brut'], 2)
         return jsonify({
             "success": False,
-            "message": f"Comanda minimă este de 150.00 RON. Mai adaugă produse de {diff:.2f} RON pentru a putea plasa comanda."
+            "message": f"Comanda minimă este de {min_order:.2f} RON. Mai adaugă produse de {diff:.2f} RON pentru a putea plasa comanda."
         }), 400
     total_val = snapshot['total']
 
-    settings = load_settings()
     target_email = settings.get('order_email', 'vanzari@torentdistribution.ro')
 
     new_order = {
@@ -1688,6 +1703,32 @@ def admin_toggle_product_active(product_id):
         "active": is_active,
         "message": f"Produsul „{prod['name']}” este acum {'ACTIV' if is_active else 'INACTIV'}."
     })
+
+
+@app.route('/admin/api/settings/min-order', methods=['POST'])
+def admin_save_min_order():
+    if not is_admin_logged():
+        return jsonify({"success": False, "message": "Neautorizat"}), 403
+    data = request.get_json() or {}
+    raw_val = data.get('comanda_minima')
+    if raw_val is None or str(raw_val).strip() == '':
+        return jsonify({"success": False, "message": "Introduceți o valoare numerică validă (0 pentru fără limită)."}), 400
+    try:
+        val = round(float(str(raw_val).replace(',', '.').strip()), 2)
+        if val < 0:
+            raise ValueError()
+    except ValueError:
+        return jsonify({"success": False, "message": "Valoare invalidă pentru comanda minimă (trebuie să fie >= 0)."}), 400
+
+    settings = load_settings()
+    settings['comanda_minima'] = val
+    save_settings(settings)
+    msg = (
+        "Comanda minimă a fost dezactivată (0.00 RON – fără limită)."
+        if val == 0
+        else f"Comanda minimă a fost actualizată la {val:.2f} RON (TVA inclus)."
+    )
+    return jsonify({"success": True, "comanda_minima": val, "message": msg})
 
 
 @app.route('/admin/api/order/shipping/<int:order_id>', methods=['POST'])
