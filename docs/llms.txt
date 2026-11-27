@@ -27,7 +27,7 @@
 
 - **Monedă & TVA:** Toate prețurile afișate pe magazinul online Torent Distribution sunt **prețuri brute în RON (TVA inclus)**, rotunjite clar la `.50` / `.00` RON.
 - **Cote TVA aplicate:** `11%` TVA pentru categoria *Soluții nutritive & Îngrășăminte* și `21%` TVA pentru *Pământ de Flori*, *Îngrijire Plante*, *Ghivece* și *Decorațiuni*.
-- **Livrare:** Expediere rapidă prin curier în toată România (24–48 ore), **transport gratuit la comenzi peste 150 RON**.
+- **Livrare:** Livrare națională prin curier, cu trimitere săptămânală și ambalare sigură, pentru comenzi de minim 150 lei. Costul exact de transport este comunicat la confirmarea telefonică a comenzii, după obținerea cotației de la curier, înainte de expediere.
 
 ## Parteneri B2B / En-gros & Contact
 
