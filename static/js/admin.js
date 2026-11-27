@@ -681,6 +681,7 @@ async function saveAdminSettings(e) {
         company_cui: document.getElementById('settingCompanyCui').value.trim(),
         company_reg_com: document.getElementById('settingCompanyReg').value.trim(),
         company_address: document.getElementById('settingCompanyAddress').value.trim(),
+        company_schedule: document.getElementById('settingCompanySchedule').value.trim(),
         smtp_host: document.getElementById('settingSmtpHost').value.trim(),
         smtp_port: document.getElementById('settingSmtpPort').value.trim(),
         smtp_user: document.getElementById('settingSmtpUser').value.trim(),

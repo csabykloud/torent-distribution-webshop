@@ -946,9 +946,15 @@
                                         <input type="text" id="settingCompanyReg" value="{{ settings.company_reg_com }}">
                                     </div>
                                 </div>
-                                <div class="form-group" style="margin: 0;">
-                                    <label for="settingCompanyAddress">Sediul Social</label>
-                                    <input type="text" id="settingCompanyAddress" value="{{ settings.company_address }}">
+                                <div class="form-row">
+                                    <div class="form-group" style="margin: 0;">
+                                        <label for="settingCompanyAddress">Sediul Social</label>
+                                        <input type="text" id="settingCompanyAddress" value="{{ settings.company_address }}">
+                                    </div>
+                                    <div class="form-group" style="margin: 0;">
+                                        <label for="settingCompanySchedule">Program de lucru</label>
+                                        <input type="text" id="settingCompanySchedule" value="{{ settings.company_schedule or 'Luni - Vineri: 08:00 - 16:00' }}" placeholder="ex: Luni - Vineri: 08:00 - 16:00">
+                                    </div>
                                 </div>
                             </div>
 

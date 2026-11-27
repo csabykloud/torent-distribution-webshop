@@ -103,6 +103,7 @@ DEFAULT_SETTINGS = {
     "company_reg_com": "J__ / ____ / ____",
     "company_address": "România",
     "company_phone": "+40 700 000 000",
+    "company_schedule": "Luni - Vineri: 08:00 - 16:00",
     "smtp_host": "",
     "smtp_port": 587,
     "smtp_user": "",
@@ -2069,6 +2070,7 @@ def admin_save_settings():
     settings['company_reg_com'] = (data.get('company_reg_com') or settings.get('company_reg_com', '')).strip()
     settings['company_address'] = (data.get('company_address') or settings.get('company_address', '')).strip()
     settings['company_phone'] = (data.get('company_phone') or settings.get('company_phone', '')).strip()
+    settings['company_schedule'] = (data.get('company_schedule') or settings.get('company_schedule', 'Luni - Vineri: 08:00 - 16:00')).strip()
 
     settings['smtp_host'] = (data.get('smtp_host') or '').strip()
     try:
