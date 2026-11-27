@@ -27,7 +27,7 @@
       "name": "Torent Distribution",
       "legalName": {{ site_settings.company_name | tojson }},
       "url": {{ site_host | tojson }},
-      "logo": "{{ site_host }}/static/images/hero-horticultura.webp",
+      "logo": "{{ site_host }}/static/images/logo-torent.svg",
       "image": "{{ site_host }}/static/images/hero-horticultura.webp",
       "description": "Producător și distribuitor oficial de produse horticole în România: pământ de flori, soluții nutritive și produse de îngrijire plante pentru clienți B2C și parteneri B2B.",
       "email": "vanzari@torentdistribution.ro",
@@ -297,7 +297,7 @@
                             <button type="button" class="btn-vezi-detalii" id="modalToggleDescBtn" onclick="toggleModalDescription()">
                                 <i class="fa-solid fa-chevron-down"></i> Vezi Detalii
                             </button>
-                            <a href="#" id="modalFullPageLink" class="modal-fullpage-link">
+                            <a href="/" id="modalFullPageLink" class="modal-fullpage-link">
                                 Pagină produs <i class="fa-solid fa-arrow-up-right-from-square"></i>
                             </a>
                         </div>
@@ -333,14 +333,14 @@
                     Distribuitor de încredere pentru produse horticole profesionale, pământ de flori nutritiv, soluții nutritive lichide și îngrășăminte solide, ghivece premium și decorațiuni deosebite pentru casă și grădină.
                 </p>
                 <div class="social-links">
-                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                    <a href="mailto:{{ site_settings.order_email }}" aria-label="Trimite email Torent Distribution" title="Email: {{ site_settings.order_email }}"><i class="fa-regular fa-envelope"></i></a>
+                    <a href="tel:{{ SUPPORT_PHONE | replace(' ', '') }}" aria-label="Sună Torent Distribution" title="Telefon: {{ SUPPORT_PHONE }}"><i class="fa-solid fa-phone"></i></a>
+                    <a href="/b2b" aria-label="Parteneri B2B Torent Distribution" title="Parteneri B2B / En-gros"><i class="fa-solid fa-handshake"></i></a>
                 </div>
             </div>
 
             <div class="footer-col">
-                <h4>Categorii &amp; Parteneri</h4>
+                <h3>Categorii &amp; Parteneri</h3>
                 <ul class="footer-links">
                     <li><a href="/categorie/pamant-de-flori"><i class="fa-solid fa-angle-right"></i> Pământ de Flori (Florasol, Humiflor, Nutrisol, Plantasol, Florimo)</a></li>
                     <li><a href="/categorie/solutii-nutritive"><i class="fa-solid fa-angle-right"></i> Soluții nutritive &amp; Îngrășăminte (Vitaflora, Florasol, Humiflor)</a></li>
@@ -352,7 +352,7 @@
             </div>
 
             <div class="footer-col">
-                <h4>Informații Legale & GDPR</h4>
+                <h3>Informații Legale &amp; GDPR</h3>
                 <ul class="footer-links">
                     <li><a href="/termeni-si-conditii"><i class="fa-solid fa-angle-right"></i> Termeni și Condiții</a></li>
                     <li><a href="/politica-gdpr"><i class="fa-solid fa-angle-right"></i> Politica de Confidențialitate (GDPR)</a></li>
@@ -363,7 +363,7 @@
             </div>
 
             <div class="footer-col">
-                <h4>Contact & Date Firmă</h4>
+                <h3>Contact &amp; Date Firmă</h3>
                 <div class="footer-contact-item">
                     <i class="fa-solid fa-building"></i>
                     <span>{{ site_settings.company_name }} | CUI: {{ site_settings.company_cui }} | {{ site_settings.company_reg_com }}</span>

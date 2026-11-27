@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 
-{% block title %}{{ product.name[:38] }} – Torent Distribution{% endblock %}
-{% block meta_description %}{{ (product.short_description or product.description or product.name)[:155] | replace('\n', ' ') | trim }}{% endblock %}
+{% block title %}{{ build_product_title(product) }}{% endblock %}
+{% block meta_description %}{{ build_product_meta_desc(product) }}{% endblock %}
 {% block og_type %}product{% endblock %}
-{% block og_title %}{{ product.name }} – Torent Distribution{% endblock %}
-{% block og_description %}{{ (product.short_description or product.description or product.name)[:155] | replace('\n', ' ') | trim }}{% endblock %}
+{% block og_title %}{{ build_product_title(product) }}{% endblock %}
+{% block og_description %}{{ build_product_meta_desc(product) }}{% endblock %}
 {% block og_image %}{{ site_host }}{{ product.image }}{% endblock %}
 
 {% block extra_head %}
@@ -179,7 +179,7 @@
     <!-- Related Products -->
     {% if related %}
     <div>
-        <h3 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 24px;">Produse similare din categoria {{ product.category }}</h3>
+        <h2 style="font-size: 1.5rem; font-weight: 800; margin-bottom: 24px;">Produse similare din categoria {{ product.category }}</h2>
         <div class="products-grid">
             {% for r in related %}
             <div class="product-card" data-id="{{ r.id }}" data-price="{{ r.price }}">

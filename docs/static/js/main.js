@@ -750,7 +750,7 @@ function openProductQuickView(productId) {
         }
     }
     if (fullPageLink) {
-        fullPageLink.href = `/produs/${prod.id}`;
+        fullPageLink.href = `/torent-distribution-webshop/produs/${prod.id}/`;
     }
 
     // Setup Variations

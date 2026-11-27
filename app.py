@@ -722,14 +722,14 @@ CATEGORY_SEO = {
     },
     "Ingrasaminte": {
         "slug": "solutii-nutritive",
-        "title": "Soluții Nutritive & Îngrășăminte Plante – Torent Distribution",
+        "title": "Soluții Nutritive & Îngrășăminte – Torent Distribution",
         "description": "Soluții nutritive concentrate și batoane fertilizante Vitaflora, Florasol și Humiflor pentru flori, mușcate, orhidee, gazon, conifere și legume.",
         "alt_suffix": "soluție nutritivă îngrășământ plante"
     },
     "Produse de Ingrijire plante": {
         "slug": "ingrijire-plante",
         "title": "Produse Ecologice Îngrijire Plante – Torent Distribution",
-        "description": "Soluții ecologice și organice cu pulverizator Florasol și Nutrisol pentru protecția și fortifierea plantelor de casă, balcon și grădină.",
+        "description": "Soluții ecologice și organice cu pulverizator Florasol și Nutrisol pentru protecția și fortifierea plantelor de casă, balcon și grădină în România.",
         "alt_suffix": "soluție îngrijire și protecție plante"
     },
     "Ghivece": {
@@ -768,9 +768,56 @@ def build_product_alt(product):
     return f"{' '.join(parts)} - {suffix}"
 
 
+def build_product_title(product):
+    """Build a 50-60 char SEO-optimized Romanian product page title."""
+    brand_suffix = " – Torent Distribution"
+    name = (product.get("name") or "Produs horticol").strip()
+    cat_labels = {
+        "Pamant de Flori": "Pământ de Flori",
+        "Ingrasaminte": "Soluție Nutritivă",
+        "Produse de Ingrijire plante": "Îngrijire Plante",
+        "Ghivece": "Ghiveci",
+        "Decoratiuni": "Decorațiune",
+    }
+    full = f"{name}{brand_suffix}"
+    if len(full) > 60:
+        max_name = 60 - len(brand_suffix)
+        return f"{name[:max_name].rstrip(' -,')}{brand_suffix}"
+    if len(full) < 50:
+        extra = cat_labels.get(product.get("category", ""), "Horticultură")
+        candidate = f"{name} | {extra}{brand_suffix}"
+        if len(candidate) <= 60:
+            full = candidate
+        if len(full) < 50:
+            candidate2 = f"{name} – {extra} | Torent Distribution"
+            if len(candidate2) <= 60:
+                full = candidate2
+    return full
+
+
+def build_product_meta_desc(product):
+    """Build a 140-155 char SEO meta description using unique short_description + B2C gross price."""
+    base = (product.get("short_description") or product.get("description") or product.get("name") or "").replace("\n", " ").strip()
+    base = re.sub(r"\s+", " ", base)
+    price_val = float(product.get("pret_brut", product.get("price", 0.0)))
+    if len(base) < 140:
+        tail = f" Preț {price_val:.2f} RON (TVA inclus), livrare rapidă RO."
+        if len(base) + len(tail) <= 155:
+            base = base.rstrip(".") + "." + tail
+        else:
+            short_tail = f" {price_val:.2f} RON (TVA inclus)."
+            if len(base) + len(short_tail) <= 155:
+                base = base.rstrip(".") + "." + short_tail
+    if len(base) > 155:
+        base = base[:152].rsplit(" ", 1)[0].rstrip(".,;:") + "..."
+    return base
+
+
 app.jinja_env.globals['get_card_theme_bg'] = get_card_theme_bg
 app.jinja_env.globals['get_category_slug'] = get_category_slug
 app.jinja_env.globals['build_product_alt'] = build_product_alt
+app.jinja_env.globals['build_product_title'] = build_product_title
+app.jinja_env.globals['build_product_meta_desc'] = build_product_meta_desc
 
 def get_active_categories():
     return [c for c in load_categories() if c.get('active', True)]
