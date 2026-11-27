@@ -76,8 +76,9 @@ async function initProductsData() {
         const data = await resp.json();
         allProducts = data;
 
-        // Map DOM elements to products
-        allProducts.forEach(p => {
+        // Map DOM elements to products and preserve server category display order
+        allProducts.forEach((p, idx) => {
+            p._defaultOrder = idx;
             p.element = document.querySelector(`.product-card[data-id="${p.id}"]`);
             if (!p.variations || p.variations.length === 0) {
                 p.variations = [{ size: p.default_size || "Standard", price: p.price, stock: p.stock || 20, sku: `TD-${p.id}` }];
@@ -87,9 +88,10 @@ async function initProductsData() {
         // Fallback: parse from DOM
         const cards = document.querySelectorAll('.product-card');
         allProducts = [];
-        cards.forEach(card => {
+        cards.forEach((card, idx) => {
             const pid = parseInt(card.dataset.id);
             allProducts.push({
+                _defaultOrder: idx,
                 id: pid,
                 name: card.dataset.name,
                 category: card.dataset.category,
@@ -582,7 +584,7 @@ function applyFilters() {
         if (currentSort === 'price-asc') return a.price - b.price;
         if (currentSort === 'price-desc') return b.price - a.price;
         if (currentSort === 'name-asc') return a.name.localeCompare(b.name);
-        return a.id - b.id; // default
+        return (a._defaultOrder ?? 0) - (b._defaultOrder ?? 0); // default: category order
     });
 
     sorted.forEach(p => {

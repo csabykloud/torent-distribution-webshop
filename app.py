@@ -929,11 +929,29 @@ def get_active_categories():
 
 
 def get_active_products():
-    active_cat_keys = {c['key'] for c in get_active_categories()}
-    return [
+    active_cats = get_active_categories()
+    active_cat_keys = {c['key'] for c in active_cats}
+    cat_rank = {c['key']: idx for idx, c in enumerate(active_cats)}
+    subcat_rank = {}
+    for c in active_cats:
+        subs = c.get('subcategories') or []
+        subcat_rank[c['key']] = {s.lower(): i for i, s in enumerate(subs)}
+
+    active = [
         p for p in load_products()
         if p.get('active', True) and (not active_cat_keys or p.get('category') in active_cat_keys)
     ]
+
+    def _sort_key(p):
+        ck = p.get('category', '')
+        sk = (p.get('subcategory') or '').strip().lower()
+        c_idx = cat_rank.get(ck, 999)
+        s_map = subcat_rank.get(ck, {})
+        s_idx = s_map.get(sk, 999) if s_map else 0
+        return (c_idx, s_idx, int(p.get('id', 0)))
+
+    active.sort(key=_sort_key)
+    return active
 
 
 def _render_catalog_page(active_category=None):

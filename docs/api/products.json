@@ -1,187 +1,5 @@
 [
   {
-    "category": "Produse de Ingrijire plante",
-    "cota_tva": 21,
-    "default_size": "0.5L",
-    "description": "",
-    "featured": false,
-    "id": 143,
-    "image": "/torent-distribution-webshop/static/images/products/Nutrisol_Solutie_Protectie_impotriva_bolilor.webp",
-    "name": "Nutrisol Soluție Protecție împotriva bolilor",
-    "pret_brut": 13.5,
-    "pret_net": 11.0,
-    "price": 13.5,
-    "rating": 5.0,
-    "reviews_count": 1,
-    "short_description": "Soluție practică de 0.5L cu pulverizator pentru prevenirea și combaterea bolilor comune ale plantelor. Acțiune rapidă în ghiveci și grădină.",
-    "stock": 25,
-    "subcategory": "",
-    "variations": [
-      {
-        "cota_tva": 21,
-        "pret_brut": 13.5,
-        "pret_net": 11.0,
-        "price": 13.5,
-        "size": "0.5L",
-        "sku": "TD-100-1",
-        "stock": 25
-      }
-    ]
-  },
-  {
-    "category": "Produse de Ingrijire plante",
-    "cota_tva": 21,
-    "default_size": "0.5L",
-    "description": "",
-    "featured": false,
-    "id": 142,
-    "image": "/torent-distribution-webshop/static/images/products/Nutrisol_Solutie_Completa_pt_Protectia_Plantelor.webp",
-    "name": "Nutrisol Soluție Completă pt. Protecția Plantelor",
-    "pret_brut": 13.5,
-    "pret_net": 11.0,
-    "price": 13.5,
-    "rating": 5.0,
-    "reviews_count": 1,
-    "short_description": "Spray complet de 0.5L pentru protecția zilnică a plantelor împotriva factorilor de stres. Gata preparat pentru aplicare imediată pe frunze.",
-    "stock": 25,
-    "subcategory": "",
-    "variations": [
-      {
-        "cota_tva": 21,
-        "pret_brut": 13.5,
-        "pret_net": 11.0,
-        "price": 13.5,
-        "size": "0.5L",
-        "sku": "TD-100-1",
-        "stock": 25
-      }
-    ]
-  },
-  {
-    "category": "Pamant de Flori",
-    "cota_tva": 21,
-    "default_size": "20L",
-    "description": "",
-    "featured": false,
-    "id": 141,
-    "image": "/torent-distribution-webshop/static/images/products/Florimo_Trandafiri_20L.webp",
-    "name": "Florimo pentru Trandafiri",
-    "pret_brut": 22.0,
-    "pret_net": 18.13,
-    "price": 22.0,
-    "rating": 5.0,
-    "reviews_count": 1,
-    "short_description": "Pământ special de 20L pentru trandafiri de grădină și ghiveci, stimulează înrădăcinarea profundă și formarea bobocilor parfumați.",
-    "stock": 25,
-    "subcategory": "Florimo",
-    "variations": [
-      {
-        "cota_tva": 21,
-        "pret_brut": 22.0,
-        "pret_net": 18.13,
-        "price": 22.0,
-        "size": "20L",
-        "sku": "TD-100-1",
-        "stock": 25
-      }
-    ]
-  },
-  {
-    "category": "Pamant de Flori",
-    "cota_tva": 21,
-    "default_size": "20L",
-    "description": "",
-    "featured": false,
-    "id": 140,
-    "image": "/torent-distribution-webshop/static/images/products/Florimo_Rasaduri_50L.webp",
-    "name": "Florimo pentru răsaduri",
-    "pret_brut": 22.0,
-    "pret_net": 18.12,
-    "price": 22.0,
-    "rating": 5.0,
-    "reviews_count": 1,
-    "short_description": "Substrat fin, cernut uniform pentru germinare sigură și răsaduri viguroase de legume sau flori. Disponibil în saci de 20L și 50L.",
-    "stock": 50,
-    "subcategory": "Florimo",
-    "variations": [
-      {
-        "cota_tva": 21,
-        "pret_brut": 22.0,
-        "pret_net": 18.12,
-        "price": 22.0,
-        "size": "20L",
-        "sku": "TD-100-1",
-        "stock": 25
-      },
-      {
-        "cota_tva": 21,
-        "pret_brut": 30.5,
-        "pret_net": 24.82,
-        "price": 30.5,
-        "size": "50L",
-        "sku": "TD-100-2",
-        "stock": 25
-      }
-    ]
-  },
-  {
-    "active": true,
-    "category": "Pamant de Flori",
-    "cota_tva": 21,
-    "default_size": "5L",
-    "description": "Pentru plantele noastre, solul este precum o alimentație adecvată. Plantasol Amestec turbă / Pământ de flori Universal este un substrat horticol complet, conceput pentru a asigura un echilibru optim între reținerea umidității, drenajul apei și aerisirea rădăcinilor. Datorită conținutului ridicat de materie organică și valorilor nutritive echilibrate, plantele primesc toate substanțele necesare pentru o înrădăcinare rapidă, o creștere viguroasă și o rezistență sporită la factorii de stres.\r\n\r\nAvantaje principale:\r\n• Structură afânată și aerată care previne tasarea solului și sufocarea rădăcinilor în ghivece sau jardiniere.\r\n• Capacitate ridicată de reținere a apei și eliberare treptată a nutrienților pentru o dezvoltare constantă.\r\n• Substrat curat, de culoare maro închis, lipsit de mirosuri neplăcute, semințe de buruieni sau agenți patogeni.\r\n\r\nUtilizare: Se folosește ca pământ de flori universal pentru plantarea și transplantarea plantelor decorative de interior (plante cu frunze și plante cu flori), a florilor de balcon și terasă, precum și pentru ameliorarea solului la plantarea florilor anuale, perene și a arbuștilor ornamentali în grădină.\r\n\r\nCompoziție și caracteristici tehnice:\r\n• Conținut: Amestec echilibrat de turbă eutrofă și turbă oligotrofă, îmbogățit cu humus și substanțe nutritive de bază.\r\n• Reacția solului (pH): 6,0 – 7,0 (neutru spre ușor acid, optim pentru majoritatea speciilor horticole).\r\n\r\nMod de aplicare și instrucțiuni pas cu pas:\r\n• Pasul 1: Alegeți un ghiveci sau o jardinieră prevăzută cu orificii de drenaj și așezați la bază un strat subțire de pământ de flori Plantasol.\r\n• Pasul 2: Poziționați planta în centrul vasului și completați spațiul din jurul balotului de rădăcini cu substrat proaspăt, tasând ușor cu degetele.\r\n• Pasul 3: Udați abundent după plantare pentru ca substratul să se așeze uniform în jurul rădăcinilor.\r\n• Pasul 4: Începeți fertilizarea suplimentară cu soluție nutritivă la 3–4 săptămâni după transplantare, când rezerva inițială de nutrienți din substrat începe să scadă.\r\n\r\nAmbalare disponibilă: 5 L; 10 L; 20 L; 50 L",
-    "featured": true,
-    "id": 1,
-    "image": "/torent-distribution-webshop/static/images/products/Plantasol_Amestec_turba_Universal_50L.webp",
-    "name": "Pământ de flori universal Plantasol",
-    "pret_brut": 3.5,
-    "pret_net": 2.53,
-    "price": 3.5,
-    "rating": 4.9,
-    "reviews_count": 52,
-    "short_description": "Substrat universal echilibrat pentru transplantări rapide în ghiveci și grădină. Disponibil în saci de 5L, 10L, 20L și 50L pentru orice proiect.",
-    "stock": 205,
-    "subcategory": "Plantasol",
-    "variations": [
-      {
-        "cota_tva": 21,
-        "pret_brut": 3.5,
-        "pret_net": 2.53,
-        "price": 3.5,
-        "size": "5L",
-        "sku": "PL-UNI-5L",
-        "stock": 60
-      },
-      {
-        "cota_tva": 21,
-        "pret_brut": 6.0,
-        "pret_net": 4.76,
-        "price": 6.0,
-        "size": "10L",
-        "sku": "PL-UNI-10L",
-        "stock": 55
-      },
-      {
-        "cota_tva": 21,
-        "pret_brut": 11.0,
-        "pret_net": 8.7,
-        "price": 11.0,
-        "size": "20L",
-        "sku": "PL-UNI-20L",
-        "stock": 50
-      },
-      {
-        "cota_tva": 21,
-        "pret_brut": 23.0,
-        "pret_net": 18.98,
-        "price": 23.0,
-        "size": "50L",
-        "sku": "PL-UNI-50L",
-        "stock": 40
-      }
-    ]
-  },
-  {
     "category": "Pamant de Flori",
     "cota_tva": 21,
     "default_size": "5L",
@@ -384,6 +202,63 @@
         "size": "50L",
         "sku": "NU-BAL-50L",
         "stock": 35
+      }
+    ]
+  },
+  {
+    "active": true,
+    "category": "Pamant de Flori",
+    "cota_tva": 21,
+    "default_size": "5L",
+    "description": "Pentru plantele noastre, solul este precum o alimentație adecvată. Plantasol Amestec turbă / Pământ de flori Universal este un substrat horticol complet, conceput pentru a asigura un echilibru optim între reținerea umidității, drenajul apei și aerisirea rădăcinilor. Datorită conținutului ridicat de materie organică și valorilor nutritive echilibrate, plantele primesc toate substanțele necesare pentru o înrădăcinare rapidă, o creștere viguroasă și o rezistență sporită la factorii de stres.\r\n\r\nAvantaje principale:\r\n• Structură afânată și aerată care previne tasarea solului și sufocarea rădăcinilor în ghivece sau jardiniere.\r\n• Capacitate ridicată de reținere a apei și eliberare treptată a nutrienților pentru o dezvoltare constantă.\r\n• Substrat curat, de culoare maro închis, lipsit de mirosuri neplăcute, semințe de buruieni sau agenți patogeni.\r\n\r\nUtilizare: Se folosește ca pământ de flori universal pentru plantarea și transplantarea plantelor decorative de interior (plante cu frunze și plante cu flori), a florilor de balcon și terasă, precum și pentru ameliorarea solului la plantarea florilor anuale, perene și a arbuștilor ornamentali în grădină.\r\n\r\nCompoziție și caracteristici tehnice:\r\n• Conținut: Amestec echilibrat de turbă eutrofă și turbă oligotrofă, îmbogățit cu humus și substanțe nutritive de bază.\r\n• Reacția solului (pH): 6,0 – 7,0 (neutru spre ușor acid, optim pentru majoritatea speciilor horticole).\r\n\r\nMod de aplicare și instrucțiuni pas cu pas:\r\n• Pasul 1: Alegeți un ghiveci sau o jardinieră prevăzută cu orificii de drenaj și așezați la bază un strat subțire de pământ de flori Plantasol.\r\n• Pasul 2: Poziționați planta în centrul vasului și completați spațiul din jurul balotului de rădăcini cu substrat proaspăt, tasând ușor cu degetele.\r\n• Pasul 3: Udați abundent după plantare pentru ca substratul să se așeze uniform în jurul rădăcinilor.\r\n• Pasul 4: Începeți fertilizarea suplimentară cu soluție nutritivă la 3–4 săptămâni după transplantare, când rezerva inițială de nutrienți din substrat începe să scadă.\r\n\r\nAmbalare disponibilă: 5 L; 10 L; 20 L; 50 L",
+    "featured": true,
+    "id": 1,
+    "image": "/torent-distribution-webshop/static/images/products/Plantasol_Amestec_turba_Universal_50L.webp",
+    "name": "Pământ de flori universal Plantasol",
+    "pret_brut": 3.5,
+    "pret_net": 2.53,
+    "price": 3.5,
+    "rating": 4.9,
+    "reviews_count": 52,
+    "short_description": "Substrat universal echilibrat pentru transplantări rapide în ghiveci și grădină. Disponibil în saci de 5L, 10L, 20L și 50L pentru orice proiect.",
+    "stock": 205,
+    "subcategory": "Plantasol",
+    "variations": [
+      {
+        "cota_tva": 21,
+        "pret_brut": 3.5,
+        "pret_net": 2.53,
+        "price": 3.5,
+        "size": "5L",
+        "sku": "PL-UNI-5L",
+        "stock": 60
+      },
+      {
+        "cota_tva": 21,
+        "pret_brut": 6.0,
+        "pret_net": 4.76,
+        "price": 6.0,
+        "size": "10L",
+        "sku": "PL-UNI-10L",
+        "stock": 55
+      },
+      {
+        "cota_tva": 21,
+        "pret_brut": 11.0,
+        "pret_net": 8.7,
+        "price": 11.0,
+        "size": "20L",
+        "sku": "PL-UNI-20L",
+        "stock": 50
+      },
+      {
+        "cota_tva": 21,
+        "pret_brut": 23.0,
+        "pret_net": 18.98,
+        "price": 23.0,
+        "size": "50L",
+        "sku": "PL-UNI-50L",
+        "stock": 40
       }
     ]
   },
@@ -600,6 +475,73 @@
         "size": "3L",
         "sku": "FO-ORH-3L",
         "stock": 40
+      }
+    ]
+  },
+  {
+    "category": "Pamant de Flori",
+    "cota_tva": 21,
+    "default_size": "20L",
+    "description": "",
+    "featured": false,
+    "id": 140,
+    "image": "/torent-distribution-webshop/static/images/products/Florimo_Rasaduri_50L.webp",
+    "name": "Florimo pentru răsaduri",
+    "pret_brut": 22.0,
+    "pret_net": 18.12,
+    "price": 22.0,
+    "rating": 5.0,
+    "reviews_count": 1,
+    "short_description": "Substrat fin, cernut uniform pentru germinare sigură și răsaduri viguroase de legume sau flori. Disponibil în saci de 20L și 50L.",
+    "stock": 50,
+    "subcategory": "Florimo",
+    "variations": [
+      {
+        "cota_tva": 21,
+        "pret_brut": 22.0,
+        "pret_net": 18.12,
+        "price": 22.0,
+        "size": "20L",
+        "sku": "TD-100-1",
+        "stock": 25
+      },
+      {
+        "cota_tva": 21,
+        "pret_brut": 30.5,
+        "pret_net": 24.82,
+        "price": 30.5,
+        "size": "50L",
+        "sku": "TD-100-2",
+        "stock": 25
+      }
+    ]
+  },
+  {
+    "category": "Pamant de Flori",
+    "cota_tva": 21,
+    "default_size": "20L",
+    "description": "",
+    "featured": false,
+    "id": 141,
+    "image": "/torent-distribution-webshop/static/images/products/Florimo_Trandafiri_20L.webp",
+    "name": "Florimo pentru Trandafiri",
+    "pret_brut": 22.0,
+    "pret_net": 18.13,
+    "price": 22.0,
+    "rating": 5.0,
+    "reviews_count": 1,
+    "short_description": "Pământ special de 20L pentru trandafiri de grădină și ghiveci, stimulează înrădăcinarea profundă și formarea bobocilor parfumați.",
+    "stock": 25,
+    "subcategory": "Florimo",
+    "variations": [
+      {
+        "cota_tva": 21,
+        "pret_brut": 22.0,
+        "pret_net": 18.13,
+        "price": 22.0,
+        "size": "20L",
+        "sku": "TD-100-1",
+        "stock": 25
       }
     ]
   },
@@ -1420,6 +1362,64 @@
     ]
   },
   {
+    "category": "Produse de Ingrijire plante",
+    "cota_tva": 21,
+    "default_size": "0.5L",
+    "description": "",
+    "featured": false,
+    "id": 142,
+    "image": "/torent-distribution-webshop/static/images/products/Nutrisol_Solutie_Completa_pt_Protectia_Plantelor.webp",
+    "name": "Nutrisol Soluție Completă pt. Protecția Plantelor",
+    "pret_brut": 13.5,
+    "pret_net": 11.0,
+    "price": 13.5,
+    "rating": 5.0,
+    "reviews_count": 1,
+    "short_description": "Spray complet de 0.5L pentru protecția zilnică a plantelor împotriva factorilor de stres. Gata preparat pentru aplicare imediată pe frunze.",
+    "stock": 25,
+    "subcategory": "",
+    "variations": [
+      {
+        "cota_tva": 21,
+        "pret_brut": 13.5,
+        "pret_net": 11.0,
+        "price": 13.5,
+        "size": "0.5L",
+        "sku": "TD-100-1",
+        "stock": 25
+      }
+    ]
+  },
+  {
+    "category": "Produse de Ingrijire plante",
+    "cota_tva": 21,
+    "default_size": "0.5L",
+    "description": "",
+    "featured": false,
+    "id": 143,
+    "image": "/torent-distribution-webshop/static/images/products/Nutrisol_Solutie_Protectie_impotriva_bolilor.webp",
+    "name": "Nutrisol Soluție Protecție împotriva bolilor",
+    "pret_brut": 13.5,
+    "pret_net": 11.0,
+    "price": 13.5,
+    "rating": 5.0,
+    "reviews_count": 1,
+    "short_description": "Soluție practică de 0.5L cu pulverizator pentru prevenirea și combaterea bolilor comune ale plantelor. Acțiune rapidă în ghiveci și grădină.",
+    "stock": 25,
+    "subcategory": "",
+    "variations": [
+      {
+        "cota_tva": 21,
+        "pret_brut": 13.5,
+        "pret_net": 11.0,
+        "price": 13.5,
+        "size": "0.5L",
+        "sku": "TD-100-1",
+        "stock": 25
+      }
+    ]
+  },
+  {
     "category": "Ghivece",
     "cota_tva": 21,
     "default_size": "Bucată",
@@ -1470,6 +1470,141 @@
         "size": "Bucată",
         "sku": "TD-GH-139",
         "stock": 35
+      }
+    ]
+  },
+  {
+    "category": "Ghivece",
+    "cota_tva": 21,
+    "default_size": "Bucată",
+    "description": "Ghiveci ceramic de calitate premium, finisaj mat antracit, rezistent la îngheț și raze UV. Ideal pentru plante de interior și terase moderne.",
+    "featured": true,
+    "id": 135,
+    "image": "/torent-distribution-webshop/static/images/products/ghiveci-ceramic-sk-premium-antracit.webp",
+    "name": "Ghiveci ceramic SK Premium Antracit Ø 22cm",
+    "pret_brut": 46.0,
+    "pret_net": 38.0,
+    "price": 46.0,
+    "rating": 4.9,
+    "reviews_count": 15,
+    "subcategory": "",
+    "variations": [
+      {
+        "cota_tva": 21,
+        "pret_brut": 46.0,
+        "pret_net": 38.0,
+        "price": 46.0,
+        "size": "Bucată",
+        "sku": "TD-GH-239",
+        "stock": 20
+      }
+    ]
+  },
+  {
+    "category": "Ghivece",
+    "cota_tva": 21,
+    "default_size": "Bucată",
+    "description": "Ghiveci cu textură elegantă alb marmurat, adăugând o notă sofisticată oricărui living sau birou.",
+    "featured": false,
+    "id": 136,
+    "image": "/torent-distribution-webshop/static/images/products/ghiveci-decorativ-sk-alb-marmurat.webp",
+    "name": "Ghiveci decorativ SK Alb Marmurat Ø 18cm",
+    "pret_brut": 36.0,
+    "pret_net": 29.5,
+    "price": 36.0,
+    "rating": 4.7,
+    "reviews_count": 12,
+    "subcategory": "",
+    "variations": [
+      {
+        "cota_tva": 21,
+        "pret_brut": 36.0,
+        "pret_net": 29.5,
+        "price": 36.0,
+        "size": "Bucată",
+        "sku": "TD-GH-240",
+        "stock": 25
+      }
+    ]
+  },
+  {
+    "category": "Ghivece",
+    "cota_tva": 21,
+    "default_size": "Bucată",
+    "description": "Jardinieră rezistentă cu suport pentru balcon și terasă, nuanță caldă de teracotă, prevăzută cu sistem integrat de colectare a apei.",
+    "featured": false,
+    "id": 137,
+    "image": "/torent-distribution-webshop/static/images/products/jardiniera-balcon-sk-teracota.webp",
+    "name": "Jardinieră balcon SK Teracotă Clasic 40cm",
+    "pret_brut": 41.5,
+    "pret_net": 34.0,
+    "price": 41.5,
+    "rating": 4.8,
+    "reviews_count": 22,
+    "subcategory": "",
+    "variations": [
+      {
+        "cota_tva": 21,
+        "pret_brut": 41.5,
+        "pret_net": 34.0,
+        "price": 41.5,
+        "size": "Bucată",
+        "sku": "TD-GH-241",
+        "stock": 30
+      }
+    ]
+  },
+  {
+    "category": "Ghivece",
+    "cota_tva": 21,
+    "default_size": "Bucată",
+    "description": "Ghiveci suspendat ideal pentru petunii curgătoare, ferigi și plante de balcon, ușor și foarte rezistent.",
+    "featured": true,
+    "id": 138,
+    "image": "/torent-distribution-webshop/static/images/products/ghiveci-suspendat-sk-modern.webp",
+    "name": "Ghiveci suspendat SK Modern cu agățătoare",
+    "pret_brut": 39.0,
+    "pret_net": 32.0,
+    "price": 39.0,
+    "rating": 4.8,
+    "reviews_count": 17,
+    "subcategory": "",
+    "variations": [
+      {
+        "cota_tva": 21,
+        "pret_brut": 39.0,
+        "pret_net": 32.0,
+        "price": 39.0,
+        "size": "Bucată",
+        "sku": "TD-GH-242",
+        "stock": 18
+      }
+    ]
+  },
+  {
+    "category": "Ghivece",
+    "cota_tva": 21,
+    "default_size": "Bucată",
+    "description": "Ghiveci generos pentru palmieri, ficuși și arbuști decorativi, cu farfurie detașabilă inclusă.",
+    "featured": false,
+    "id": 139,
+    "image": "/torent-distribution-webshop/static/images/products/ghiveci-rotund-sk-gri-satinat.webp",
+    "name": "Ghiveci rotund SK Gri Satinat Ø 26cm",
+    "pret_brut": 51.0,
+    "pret_net": 42.0,
+    "price": 51.0,
+    "rating": 4.9,
+    "reviews_count": 24,
+    "subcategory": "",
+    "variations": [
+      {
+        "cota_tva": 21,
+        "pret_brut": 51.0,
+        "pret_net": 42.0,
+        "price": 51.0,
+        "size": "Bucată",
+        "sku": "TD-GH-243",
+        "stock": 15
       }
     ]
   },
@@ -3333,141 +3468,6 @@
         "size": "Standard",
         "sku": "TD-DE-235",
         "stock": 35
-      }
-    ]
-  },
-  {
-    "category": "Ghivece",
-    "cota_tva": 21,
-    "default_size": "Bucată",
-    "description": "Ghiveci ceramic de calitate premium, finisaj mat antracit, rezistent la îngheț și raze UV. Ideal pentru plante de interior și terase moderne.",
-    "featured": true,
-    "id": 135,
-    "image": "/torent-distribution-webshop/static/images/products/ghiveci-ceramic-sk-premium-antracit.webp",
-    "name": "Ghiveci ceramic SK Premium Antracit Ø 22cm",
-    "pret_brut": 46.0,
-    "pret_net": 38.0,
-    "price": 46.0,
-    "rating": 4.9,
-    "reviews_count": 15,
-    "subcategory": "",
-    "variations": [
-      {
-        "cota_tva": 21,
-        "pret_brut": 46.0,
-        "pret_net": 38.0,
-        "price": 46.0,
-        "size": "Bucată",
-        "sku": "TD-GH-239",
-        "stock": 20
-      }
-    ]
-  },
-  {
-    "category": "Ghivece",
-    "cota_tva": 21,
-    "default_size": "Bucată",
-    "description": "Ghiveci cu textură elegantă alb marmurat, adăugând o notă sofisticată oricărui living sau birou.",
-    "featured": false,
-    "id": 136,
-    "image": "/torent-distribution-webshop/static/images/products/ghiveci-decorativ-sk-alb-marmurat.webp",
-    "name": "Ghiveci decorativ SK Alb Marmurat Ø 18cm",
-    "pret_brut": 36.0,
-    "pret_net": 29.5,
-    "price": 36.0,
-    "rating": 4.7,
-    "reviews_count": 12,
-    "subcategory": "",
-    "variations": [
-      {
-        "cota_tva": 21,
-        "pret_brut": 36.0,
-        "pret_net": 29.5,
-        "price": 36.0,
-        "size": "Bucată",
-        "sku": "TD-GH-240",
-        "stock": 25
-      }
-    ]
-  },
-  {
-    "category": "Ghivece",
-    "cota_tva": 21,
-    "default_size": "Bucată",
-    "description": "Jardinieră rezistentă cu suport pentru balcon și terasă, nuanță caldă de teracotă, prevăzută cu sistem integrat de colectare a apei.",
-    "featured": false,
-    "id": 137,
-    "image": "/torent-distribution-webshop/static/images/products/jardiniera-balcon-sk-teracota.webp",
-    "name": "Jardinieră balcon SK Teracotă Clasic 40cm",
-    "pret_brut": 41.5,
-    "pret_net": 34.0,
-    "price": 41.5,
-    "rating": 4.8,
-    "reviews_count": 22,
-    "subcategory": "",
-    "variations": [
-      {
-        "cota_tva": 21,
-        "pret_brut": 41.5,
-        "pret_net": 34.0,
-        "price": 41.5,
-        "size": "Bucată",
-        "sku": "TD-GH-241",
-        "stock": 30
-      }
-    ]
-  },
-  {
-    "category": "Ghivece",
-    "cota_tva": 21,
-    "default_size": "Bucată",
-    "description": "Ghiveci suspendat ideal pentru petunii curgătoare, ferigi și plante de balcon, ușor și foarte rezistent.",
-    "featured": true,
-    "id": 138,
-    "image": "/torent-distribution-webshop/static/images/products/ghiveci-suspendat-sk-modern.webp",
-    "name": "Ghiveci suspendat SK Modern cu agățătoare",
-    "pret_brut": 39.0,
-    "pret_net": 32.0,
-    "price": 39.0,
-    "rating": 4.8,
-    "reviews_count": 17,
-    "subcategory": "",
-    "variations": [
-      {
-        "cota_tva": 21,
-        "pret_brut": 39.0,
-        "pret_net": 32.0,
-        "price": 39.0,
-        "size": "Bucată",
-        "sku": "TD-GH-242",
-        "stock": 18
-      }
-    ]
-  },
-  {
-    "category": "Ghivece",
-    "cota_tva": 21,
-    "default_size": "Bucată",
-    "description": "Ghiveci generos pentru palmieri, ficuși și arbuști decorativi, cu farfurie detașabilă inclusă.",
-    "featured": false,
-    "id": 139,
-    "image": "/torent-distribution-webshop/static/images/products/ghiveci-rotund-sk-gri-satinat.webp",
-    "name": "Ghiveci rotund SK Gri Satinat Ø 26cm",
-    "pret_brut": 51.0,
-    "pret_net": 42.0,
-    "price": 51.0,
-    "rating": 4.9,
-    "reviews_count": 24,
-    "subcategory": "",
-    "variations": [
-      {
-        "cota_tva": 21,
-        "pret_brut": 51.0,
-        "pret_net": 42.0,
-        "price": 51.0,
-        "size": "Bucată",
-        "sku": "TD-GH-243",
-        "stock": 15
       }
     ]
   }
